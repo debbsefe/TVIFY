@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'core/utils/sharedpreference.dart';
+import 'core/utils/custom_shared_preference.dart';
 import 'core/utils/strings.dart';
 
 class CustomTheme extends StateNotifier<ThemeData> {
-  final SharedPreference sharedPreference;
+  final CustomSharedPreference sharedPreference;
   CustomTheme(this.sharedPreference)
-      : super(sharedPreference.retrieveTheme() == DARK_THEME
-            ? CustomTheme.darkThemeData
-            : CustomTheme.lightThemeData);
+      : super(
+            //check current theme at app start and pass to the superconstructor
+            sharedPreference.retrieveTheme() == DARK_THEME
+                ? CustomTheme.darkThemeData
+                : CustomTheme.lightThemeData);
 
+  //change the theme by passing themeData and name of the theme
   void changeTheme(ThemeData themeData, String name) {
     if (state != themeData) {
       state = themeData;
