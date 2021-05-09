@@ -2,10 +2,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const String THEME = 'theme';
 
-class SharedPreference {
+class CustomSharedPreference {
   final SharedPreferences prefs;
 
-  SharedPreference(this.prefs);
+  CustomSharedPreference(this.prefs);
   Future<void> saveTheme(String value) async {
     try {
       await prefs.setString(THEME, value);
