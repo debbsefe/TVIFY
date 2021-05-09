@@ -1,2 +1,2 @@
-const String DARK_THEME = 'dark';
-const String LIGHT_THEME = 'light';
+const String DARK_THEME = "DARK_THEME";
+const String LIGHT_THEME = "DARK_THEME";

@@ -12,6 +12,7 @@ void main() async {
   runApp(ProviderScope(child: MovieColony()));
 }
 
+//create themeprovider
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return di.sl<CustomTheme>();
 });
@@ -34,8 +35,6 @@ class Home extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              var color = Theme.of(context).textTheme.bodyText1;
-              if (color != null) print(color.fontSize);
               context
                   .read(themeProvider.notifier)
                   .changeTheme(CustomTheme.darkThemeData, DARK_THEME);
@@ -47,8 +46,6 @@ class Home extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              var color = Theme.of(context).textTheme.bodyText1;
-              if (color != null) print(color.fontSize);
               context
                   .read(themeProvider.notifier)
                   .changeTheme(CustomTheme.lightThemeData, LIGHT_THEME);
