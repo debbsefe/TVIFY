@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'core/utils/strings.dart';
+import 'feature/onboarding/presentation/onboarding.dart';
 import 'theme.dart';
 import 'injection_container.dart' as di;
 
@@ -12,7 +14,7 @@ void main() async {
   runApp(ProviderScope(child: MovieColony()));
 }
 
-//create themeprovider
+//create themeProvider
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return di.sl<CustomTheme>();
 });
@@ -22,7 +24,11 @@ class MovieColony extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final theme = watch(themeProvider);
 
-    return MaterialApp(title: 'MovieColony', theme: theme, home: Home());
+    return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'MovieColony',
+        theme: theme,
+        home: Onboarding());
   }
 }
 

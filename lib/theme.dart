@@ -7,7 +7,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
   final CustomSharedPreference sharedPreference;
   CustomTheme(this.sharedPreference)
       : super(
-            //check current theme at app start and pass to the superconstructor
+            //check current theme at app start and pass to the super-constructor
             sharedPreference.retrieveTheme() == DARK_THEME
                 ? CustomTheme.darkThemeData
                 : CustomTheme.lightThemeData);
@@ -73,6 +73,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
       scaffoldBackgroundColor: scaffoldLight,
       brightness: Brightness.light,
       primaryColor: primaryColor,
+      buttonColor: buttonColor1,
       textTheme: lightTextTheme);
 
   static ThemeData darkThemeData = ThemeData(
@@ -81,15 +82,30 @@ class CustomTheme extends StateNotifier<ThemeData> {
       primarySwatch: Colors.blue,
       scaffoldBackgroundColor: scaffoldDark,
       brightness: Brightness.dark,
-      primaryColor: primaryColor,
+      primaryColor: scaffoldLight,
+      buttonColor: buttonColor1,
       textTheme: darkTextTheme);
 
   static TextTheme darkTextTheme = TextTheme(
     bodyText1: paragraph2Bold,
+    subtitle1: subtitleRegDark,
   );
 
   static TextTheme lightTextTheme = TextTheme(
     bodyText1: paragraph1Bold,
+    subtitle1: subtitleRegLight,
+  );
+
+  static const TextStyle subtitleRegLight = TextStyle(
+    // subtitle1 -> subtitleRegular
+    fontSize: 20,
+    color: primaryColor,
+  );
+
+  static const TextStyle subtitleRegDark = TextStyle(
+    // subtitle1 -> subtitleRegular
+    fontSize: 20,
+    color: scaffoldLight,
   );
 
   static const TextStyle paragraph1Bold = TextStyle(
