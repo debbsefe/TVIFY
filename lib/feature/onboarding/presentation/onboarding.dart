@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../main.dart';
-import '../../../theme.dart';
+import '../../../core/theme/theme.dart';
 import 'widgets/slide_dots.dart';
 import 'widgets/slide_item.dart';
 
@@ -24,23 +24,23 @@ class _OnboardingState extends State<Onboarding> {
   @override
   void initState() {
     super.initState();
-    // timer = Timer.periodic(Duration(seconds: 5), (Timer t) {
-    //   if (_currentPage < 2)
-    //     _currentPage++;
-    //   else
-    //     _currentPage = 0;
+    timer = Timer.periodic(Duration(seconds: 5), (Timer t) {
+      if (_currentPage < 2)
+        _currentPage++;
+      else
+        _currentPage = 0;
 
-    //   _pageController.animateToPage(
-    //     _currentPage,
-    //     duration: Duration(milliseconds: 150),
-    //     curve: Curves.linear,
-    //   );
-    // });
+      _pageController.animateToPage(
+        _currentPage,
+        duration: Duration(milliseconds: 150),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   @override
   void dispose() {
-    // timer.cancel();
+    timer.cancel();
     _pageController.dispose();
     super.dispose();
   }
