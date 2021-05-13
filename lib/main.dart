@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'core/utils/strings.dart';
 import 'feature/onboarding/presentation/onboarding.dart';
-import 'theme.dart';
+import 'core/theme/theme.dart';
 import 'injection_container.dart' as di;
 
 void main() async {

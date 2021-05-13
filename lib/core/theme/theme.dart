@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'core/utils/custom_shared_preference.dart';
-import 'core/utils/strings.dart';
+import 'theme_shared_preference.dart';
+import '../utils/strings.dart';
 
 class CustomTheme extends StateNotifier<ThemeData> {
-  final CustomSharedPreference sharedPreference;
+  final ThemeSharedPreference sharedPreference;
   CustomTheme(this.sharedPreference)
       : super(
             //check current theme at app start and pass to the super-constructor
