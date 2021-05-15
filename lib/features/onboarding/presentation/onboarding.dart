@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/core/widgets/buttons.dart';
+import '../../../core/utils/strings.dart';
+import '../../../core/widgets/buttons.dart';
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -45,7 +45,7 @@ class _OnboardingState extends State<Onboarding> {
     super.dispose();
   }
 
-  _onPageChanged(int index) {
+  void _onPageChanged(int index) {
     setState(() {
       _currentPage = index;
     });
