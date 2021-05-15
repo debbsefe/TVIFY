@@ -1,0 +1,9 @@
+Home screen
+
+show of the week: image of the show
+categories
+trending: Show name, date, IMDb rating, image, number of seasons
+top picks for you: Show name, date, IMDb rating, image, number of seasons
+watchList: 
+Stars born today: Image, age, name
+movie detail: image, year released, name, number of seasons, IMDb rating, plot summary, genres, top cast: name and image, tv shows like this: name and image, 

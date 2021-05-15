@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:movie_colony/feature/onboarding/domain/entities/slides.dart';
-import 'package:movie_colony/core/utils/size_ext.dart';
+import '../../domain/entities/slides.dart';
+import '../../../../core/utils/size_ext.dart';
 
 class SlideItem extends StatelessWidget {
   final int index;
-  SlideItem(this.index);
+  const SlideItem(this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -65,21 +65,21 @@ const String onboarding3text1 = 'Get fresh news about your Tv';
 const String onboarding3text2 = 'shows to keep you in the loop';
 
 final slideList = [
-  Slide(
+  const Slide(
       imageUrl: onboarding1,
       description: SlideDescription(
         text1: onboarding1text1,
         text2: onboarding1text2,
       )),
-  Slide(
+  const Slide(
       imageUrl: onboarding2,
-      description: SlideDescription(
+      description: const SlideDescription(
         text1: onboarding2text1,
         text2: onboarding1text2,
       )),
-  Slide(
+  const Slide(
       imageUrl: onboarding3,
-      description: SlideDescription(
+      description: const SlideDescription(
         text1: onboarding3text1,
         text2: onboarding3text2,
       )),
