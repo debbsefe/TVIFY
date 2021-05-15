@@ -8,7 +8,10 @@
         {
             "name": "movie_colony",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--no-sound-null-safety"
+            ]
         }
         
     ],

@@ -9,9 +9,8 @@ import 'package:movie_colony/features/categories/domain/usecases/get_categories.
 class MockCategoriesRepository extends Mock implements CategoriesRepository {}
 
 void main() {
-  MockCategoriesRepository mockCategoriesRepository =
-      MockCategoriesRepository();
-  GetAllCategories usecase = GetAllCategories(mockCategoriesRepository);
+  MockCategoriesRepository mockCategoriesRepository;
+  GetAllCategories usecase;
   final tCategories = [
     Categories(id: 1, name: 'Romance'),
     Categories(id: 2, name: 'Comedy'),
@@ -21,6 +20,8 @@ void main() {
   test(
     'should get categories from the repository',
     () async {
+      mockCategoriesRepository = MockCategoriesRepository();
+      usecase = GetAllCategories(mockCategoriesRepository);
       // arrange, stub the method
       when(mockCategoriesRepository.getCategories())
           .thenAnswer((_) async => Right(tCategories));
