@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/core/usecases/usecase.dart';
