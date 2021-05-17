@@ -11,7 +11,7 @@ class ConfigImpl implements Config {
   ConfigImpl(this.remoteConfig);
   @override
   Future<String> fetchToken(String value) async {
-    await remoteConfig.fetch(expiration: const Duration(seconds: 0));
+    await remoteConfig.fetch();
     await remoteConfig.activateFetched();
     return remoteConfig.getString(value);
   }
