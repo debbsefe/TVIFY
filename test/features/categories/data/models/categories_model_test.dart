@@ -5,6 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
 import 'package:movie_colony/features/categories/domain/entities/categories.dart';
 
+import '../../../../data/data_reader.dart';
+
 void main() {
   final tCategoriesModel = CategoriesModel(id: 1, name: 'Test');
 
@@ -20,10 +22,8 @@ void main() {
       'should return a valid model when fromJson is called',
       () async {
         // arrange
-        String fixture(String name) =>
-            File('test/features/categories/data/models/$name')
-                .readAsStringSync();
-        final String jsonString = fixture('categories.json');
+
+        final String jsonString = dataReader('categories.json');
         final Map<String, dynamic> jsonMap = json.decode(jsonString);
         // act
         final result = CategoriesModel.fromJson(jsonMap);
