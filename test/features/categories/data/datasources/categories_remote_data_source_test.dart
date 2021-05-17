@@ -1,11 +1,9 @@
-import 'dart:convert';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:matcher/matcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
-import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
@@ -31,12 +29,15 @@ void main() {
     dataSource =
         CategoriesRemoteDataSourceImpl(client: client, config: mockConfig);
   });
+  void stubFetchToken() {
+    //stub/mock answer when fetch token method is called
+    when(mockConfig.fetchToken(API_KEY_TMDB)).thenAnswer((_) async => '123456');
+  }
+
   group('fetchCategory', () {
     test('returns a List of category if the http call completes successfully',
         () async {
-      when(mockConfig.fetchToken(API_KEY_TMDB))
-          .thenAnswer((_) async => '123456');
-
+      stubFetchToken();
       when(client.get(url)).thenAnswer(
           (_) async => http.Response(dataReader('categories_list.json'), 200));
 
@@ -45,8 +46,7 @@ void main() {
     });
 
     test('throws an exception if the http call completes with an error', () {
-      when(mockConfig.fetchToken(API_KEY_TMDB))
-          .thenAnswer((_) async => '123456');
+      stubFetchToken();
 
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
