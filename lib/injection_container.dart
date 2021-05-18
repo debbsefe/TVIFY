@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get_it/get_it.dart';
 
 import 'core/theme/theme_shared_preference.dart';
+import 'features/categories/data/datasources/categories_local_data_source.dart';
 import 'features/categories/data/datasources/categories_remote_data_source.dart';
 
 final sl = GetIt.instance;
@@ -24,6 +25,12 @@ Future<void> init() async {
     () => CategoriesRemoteDataSourceImpl(
       client: sl(),
       config: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<CategoriesLocalDataSource>(
+    () => CategoriesLocalDataSourceImpl(
+      sl(),
     ),
   );
 
