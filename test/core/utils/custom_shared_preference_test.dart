@@ -1,17 +1,19 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/theme/theme_shared_preference.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/injection_container.dart' as di;
+
+class MockThemeSharedPreference extends Mock implements ThemeSharedPreference {}
 
 void main() async {
-  ThemeSharedPreference pref;
-  await di.init();
+  late MockThemeSharedPreference pref;
 
-  pref = di.sl<ThemeSharedPreference>();
-
+  setUp(() {
+    pref = MockThemeSharedPreference();
+  });
   group('Custom shared preference test', () {
     test('value should return saved theme', () {
-      pref.saveTheme(DARK_THEME);
+      when(pref.retrieveTheme()).thenReturn(DARK_THEME);
 
       expect(pref.retrieveTheme(), DARK_THEME);
     });

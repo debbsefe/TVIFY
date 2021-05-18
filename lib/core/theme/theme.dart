@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'theme_shared_preference.dart';
+
 import '../utils/strings.dart';
+import 'theme_shared_preference.dart';
 
 class CustomTheme extends StateNotifier<ThemeData> {
   final ThemeSharedPreference sharedPreference;
@@ -12,7 +13,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
                 ? CustomTheme.darkThemeData
                 : CustomTheme.lightThemeData);
 
-  //change the theme by passing themeData and name of the theme
+  //change the theme by passing selected themeData and name of the theme
   void changeTheme(ThemeData themeData, String name) {
     if (state != themeData) {
       state = themeData;
