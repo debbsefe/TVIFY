@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
 import 'package:movie_colony/features/categories/domain/entities/categories.dart';
