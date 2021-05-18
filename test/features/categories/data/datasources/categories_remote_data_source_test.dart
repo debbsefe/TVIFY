@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:matcher/matcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
+import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
@@ -51,7 +52,8 @@ void main() {
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(dataSource.getRemoteCategories(), throwsException);
+      expect(() => dataSource.getRemoteCategories(),
+          throwsA(TypeMatcher<ServerException>()));
     });
   });
 }
