@@ -13,7 +13,7 @@ class CategoriesNotifier extends StateNotifier<CategoriesState> {
     state = CategoriesLoading();
     final result = await allCategories(NoParams());
     result.fold(
-      (failure) => CategoriesError(mapFailureToMessage(failure)),
+      (failure) => state = CategoriesError(mapFailureToMessage(failure)),
       (trivia) {
         state = CategoriesLoaded(trivia);
       },
