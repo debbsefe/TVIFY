@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:movie_colony/features/categories/presentation/notifiers/categories_state.dart';
 import '../../../core/utils/strings.dart';
 import '../../../core/widgets/buttons.dart';
 import 'dart:async';
@@ -24,6 +25,7 @@ class _OnboardingState extends State<Onboarding> {
   @override
   void initState() {
     super.initState();
+
     timer = Timer.periodic(Duration(seconds: 5), (Timer t) {
       if (_currentPage < 2)
         _currentPage++;
@@ -80,9 +82,30 @@ class _OnboardingState extends State<Onboarding> {
             right: 35,
             child: CustomButton(
               name: "Get Started",
-              onPressed: () async {},
+              onPressed: () async {
+                //context.read(categoriesProvider.notifier).fetchCategory();
+              },
             ),
           ),
+          // Consumer(builder: (context, watch, child) {
+          //   var state = watch(categoriesProvider);
+          //   if (state is CategoriesInitial) {
+          //     print('initial');
+          //     return Container();
+          //   } else if (state is CategoriesLoading) {
+          //     print('loading');
+
+          //     return Container();
+          //   } else if (state is CategoriesLoaded) {
+          //     print('loaded ${state.categories}');
+
+          //     return Container();
+          //   } else if (state is CategoriesError) {
+          //     print('error ${state.message}');
+          //     return Container();
+          //   }
+          //   return Container();
+          // }),
         ]),
       ),
     );

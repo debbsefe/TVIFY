@@ -2,21 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'core/utils/strings.dart';
+import 'features/categories/presentation/notifiers/categories_notifier.dart';
+import 'features/categories/presentation/notifiers/categories_state.dart';
 import 'features/onboarding/presentation/onboarding.dart';
 import 'core/theme/theme.dart';
 import 'injection_container.dart' as di;
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   //initialize dependency injection
   await di.init();
+  await Firebase.initializeApp();
+
   runApp(ProviderScope(child: MovieColony()));
 }
 
 //create themeProvider
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return di.sl<CustomTheme>();
+});
+
+final categoriesProvider =
+    StateNotifierProvider<CategoriesNotifier, CategoriesState>((ref) {
+  return di.sl<CategoriesNotifier>();
 });
 
 class MovieColony extends ConsumerWidget {

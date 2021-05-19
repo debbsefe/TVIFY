@@ -11,12 +11,19 @@ import 'package:get_it/get_it.dart';
 import 'core/theme/theme_shared_preference.dart';
 import 'features/categories/data/datasources/categories_local_data_source.dart';
 import 'features/categories/data/datasources/categories_remote_data_source.dart';
+import 'features/categories/data/repositories/categories_repository_impl.dart';
+import 'features/categories/domain/repositories/categories_repository.dart';
+import 'features/categories/domain/usecases/get_categories.dart';
+import 'features/categories/presentation/notifiers/categories_notifier.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   sl.registerLazySingleton<CustomTheme>(
     () => CustomTheme(sl()),
+  );
+  sl.registerLazySingleton<CategoriesNotifier>(
+    () => CategoriesNotifier(sl()),
   );
   sl.registerLazySingleton<ThemeSharedPreference>(
     () => ThemeSharedPreference(sl()),
@@ -31,6 +38,16 @@ Future<void> init() async {
   sl.registerLazySingleton<CategoriesLocalDataSource>(
     () => CategoriesLocalDataSourceImpl(
       sl(),
+    ),
+  );
+
+  sl.registerLazySingleton(() => GetAllCategories(sl()));
+
+  sl.registerLazySingleton<CategoriesRepository>(
+    () => CategoriesRepositoryImpl(
+      localDataSource: sl(),
+      networkInfo: sl(),
+      remoteDataSource: sl(),
     ),
   );
 
