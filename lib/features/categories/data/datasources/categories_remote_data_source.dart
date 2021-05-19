@@ -19,8 +19,7 @@ class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
   @override
   Future<List<CategoriesModel>> getRemoteCategories() async {
     String _token = await config.fetchToken(API_KEY_TMDB);
-    String _url =
-        'https://api.themoviedb.org/3/genre/tv/list?api_key=$_token&language=en-US';
+    String _url = '$BASE_URL/genre/tv/list?api_key=$_token&language=en-US';
     final response = await client.get(
       Uri.parse(_url),
     );
