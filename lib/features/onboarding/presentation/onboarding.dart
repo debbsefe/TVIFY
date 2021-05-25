@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:movie_colony/features/categories/presentation/notifiers/categories_state.dart';
-import '../../../core/utils/strings.dart';
+
 import '../../../core/widgets/buttons.dart';
 import 'dart:async';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../main.dart';
-import '../../../core/theme/theme.dart';
 import 'widgets/slide_dots.dart';
 import 'widgets/slide_item.dart';
 

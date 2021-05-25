@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:matcher/matcher.dart';
 import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,7 +27,7 @@ void main() {
   ];
   group('GetCachedCategory', () {
     test('Return List<CategoriesModel> when cache is available', () async {
-      when(mockPref.getString(CACHED_MATCH))
+      when(mockPref.getString(CACHED_CATEGORY))
           .thenReturn(dataReader('categories_list.json'));
 
       expect(
@@ -34,7 +35,7 @@ void main() {
     });
 
     test('Return cacheException when no cache is available', () async {
-      when(mockPref.getString(CACHED_MATCH)).thenReturn(null);
+      when(mockPref.getString(CACHED_CATEGORY)).thenReturn(null);
 
       expect(() => dataSource.getCachedCategory(),
           throwsA(TypeMatcher<CacheException>()));
@@ -51,7 +52,7 @@ void main() {
         final expectedJsonString = json.encode(
             List<dynamic>.from(tCategoriesModel.map((x) => x.toJson())));
         verify(mockPref.setString(
-          CACHED_MATCH,
+          CACHED_CATEGORY,
           expectedJsonString,
         ));
       },

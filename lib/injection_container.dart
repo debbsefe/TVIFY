@@ -45,6 +45,7 @@ Future<void> init() async {
 
   sl.registerLazySingleton<CategoriesRepository>(
     () => CategoriesRepositoryImpl(
+      cache: sl(),
       localDataSource: sl(),
       networkInfo: sl(),
       remoteDataSource: sl(),
