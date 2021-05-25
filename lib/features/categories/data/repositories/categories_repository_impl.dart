@@ -19,6 +19,7 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   });
   @override
   Future<Either<Failure, List<Categories>>> getCategories() async {
+    
     if (await networkInfo.isConnected) {
       try {
         final remoteCategory = await remoteDataSource.getRemoteCategories();
