@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class AppConfiguration extends Equatable {
+class Configuration extends Equatable {
   final String baseUrl;
   final String secureBaseUrl;
   final List<String> backdropSizes;
@@ -10,7 +10,7 @@ class AppConfiguration extends Equatable {
   final List<String> stillSizes;
   final List<String> changeKeys;
 
-  AppConfiguration(
+  Configuration(
       {required this.baseUrl,
       required this.secureBaseUrl,
       required this.backdropSizes,
