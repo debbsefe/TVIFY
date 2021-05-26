@@ -6,36 +6,37 @@ import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
-import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
-import 'package:movie_colony/features/categories/data/models/categories_model.dart';
-import 'package:movie_colony/features/categories/data/repositories/categories_repository_impl.dart';
-import 'package:movie_colony/features/categories/domain/entities/categories.dart';
+import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
+import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
+import 'package:movie_colony/features/configuration/data/repositories/configuration_repository_impl.dart';
+import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
 
-class MockCategoriesRemoteDataSource extends Mock
-    implements CategoriesRemoteDataSource {}
+import '../../../../data/configuration/constants.dart';
 
-class MockCategoriesLocalDataSource extends Mock
-    implements CategoriesLocalDataSource {}
+class MockConfigurationRemoteDataSource extends Mock
+    implements ConfigurationRemoteDataSource {}
+
+class MockConfigurationLocalDataSource extends Mock
+    implements ConfigurationLocalDataSource {}
 
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
 class MockAppCache extends Mock implements AppCache {}
 
 void main() {
-  late MockCategoriesRemoteDataSource mockRemoteDataSource;
-  late MockCategoriesLocalDataSource mockLocalDataSource;
+  late MockConfigurationRemoteDataSource mockRemoteDataSource;
+  late MockConfigurationLocalDataSource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
-  late CategoriesRepositoryImpl repository;
+  late ConfigurationRepositoryImpl repository;
   late MockAppCache cache;
-  final tKey = CACHED_CATEGORY;
+  final tKey = CACHED_CONFIGURATION;
 
   setUp(() {
-    mockRemoteDataSource = MockCategoriesRemoteDataSource();
-    mockLocalDataSource = MockCategoriesLocalDataSource();
+    mockRemoteDataSource = MockConfigurationRemoteDataSource();
+    mockLocalDataSource = MockConfigurationLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
     cache = MockAppCache();
-    repository = CategoriesRepositoryImpl(
+    repository = ConfigurationRepositoryImpl(
         localDataSource: mockLocalDataSource,
         remoteDataSource: mockRemoteDataSource,
         cache: cache,
@@ -62,13 +63,8 @@ void main() {
     });
   }
 
-  group('getCategory', () {
-    final List<CategoriesModel> tCategoriesModel = [
-      CategoriesModel(id: 1, name: 'Romance'),
-      CategoriesModel(id: 2, name: 'Comedy'),
-      CategoriesModel(id: 3, name: 'Drama'),
-    ];
-    final List<Categories> tCategories = tCategoriesModel;
+  group('getConfiguration', () {
+    final Configuration tConfiguration = tConfigurationModel;
 
     test(
       'should check if the device is online',
@@ -76,7 +72,7 @@ void main() {
         // arrange
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
         // act
-        repository.getCategories();
+        repository.getConfiguration();
         // assert
         verify(mockNetworkInfo.isConnected);
       },
@@ -87,14 +83,14 @@ void main() {
         'should return remote data when the call to remote data source is successful',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteCategories())
-              .thenAnswer((_) async => tCategoriesModel);
+          when(mockRemoteDataSource.getRemoteConfiguration())
+              .thenAnswer((_) async => tConfigurationModel);
           // act
-          final result = await repository.getCategories();
+          final result = await repository.getConfiguration();
           // assert
-          verify(mockRemoteDataSource.getRemoteCategories());
+          verify(mockRemoteDataSource.getRemoteConfiguration());
 
-          expect(result, equals(Right(tCategories)));
+          expect(result, equals(Right(tConfiguration)));
         },
       );
 
@@ -104,10 +100,10 @@ void main() {
           // act
           when(cache.isExpired(tKey)).thenReturn(true);
 
-          await repository.getCategories();
+          await repository.getConfiguration();
           verify(mockNetworkInfo.isConnected);
 
-          verify(mockRemoteDataSource.getRemoteCategories());
+          verify(mockRemoteDataSource.getRemoteConfiguration());
         },
       );
 
@@ -116,9 +112,9 @@ void main() {
         () async {
           when(cache.isExpired(tKey)).thenReturn(false);
           // act
-          await repository.getCategories();
+          await repository.getConfiguration();
           // assert
-          verify(mockLocalDataSource.getCachedCategory());
+          verify(mockLocalDataSource.getCachedConfiguration());
         },
       );
 
@@ -126,13 +122,14 @@ void main() {
         'should cache the data locally when the call to remote data source is successful',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteCategories())
-              .thenAnswer((_) async => tCategoriesModel);
+          when(mockRemoteDataSource.getRemoteConfiguration())
+              .thenAnswer((_) async => tConfigurationModel);
           // act
-          await repository.getCategories();
+          await repository.getConfiguration();
           // assert
-          verify(mockRemoteDataSource.getRemoteCategories());
-          verify(mockLocalDataSource.cacheLastCategory(tCategoriesModel));
+          verify(mockRemoteDataSource.getRemoteConfiguration());
+          verify(
+              mockLocalDataSource.cacheLastConfiguration(tConfigurationModel));
         },
       );
 
@@ -140,12 +137,12 @@ void main() {
         'should return server failure when the call to remote data source is unsuccessful',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteCategories())
+          when(mockRemoteDataSource.getRemoteConfiguration())
               .thenThrow(ServerException());
           // act
-          final result = await repository.getCategories();
+          final result = await repository.getConfiguration();
           // assert
-          verify(mockRemoteDataSource.getRemoteCategories());
+          verify(mockRemoteDataSource.getRemoteConfiguration());
           verifyZeroInteractions(mockLocalDataSource);
           expect(result, equals(Left(ServerFailure())));
         },
@@ -157,14 +154,14 @@ void main() {
         'should return last locally cached data when the cached data is present',
         () async {
           // arrange
-          when(mockLocalDataSource.getCachedCategory())
-              .thenAnswer((_) async => tCategoriesModel);
+          when(mockLocalDataSource.getCachedConfiguration())
+              .thenAnswer((_) async => tConfigurationModel);
           // act
-          final result = await repository.getCategories();
+          final result = await repository.getConfiguration();
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
-          verify(mockLocalDataSource.getCachedCategory());
-          expect(result, equals(Right(tCategories)));
+          verify(mockLocalDataSource.getCachedConfiguration());
+          expect(result, equals(Right(tConfiguration)));
         },
       );
 
@@ -172,13 +169,13 @@ void main() {
         'should return CacheFailure when there is no cached data present',
         () async {
           // arrange
-          when(mockLocalDataSource.getCachedCategory())
+          when(mockLocalDataSource.getCachedConfiguration())
               .thenThrow(CacheException());
           // act
-          final result = await repository.getCategories();
+          final result = await repository.getConfiguration();
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
-          verify(mockLocalDataSource.getCachedCategory());
+          verify(mockLocalDataSource.getCachedConfiguration());
           expect(result, equals(Left(CacheFailure())));
         },
       );
