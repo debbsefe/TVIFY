@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movie_colony/core/config.dart';
-import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/categories/data/models/categories_model.dart';
+import '../../../../core/config.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/utils/strings.dart';
+import '../models/categories_model.dart';
 
 abstract class CategoriesRemoteDataSource {
   Future<List<CategoriesModel>> getRemoteCategories();
@@ -19,8 +19,7 @@ class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
   @override
   Future<List<CategoriesModel>> getRemoteCategories() async {
     String _token = await config.fetchToken(API_KEY_TMDB);
-    String _url =
-        'https://api.themoviedb.org/3/genre/tv/list?api_key=$_token&language=en-US';
+    String _url = '$BASE_URL/genre/tv/list?api_key=$_token&language=en-US';
     final response = await client.get(
       Uri.parse(_url),
     );
