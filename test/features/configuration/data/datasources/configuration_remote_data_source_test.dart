@@ -6,44 +6,40 @@ import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
-import 'package:movie_colony/features/categories/data/models/categories_model.dart';
+import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
+import 'package:movie_colony/features/configuration/data/models/configuration_model.dart';
 
 import '../../../../data/data_reader.dart';
-import 'categories_remote_data_source_test.mocks.dart';
 
-@GenerateMocks([
-  http.Client,
-  Config
-], customMocks: [
-  MockSpec<Config>(as: #MockConfig2, returnNullOnMissingStub: true),
-])
+class MockClient extends Mock implements http.Client {}
+
+class MockConfig extends Mock implements Config {}
+
 void main() {
   late MockClient client;
   late MockConfig mockConfig;
-  late CategoriesRemoteDataSourceImpl dataSource;
-  Uri url = Uri.parse(
-      'https://api.themoviedb.org/3/genre/tv/list?api_key=123456&language=en-US');
+  late ConfigurationRemoteDataSourceImpl dataSource;
+  Uri url = Uri.parse('$BASE_URL/configuration/?api_key=123456');
   setUp(() {
     client = MockClient();
     mockConfig = MockConfig();
     dataSource =
-        CategoriesRemoteDataSourceImpl(client: client, config: mockConfig);
+        ConfigurationRemoteDataSourceImpl(client: client, config: mockConfig);
   });
   void stubFetchToken() {
     //stub/mock answer when fetch token method is called
     when(mockConfig.fetchToken(API_KEY_TMDB)).thenAnswer((_) async => '123456');
   }
 
-  group('fetchCategory', () {
-    test('returns a List of category if the http call completes successfully',
+  group('fetchConfiguration', () {
+    test('returns configuration if the http call completes successfully',
         () async {
       stubFetchToken();
-      when(client.get(url)).thenAnswer(
-          (_) async => http.Response(dataReader('categories_list.json'), 200));
+      when(client.get(url)).thenAnswer((_) async =>
+          http.Response(dataReader('configuration/configuration.json'), 200));
 
       expect(
-          await dataSource.getRemoteCategories(), isA<List<CategoriesModel>>());
+          await dataSource.getRemoteConfiguration(), isA<ConfigurationModel>());
     });
 
     test('throws an exception if the http call completes with an error', () {
@@ -52,7 +48,7 @@ void main() {
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(() => dataSource.getRemoteCategories(),
+      expect(() => dataSource.getRemoteConfiguration(),
           throwsA(TypeMatcher<ServerException>()));
     });
   });
