@@ -1,13 +1,14 @@
 import 'package:dartz/dartz.dart';
+
 import '../../../../core/cache/app_cache.dart';
 import '../../../../core/error/exception.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/network/network_info.dart';
 import '../../../../core/utils/strings.dart';
-import '../datasources/configuration_local_data_source.dart';
-import '../datasources/configuration_remote_data_source.dart';
 import '../../domain/entities/configuration.dart';
 import '../../domain/repositories/configuration_repository.dart';
+import '../datasources/configuration_local_data_source.dart';
+import '../datasources/configuration_remote_data_source.dart';
 
 class ConfigurationRepositoryImpl implements ConfigurationRepository {
   final ConfigurationRemoteDataSource remoteDataSource;
@@ -21,13 +22,13 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
     required this.networkInfo,
   });
   @override
-  Future<Either<Failure, AppConfiguration>> getConfiguration() async {
+  Future<Either<Failure, Configuration>> getConfiguration() async {
     bool hasExpired = cache.isExpired(CACHED_CONFIGURATION);
 
     return await getConfigurationSwitchCase(hasExpired);
   }
 
-  Future<Either<Failure, AppConfiguration>> getConfigurationSwitchCase(
+  Future<Either<Failure, Configuration>> getConfigurationSwitchCase(
       bool hasExpired) async {
     switch (hasExpired) {
       case true:
@@ -39,7 +40,7 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
     }
   }
 
-  Future<Either<Failure, AppConfiguration>> remoteData() async {
+  Future<Either<Failure, Configuration>> remoteData() async {
     bool isConnected = await networkInfo.isConnected;
     print('connected $isConnected');
     if (isConnected) {
@@ -60,7 +61,7 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
     }
   }
 
-  Future<Either<Failure, AppConfiguration>> localData() async {
+  Future<Either<Failure, Configuration>> localData() async {
     try {
       final local = await localDataSource.getCachedConfiguration();
       return Right(local);

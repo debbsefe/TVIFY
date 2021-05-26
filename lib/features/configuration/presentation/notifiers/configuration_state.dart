@@ -21,7 +21,7 @@ class ConfigurationLoading extends ConfigurationState {
 }
 
 class ConfigurationLoaded extends ConfigurationState {
-  final AppConfiguration configuration;
+  final Configuration configuration;
   ConfigurationLoaded(this.configuration);
 
   @override
