@@ -1,7 +1,7 @@
 import '../../domain/entities/configuration.dart';
 
 // ignore: must_be_immutable
-class ConfigurationModel extends AppConfiguration {
+class ConfigurationModel extends Configuration {
   ConfigurationModel({
     required this.images,
     required this.changeKeys,

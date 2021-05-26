@@ -5,5 +5,5 @@ import '../../../../core/error/failure.dart';
 import '../entities/configuration.dart';
 
 abstract class ConfigurationRepository {
-  Future<Either<Failure, AppConfiguration>> getConfiguration();
+  Future<Either<Failure, Configuration>> getConfiguration();
 }
