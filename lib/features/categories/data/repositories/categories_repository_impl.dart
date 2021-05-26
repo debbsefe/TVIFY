@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_colony/core/cache/app_cache.dart';
-import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/core/error/failure.dart';
-import 'package:movie_colony/core/network/network_info.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
-import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
-import 'package:movie_colony/features/categories/domain/entities/categories.dart';
-import 'package:movie_colony/features/categories/domain/repositories/categories_repository.dart';
+import '../../../../core/cache/app_cache.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/error/failure.dart';
+import '../../../../core/network/network_info.dart';
+import '../../../../core/utils/strings.dart';
+import '../datasources/categories_local_data_source.dart';
+import '../datasources/categories_remote_data_source.dart';
+import '../../domain/entities/categories.dart';
+import '../../domain/repositories/categories_repository.dart';
 
 class CategoriesRepositoryImpl implements CategoriesRepository {
   final CategoriesRemoteDataSource remoteDataSource;

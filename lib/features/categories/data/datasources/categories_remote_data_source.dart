@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movie_colony/core/config.dart';
-import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/categories/data/models/categories_model.dart';
+import '../../../../core/config.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/utils/strings.dart';
+import '../models/categories_model.dart';
 
 abstract class CategoriesRemoteDataSource {
   Future<List<CategoriesModel>> getRemoteCategories();

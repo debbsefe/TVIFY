@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie_colony/features/categories/domain/entities/categories.dart';
+import '../../domain/entities/categories.dart';
 
 abstract class CategoriesState extends Equatable {
   CategoriesState();

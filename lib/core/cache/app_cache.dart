@@ -1,5 +1,5 @@
-import 'package:movie_colony/core/custom_shared_preference/custom_shared_preference.dart';
-import 'package:movie_colony/core/utils/strings.dart';
+import '../custom_shared_preference/custom_shared_preference.dart';
+import '../utils/strings.dart';
 
 abstract class AppCache {
   final CustomSharedPreference pref;

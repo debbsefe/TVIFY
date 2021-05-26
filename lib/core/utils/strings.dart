@@ -1,4 +1,4 @@
-import 'package:movie_colony/core/error/failure.dart';
+import '../error/failure.dart';
 import 'package:intl/intl.dart';
 
 const String DARK_THEME = "DARK_THEME";
@@ -11,10 +11,11 @@ const String CACHE_FAILURE_MESSAGE =
 const String EXPIRY = "_expiry_date";
 
 const CACHED_CATEGORY = 'CACHED_CATEGORY';
+const CACHED_CONFIGURATION = 'CACHED_CATEGORY';
 
 String expiryDate(String key) => key + EXPIRY;
 
-final DateFormat dateFormat =  DateFormat("yyyy-MM-dd HH:mm:ss");
+final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 DateTime now = DateTime.now();
 
 final String sevenDaysLater =
