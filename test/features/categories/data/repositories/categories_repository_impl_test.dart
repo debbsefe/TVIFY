@@ -1,9 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:movie_colony/core/cache/app_cache.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
@@ -18,19 +20,25 @@ class MockCategoriesLocalDataSource extends Mock
 
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
+class MockAppCache extends Mock implements AppCache {}
+
 void main() {
   late MockCategoriesRemoteDataSource mockRemoteDataSource;
   late MockCategoriesLocalDataSource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
   late CategoriesRepositoryImpl repository;
+  late MockAppCache cache;
+  final tKey = CACHED_CATEGORY;
 
   setUp(() {
     mockRemoteDataSource = MockCategoriesRemoteDataSource();
     mockLocalDataSource = MockCategoriesLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
+    cache = MockAppCache();
     repository = CategoriesRepositoryImpl(
         localDataSource: mockLocalDataSource,
         remoteDataSource: mockRemoteDataSource,
+        cache: cache,
         networkInfo: mockNetworkInfo);
   });
 
@@ -85,7 +93,32 @@ void main() {
           final result = await repository.getCategories();
           // assert
           verify(mockRemoteDataSource.getRemoteCategories());
+
           expect(result, equals(Right(tCategories)));
+        },
+      );
+
+      test(
+        'should call remote data when hasExpired is true',
+        () async {
+          // act
+          when(cache.isExpired(tKey)).thenReturn(true);
+
+          await repository.getCategories();
+          verify(mockNetworkInfo.isConnected);
+
+          verify(mockRemoteDataSource.getRemoteCategories());
+        },
+      );
+
+      test(
+        'should call local data when hasExpired is false',
+        () async {
+          when(cache.isExpired(tKey)).thenReturn(false);
+          // act
+          await repository.getCategories();
+          // assert
+          verify(mockLocalDataSource.getCachedCategory());
         },
       );
 

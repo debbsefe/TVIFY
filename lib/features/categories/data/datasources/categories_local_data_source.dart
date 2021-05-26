@@ -1,5 +1,6 @@
-import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/features/categories/data/models/categories_model.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/utils/strings.dart';
+import '../models/categories_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -11,15 +12,13 @@ abstract class CategoriesLocalDataSource {
   Future<void> cacheLastCategory(List<CategoriesModel> categoriesModel);
 }
 
-const CACHED_MATCH = 'CACHED_MATCH';
-
 class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
   final SharedPreferences sharedPreferences;
   CategoriesLocalDataSourceImpl(this.sharedPreferences);
 
   @override
   Future<List<CategoriesModel>> getCachedCategory() {
-    final jsonString = sharedPreferences.getString(CACHED_MATCH);
+    final jsonString = sharedPreferences.getString(CACHED_CATEGORY);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
       return Future.value(parsed['genres']
@@ -32,8 +31,9 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
 
   @override
   Future<void> cacheLastCategory(List<CategoriesModel> categoriesModel) {
+    sharedPreferences.setString(expiryDate(CACHED_CATEGORY), sevenDaysLater);
     return sharedPreferences.setString(
-      CACHED_MATCH,
+      CACHED_CATEGORY,
       json.encode(List<dynamic>.from(categoriesModel.map((x) => x.toJson()))),
     );
   }

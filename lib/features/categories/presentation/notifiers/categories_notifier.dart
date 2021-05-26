@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/categories/domain/usecases/get_categories.dart';
+import '../../../../core/usecases/usecase.dart';
+import '../../../../core/utils/strings.dart';
+import '../../domain/usecases/get_categories.dart';
 
 import 'categories_state.dart';
 

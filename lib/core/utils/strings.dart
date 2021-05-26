@@ -1,4 +1,4 @@
-import 'package:movie_colony/core/error/failure.dart';
+import '../error/failure.dart';
 import 'package:intl/intl.dart';
 
 const String DARK_THEME = "DARK_THEME";
@@ -8,9 +8,18 @@ const String BASE_URL = "https://api.themoviedb.org/3";
 const String SERVER_FAILURE_MESSAGE = 'No matches available for this day';
 const String CACHE_FAILURE_MESSAGE =
     'No internet connection detected or no match found';
-const String CATEGORY = "category";
-const String EXPIRY_DATE = "_expiry_date";
-DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+const String EXPIRY = "_expiry_date";
+
+const CACHED_CATEGORY = 'CACHED_CATEGORY';
+const CACHED_CONFIGURATION = 'CACHED_CATEGORY';
+
+String expiryDate(String key) => key + EXPIRY;
+
+final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+DateTime now = DateTime.now();
+
+final String sevenDaysLater =
+    dateFormat.format(now.add(const Duration(days: 7)));
 
 String mapFailureToMessage(Failure failure) {
   switch (failure.runtimeType) {

@@ -1,0 +1,71 @@
+import 'package:dartz/dartz.dart';
+import '../../../../core/cache/app_cache.dart';
+import '../../../../core/error/exception.dart';
+import '../../../../core/error/failure.dart';
+import '../../../../core/network/network_info.dart';
+import '../../../../core/utils/strings.dart';
+import '../datasources/configuration_local_data_source.dart';
+import '../datasources/configuration_remote_data_source.dart';
+import '../../domain/entities/configuration.dart';
+import '../../domain/repositories/configuration_repository.dart';
+
+class ConfigurationRepositoryImpl implements ConfigurationRepository {
+  final ConfigurationRemoteDataSource remoteDataSource;
+  final ConfigurationLocalDataSource localDataSource;
+  final NetworkInfo networkInfo;
+  final AppCache cache;
+  ConfigurationRepositoryImpl({
+    required this.cache,
+    required this.remoteDataSource,
+    required this.localDataSource,
+    required this.networkInfo,
+  });
+  @override
+  Future<Either<Failure, AppConfiguration>> getConfiguration() async {
+    bool hasExpired = cache.isExpired(CACHED_CONFIGURATION);
+
+    return await getConfigurationSwitchCase(hasExpired);
+  }
+
+  Future<Either<Failure, AppConfiguration>> getConfigurationSwitchCase(
+      bool hasExpired) async {
+    switch (hasExpired) {
+      case true:
+        return await remoteData();
+      case false:
+        return await localData();
+      default:
+        return await remoteData();
+    }
+  }
+
+  Future<Either<Failure, AppConfiguration>> remoteData() async {
+    bool isConnected = await networkInfo.isConnected;
+    print('connected $isConnected');
+    if (isConnected) {
+      try {
+        final remote = await remoteDataSource.getRemoteConfiguration();
+        localDataSource.cacheLastConfiguration(remote);
+        return Right(remote);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final local = await localDataSource.getCachedConfiguration();
+        return Right(local);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
+  }
+
+  Future<Either<Failure, AppConfiguration>> localData() async {
+    try {
+      final local = await localDataSource.getCachedConfiguration();
+      return Right(local);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
+}
