@@ -51,6 +51,8 @@ jobs:
           --output $HOME/secrets/secrets.tar secrets.tar.gpg
           tar xvf $HOME/secrets/secrets.tar
           flutter build apk --no-sound-null-safety
+        env:
+        SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
 
       # Upload generated apk to the artifacts.
       - uses: actions/upload-artifact@v1
