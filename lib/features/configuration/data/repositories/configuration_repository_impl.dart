@@ -11,19 +11,20 @@ import '../datasources/configuration_local_data_source.dart';
 import '../datasources/configuration_remote_data_source.dart';
 
 class ConfigurationRepositoryImpl implements ConfigurationRepository {
-  final ConfigurationRemoteDataSource remoteDataSource;
-  final ConfigurationLocalDataSource localDataSource;
-  final NetworkInfo networkInfo;
-  final AppCache cache;
   ConfigurationRepositoryImpl({
     required this.cache,
     required this.remoteDataSource,
     required this.localDataSource,
     required this.networkInfo,
   });
+  final ConfigurationRemoteDataSource remoteDataSource;
+  final ConfigurationLocalDataSource localDataSource;
+  final NetworkInfo networkInfo;
+  final AppCache cache;
+
   @override
   Future<Either<Failure, Configuration>> getConfiguration() async {
-    bool hasExpired = cache.isExpired(CACHED_CONFIGURATION);
+    bool hasExpired = cache.isExpired(Strings.cachedConfiguration);
 
     return await getConfigurationSwitchCase(hasExpired);
   }
@@ -42,11 +43,10 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
 
   Future<Either<Failure, Configuration>> remoteData() async {
     bool isConnected = await networkInfo.isConnected;
-    print('connected $isConnected');
     if (isConnected) {
       try {
         final remote = await remoteDataSource.getRemoteConfiguration();
-        localDataSource.cacheLastConfiguration(remote);
+        await localDataSource.cacheLastConfiguration(remote);
         return Right(remote);
       } on ServerException {
         return Left(ServerFailure());

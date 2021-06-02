@@ -17,19 +17,19 @@ void main() async {
 
   group('Save Theme test', () {
     test('should save theme when saveTheme method is called', () {
-      theme.saveTheme(DARK_THEME);
+      theme.saveTheme(Strings.darkTheme);
 
       verify(mockPref.setString(
-        THEME,
-        DARK_THEME,
+        Strings.theme,
+        Strings.darkTheme,
       ));
     });
   });
   group('Retrieve Theme test', () {
     test('should return saved theme', () {
-      when(theme.retrieveTheme()).thenReturn(DARK_THEME);
+      when(theme.retrieveTheme()).thenReturn(Strings.darkTheme);
 
-      expect(theme.retrieveTheme(), DARK_THEME);
+      expect(theme.retrieveTheme(), Strings.darkTheme);
     });
 
     test('should return null when no theme is saved', () {

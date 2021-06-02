@@ -1,11 +1,14 @@
+import 'dart:convert';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../core/error/exception.dart';
 import '../../../../core/utils/strings.dart';
 import '../models/categories_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
 abstract class CategoriesLocalDataSource {
-  ///method to fetch the last category that was fetched, throws an exception if no cache data is present
+  ///method to fetch the last category that was fetched,
+  ///throws an exception if no cache data is present
   Future<List<CategoriesModel>> getCachedCategory();
 
   //method to cache the last category that was fetched
@@ -13,12 +16,13 @@ abstract class CategoriesLocalDataSource {
 }
 
 class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
-  final SharedPreferences sharedPreferences;
   CategoriesLocalDataSourceImpl(this.sharedPreferences);
+
+  final SharedPreferences sharedPreferences;
 
   @override
   Future<List<CategoriesModel>> getCachedCategory() {
-    final jsonString = sharedPreferences.getString(CACHED_CATEGORY);
+    final jsonString = sharedPreferences.getString(Strings.cachedCategory);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
       return Future.value(parsed['genres']
@@ -31,9 +35,10 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
 
   @override
   Future<void> cacheLastCategory(List<CategoriesModel> categoriesModel) {
-    sharedPreferences.setString(expiryDate(CACHED_CATEGORY), sevenDaysLater);
+    sharedPreferences.setString(
+        expiryDate(Strings.cachedCategory), sevenDaysLater);
     return sharedPreferences.setString(
-      CACHED_CATEGORY,
+      Strings.cachedCategory,
       json.encode(List<dynamic>.from(categoriesModel.map((x) => x.toJson()))),
     );
   }

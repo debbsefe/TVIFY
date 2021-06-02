@@ -1,22 +1,17 @@
+import 'package:movie_colony/core/utils/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String THEME = 'theme';
-
 class ThemeSharedPreference {
+  ThemeSharedPreference(this.pref);
+
   final SharedPreferences pref;
 
-  ThemeSharedPreference(this.pref);
   Future<void> saveTheme(String value) async {
-    try {
-      await pref.setString(THEME, value);
-    } catch (e) {
-      print(e.toString());
-    }
+    await pref.setString(Strings.theme, value);
   }
 
   String? retrieveTheme() {
-    String? savedTheme = pref.getString(THEME);
-    print('saved theme is $savedTheme');
+    String? savedTheme = pref.getString(Strings.theme);
     return savedTheme;
   }
 }

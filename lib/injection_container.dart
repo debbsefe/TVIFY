@@ -1,15 +1,14 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-import 'core/cache/app_cache.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/cache/app_cache.dart';
 import 'core/config.dart';
 import 'core/custom_shared_preference/custom_shared_preference.dart';
 import 'core/network/network_info.dart';
 import 'core/theme/theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:get_it/get_it.dart';
-
 import 'core/theme/theme_shared_preference.dart';
 import 'features/categories/data/datasources/categories_local_data_source.dart';
 import 'features/categories/data/datasources/categories_remote_data_source.dart';

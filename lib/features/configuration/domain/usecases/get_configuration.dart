@@ -7,9 +7,10 @@ import '../entities/configuration.dart';
 import '../repositories/configuration_repository.dart';
 
 class GetAllConfiguration extends UseCase<Configuration, NoParams> {
+  GetAllConfiguration(this.repository);
+
   final ConfigurationRepository repository;
 
-  GetAllConfiguration(this.repository);
   @override
   Future<Either<Failure, Configuration>> call(NoParams params) async {
     return await repository.getConfiguration();

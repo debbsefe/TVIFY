@@ -13,9 +13,9 @@ void main() {
   MockCategoriesRepository mockCategoriesRepository;
   GetAllCategories usecase;
   final tCategories = [
-    Categories(id: 1, name: 'Romance'),
-    Categories(id: 2, name: 'Comedy'),
-    Categories(id: 3, name: 'Drama'),
+    const Categories(id: 1, name: 'Romance'),
+    const Categories(id: 2, name: 'Comedy'),
+    const Categories(id: 3, name: 'Drama'),
   ];
 
   test(

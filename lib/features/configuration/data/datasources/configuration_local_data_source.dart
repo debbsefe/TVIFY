@@ -7,7 +7,8 @@ import '../../../../core/utils/strings.dart';
 import '../../../configuration/data/models/configuration_model.dart';
 
 abstract class ConfigurationLocalDataSource {
-  ///method to fetch the last cache that was fetched, throws an exception if no cache data is present
+  ///method to fetch the last cache that was fetched,
+  ///throws an exception if no cache data is present
   Future<ConfigurationModel> getCachedConfiguration();
 
   //method to cache the last cache that was fetched
@@ -15,12 +16,13 @@ abstract class ConfigurationLocalDataSource {
 }
 
 class ConfigurationLocalDataSourceImpl implements ConfigurationLocalDataSource {
-  final SharedPreferences sharedPreferences;
   ConfigurationLocalDataSourceImpl(this.sharedPreferences);
+
+  final SharedPreferences sharedPreferences;
 
   @override
   Future<ConfigurationModel> getCachedConfiguration() {
-    final jsonString = sharedPreferences.getString(CACHED_CONFIGURATION);
+    final jsonString = sharedPreferences.getString(Strings.cachedConfiguration);
     if (jsonString != null) {
       return Future.value(ConfigurationModel.fromJson(json.decode(jsonString)));
     } else {
@@ -31,10 +33,10 @@ class ConfigurationLocalDataSourceImpl implements ConfigurationLocalDataSource {
   @override
   Future<void> cacheLastConfiguration(ConfigurationModel configurationModel) {
     sharedPreferences.setString(
-        expiryDate(CACHED_CONFIGURATION), sevenDaysLater);
+        expiryDate(Strings.cachedConfiguration), sevenDaysLater);
 
     return sharedPreferences.setString(
-      CACHED_CONFIGURATION,
+      Strings.cachedConfiguration,
       json.encode(configurationModel.toJson()),
     );
   }

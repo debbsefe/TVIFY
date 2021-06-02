@@ -32,7 +32,8 @@ void main() {
   });
   void stubFetchToken() {
     //stub/mock answer when fetch token method is called
-    when(mockConfig.fetchToken(API_KEY_TMDB)).thenAnswer((_) async => '123456');
+    when(mockConfig.fetchToken(Strings.apiKeyTmdb))
+        .thenAnswer((_) async => '123456');
   }
 
   group('fetchCategory', () {
@@ -53,7 +54,7 @@ void main() {
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
       expect(() => dataSource.getRemoteCategories(),
-          throwsA(TypeMatcher<ServerException>()));
+          throwsA(const TypeMatcher<ServerException>()));
     });
   });
 }

@@ -13,9 +13,9 @@ class MockConfigurationRepository extends Mock
 void main() {
   MockConfigurationRepository mockConfigurationRepository;
   GetAllConfiguration usecase;
-  final tConfiguration = Configuration(
-    baseUrl: "http://",
-    secureBaseUrl: "https://",
+  const tConfiguration = Configuration(
+    baseUrl: 'http://',
+    secureBaseUrl: 'https://',
     backdropSizes: ['w500'],
     logoSizes: ['w500'],
     posterSizes: ['w500'],
@@ -31,11 +31,11 @@ void main() {
       usecase = GetAllConfiguration(mockConfigurationRepository);
       // arrange, stub the method
       when(mockConfigurationRepository.getConfiguration())
-          .thenAnswer((_) async => Right(tConfiguration));
+          .thenAnswer((_) async => const Right(tConfiguration));
       // act
       final result = await usecase(NoParams());
       // assert
-      expect(result, Right(tConfiguration));
+      expect(result, const Right(tConfiguration));
       verify(mockConfigurationRepository.getConfiguration());
       verifyNoMoreInteractions(mockConfigurationRepository);
     },

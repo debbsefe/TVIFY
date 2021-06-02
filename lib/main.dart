@@ -1,13 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+
+import 'core/theme/theme.dart';
 import 'core/utils/strings.dart';
 import 'features/categories/presentation/notifiers/categories_notifier.dart';
 import 'features/categories/presentation/notifiers/categories_state.dart';
 import 'features/onboarding/presentation/onboarding.dart';
-import 'core/theme/theme.dart';
 import 'injection_container.dart' as di;
-import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +17,11 @@ void main() async {
   await di.init();
   await Firebase.initializeApp();
 
-  runApp(ProviderScope(child: MovieColony()));
+  runApp(
+    const ProviderScope(
+      child: MovieColony(),
+    ),
+  );
 }
 
 //create themeProvider
@@ -30,6 +35,9 @@ final categoriesProvider =
 });
 
 class MovieColony extends ConsumerWidget {
+  const MovieColony({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final theme = watch(themeProvider);
@@ -38,22 +46,25 @@ class MovieColony extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         title: 'MovieColony',
         theme: theme,
-        home: Onboarding());
+        home: const Onboarding());
   }
 }
 
 class Home extends StatelessWidget {
+  const Home({
+    Key? key,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('MovieColony')),
+      appBar: AppBar(title: const Text('MovieColony')),
       body: Column(
         children: [
           TextButton(
             onPressed: () {
               context
                   .read(themeProvider.notifier)
-                  .changeTheme(CustomTheme.darkThemeData, DARK_THEME);
+                  .changeTheme(CustomTheme.darkThemeData, Strings.darkTheme);
             },
             child: Text(
               'Hello World',
@@ -64,7 +75,7 @@ class Home extends StatelessWidget {
             onPressed: () {
               context
                   .read(themeProvider.notifier)
-                  .changeTheme(CustomTheme.lightThemeData, LIGHT_THEME);
+                  .changeTheme(CustomTheme.lightThemeData, Strings.lightTheme);
             },
             child: Text(
               'Hello Africa',

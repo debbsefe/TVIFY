@@ -5,13 +5,13 @@ import '../utils/strings.dart';
 import 'theme_shared_preference.dart';
 
 class CustomTheme extends StateNotifier<ThemeData> {
-  final ThemeSharedPreference sharedPreference;
   CustomTheme(this.sharedPreference)
       : super(
             //check current theme at app start and pass to the super-constructor
-            sharedPreference.retrieveTheme() == DARK_THEME
+            sharedPreference.retrieveTheme() == Strings.darkTheme
                 ? CustomTheme.darkThemeData
                 : CustomTheme.lightThemeData);
+  final ThemeSharedPreference sharedPreference;
 
   //change the theme by passing selected themeData and name of the theme
   void changeTheme(ThemeData themeData, String name) {
@@ -87,12 +87,12 @@ class CustomTheme extends StateNotifier<ThemeData> {
       buttonColor: buttonColor1,
       textTheme: darkTextTheme);
 
-  static TextTheme darkTextTheme = TextTheme(
+  static TextTheme darkTextTheme = const TextTheme(
     bodyText1: paragraph2Bold,
     subtitle1: subtitleRegDark,
   );
 
-  static TextTheme lightTextTheme = TextTheme(
+  static TextTheme lightTextTheme = const TextTheme(
     bodyText1: paragraph1Bold,
     subtitle1: subtitleRegLight,
   );

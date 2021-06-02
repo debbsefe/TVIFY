@@ -26,23 +26,23 @@ void main() {
 
     String tKey = 'key';
     test('return true when current date is after expiry date', () {
-      when(mockPref.retrieveData("key_expiry_date")).thenReturn(tExpiryDate1);
+      when(mockPref.retrieveData('key_expiry_date')).thenReturn(tExpiryDate1);
       final result = cache.isExpired(tKey);
-      verify(mockPref.retrieveData("key_expiry_date"));
+      verify(mockPref.retrieveData('key_expiry_date'));
       expect(result, true);
     });
     test('return false when current date is before expiry date', () {
-      when(mockPref.retrieveData("key_expiry_date")).thenReturn(tExpiryDate2);
+      when(mockPref.retrieveData('key_expiry_date')).thenReturn(tExpiryDate2);
       final result = cache.isExpired(tKey);
-      verify(mockPref.retrieveData("key_expiry_date"));
+      verify(mockPref.retrieveData('key_expiry_date'));
 
       expect(result, false);
     });
 
     test('return true when expiry date is null', () {
-      when(mockPref.retrieveData("key_expiry_date")).thenReturn(null);
+      when(mockPref.retrieveData('key_expiry_date')).thenReturn(null);
       final result = cache.isExpired(tKey);
-      verify(mockPref.retrieveData("key_expiry_date"));
+      verify(mockPref.retrieveData('key_expiry_date'));
       expect(result, true);
     });
   });
