@@ -14,8 +14,9 @@ class Strings {
       'No internet connection detected or no match found';
   static String get expiry => '_expiry_date';
 
-  static String get cachedCategory => 'Strings.cachedCategory';
-  static String get cachedConfiguration => 'Strings.cachedConfiguration';
+  static String get cachedCategory => 'cachedCategory';
+  static String get cachedConfiguration => 'cachedConfiguration';
+  static String get cacheTrending => 'cacheTrending';
 }
 
 String expiryDate(String key) => key + Strings.expiry;
