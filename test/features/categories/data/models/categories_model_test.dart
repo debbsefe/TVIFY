@@ -37,7 +37,10 @@ void main() {
         // act
         final result = tCategoriesModel.toJson();
         // assert
-        final expectedMap = {"id": 1, "name": 'Test'};
+        final expectedMap = {
+          'id': 1,
+          'name': 'Test',
+        };
         expect(result, expectedMap);
       },
     );

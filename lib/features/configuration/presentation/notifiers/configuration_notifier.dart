@@ -5,9 +5,10 @@ import '../../domain/usecases/get_configuration.dart';
 import 'configuration_state.dart';
 
 class ConfigurationNotifier extends StateNotifier<ConfigurationState> {
+  ConfigurationNotifier(this.allConfiguration) : super(ConfigurationInitial());
+
   final GetAllConfiguration allConfiguration;
 
-  ConfigurationNotifier(this.allConfiguration) : super(ConfigurationInitial());
   void fetchConfiguration() async {
     state = ConfigurationLoading();
     final result = await allConfiguration(NoParams());

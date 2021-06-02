@@ -1,16 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class Configuration extends Equatable {
-  final String baseUrl;
-  final String secureBaseUrl;
-  final List<String> backdropSizes;
-  final List<String> logoSizes;
-  final List<String> posterSizes;
-  final List<String> profileSizes;
-  final List<String> stillSizes;
-  final List<String> changeKeys;
-
-  Configuration(
+  const Configuration(
       {required this.baseUrl,
       required this.secureBaseUrl,
       required this.backdropSizes,
@@ -19,6 +10,14 @@ class Configuration extends Equatable {
       required this.profileSizes,
       required this.stillSizes,
       required this.changeKeys});
+  final String baseUrl;
+  final String secureBaseUrl;
+  final List<String> backdropSizes;
+  final List<String> logoSizes;
+  final List<String> posterSizes;
+  final List<String> profileSizes;
+  final List<String> stillSizes;
+  final List<String> changeKeys;
 
   @override
   List<Object?> get props => [

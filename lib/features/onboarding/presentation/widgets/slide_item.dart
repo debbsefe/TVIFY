@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../domain/entities/slides.dart';
+
+import '../../../../core/utils/extensions.dart';
 import '../../../../core/utils/size_ext.dart';
+import '../../domain/entities/slides.dart';
 
 class SlideItem extends StatelessWidget {
+  const SlideItem({
+    required this.index,
+    Key? key,
+  }) : super(key: key);
+
   final int index;
-  const SlideItem(this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +24,7 @@ class SlideItem extends StatelessWidget {
             height: context.height(0.6),
             width: context.width(1),
           ),
-          Height(20),
+          const Height(20),
           slideList[index].description,
         ],
       ),
@@ -27,9 +33,10 @@ class SlideItem extends StatelessWidget {
 }
 
 class SlideDescription extends StatelessWidget {
-  final String text1, text2;
+  const SlideDescription({required this.text1, required this.text2, Key? key})
+      : super(key: key);
 
-  const SlideDescription({required this.text1, required this.text2});
+  final String text1, text2;
 
   @override
   Widget build(BuildContext context) {
@@ -73,13 +80,13 @@ final slideList = [
       )),
   const Slide(
       imageUrl: onboarding2,
-      description: const SlideDescription(
+      description: SlideDescription(
         text1: onboarding2text1,
         text2: onboarding1text2,
       )),
   const Slide(
       imageUrl: onboarding3,
-      description: const SlideDescription(
+      description: SlideDescription(
         text1: onboarding3text1,
         text2: onboarding3text2,
       )),

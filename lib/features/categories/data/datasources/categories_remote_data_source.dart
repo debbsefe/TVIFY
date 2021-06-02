@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+
 import '../../../../core/config.dart';
 import '../../../../core/error/exception.dart';
+import '../../../../core/utils/extensions.dart';
 import '../../../../core/utils/strings.dart';
 import '../models/categories_model.dart';
 
@@ -11,15 +13,15 @@ abstract class CategoriesRemoteDataSource {
 }
 
 class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
+  CategoriesRemoteDataSourceImpl({required this.client, required this.config});
+
   final http.Client client;
   final Config config;
 
-  CategoriesRemoteDataSourceImpl({required this.client, required this.config});
-
   @override
   Future<List<CategoriesModel>> getRemoteCategories() async {
-    String _token = await config.fetchToken(API_KEY_TMDB);
-    String _url = '$BASE_URL/genre/tv/list?api_key=$_token&language=en-US';
+    String _token = await config.fetchToken(Strings.apiKeyTmdb);
+    String _url = 'genre/tv/list?api_key=$_token&language=en-US'.baseurl;
     final response = await client.get(
       Uri.parse(_url),
     );

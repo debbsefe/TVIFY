@@ -1,21 +1,26 @@
-import '../error/failure.dart';
 import 'package:intl/intl.dart';
 
-const String DARK_THEME = "DARK_THEME";
-const String LIGHT_THEME = "LIGHT_THEME";
-const String API_KEY_TMDB = "api_key_tmdb";
-const String BASE_URL = "https://api.themoviedb.org/3";
-const String SERVER_FAILURE_MESSAGE = 'No matches available for this day';
-const String CACHE_FAILURE_MESSAGE =
-    'No internet connection detected or no match found';
-const String EXPIRY = "_expiry_date";
+import '../error/failure.dart';
 
-const CACHED_CATEGORY = 'CACHED_CATEGORY';
-const CACHED_CONFIGURATION = 'CACHED_CATEGORY';
+class Strings {
+  static String get theme => 'theme';
 
-String expiryDate(String key) => key + EXPIRY;
+  static String get darkTheme => 'DARK_THEME';
+  static String get lightTheme => 'LIGHT_THEME';
+  static String get apiKeyTmdb => 'api_key_tmdb';
+  static String get baseUrl => 'https://api.themoviedb.org/3';
+  static String get serverFailureMessage => 'No matches available for this day';
+  static String get cacheFailureMessage =>
+      'No internet connection detected or no match found';
+  static String get expiry => '_expiry_date';
 
-final DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+  static String get cachedCategory => 'Strings.cachedCategory';
+  static String get cachedConfiguration => 'Strings.cachedConfiguration';
+}
+
+String expiryDate(String key) => key + Strings.expiry;
+
+final DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 DateTime now = DateTime.now();
 
 final String sevenDaysLater =
@@ -24,9 +29,9 @@ final String sevenDaysLater =
 String mapFailureToMessage(Failure failure) {
   switch (failure.runtimeType) {
     case ServerFailure:
-      return SERVER_FAILURE_MESSAGE;
+      return Strings.serverFailureMessage;
     case CacheFailure:
-      return CACHE_FAILURE_MESSAGE;
+      return Strings.cacheFailureMessage;
     default:
       return 'Unexpected error';
   }

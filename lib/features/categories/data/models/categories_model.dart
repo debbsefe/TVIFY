@@ -10,11 +10,11 @@ class CategoriesModel extends Categories {
   CategoriesModel({required this.id, required this.name})
       : super(id: id, name: name);
 
-  int id;
-  String name;
-
   factory CategoriesModel.fromJson(Map<String, dynamic> json) =>
       _$CategoriesModelFromJson(json);
+
+  int id;
+  String name;
 
   Map<String, dynamic> toJson() => _$CategoriesModelToJson(this);
 }

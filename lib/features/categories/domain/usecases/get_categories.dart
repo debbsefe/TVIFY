@@ -7,9 +7,10 @@ import '../entities/categories.dart';
 import '../repositories/categories_repository.dart';
 
 class GetAllCategories extends UseCase<List<Categories>, NoParams> {
+  GetAllCategories(this.repository);
+
   final CategoriesRepository repository;
 
-  GetAllCategories(this.repository);
   @override
   Future<Either<Failure, List<Categories>>> call(NoParams params) async {
     return await repository.getCategories();
