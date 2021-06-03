@@ -13,7 +13,7 @@ class Trending extends Equatable {
   final int id;
   final String name;
   final String date;
-  final String rating;
+  final num rating;
   final String backdropImage;
   final String posterImage;
 

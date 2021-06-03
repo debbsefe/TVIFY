@@ -27,9 +27,13 @@ class TrendingModel extends Trending {
 
   final int id;
   final String name;
-  final String rating;
+  @JsonKey(name: 'vote_average')
+  final num rating;
+  @JsonKey(name: 'first_air_date')
   final String date;
+  @JsonKey(name: 'poster_path')
   final String posterImage;
+  @JsonKey(name: 'backdrop_path')
   final String backdropImage;
 
   Map<String, dynamic> toJson() => _$TrendingModelToJson(this);

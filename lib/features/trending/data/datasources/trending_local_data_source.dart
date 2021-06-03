@@ -22,7 +22,7 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
 
   @override
   Future<List<TrendingModel>> getCachedTrending() {
-    final jsonString = sharedPreferences.getString(Strings.cacheTrending);
+    final jsonString = sharedPreferences.getString(Strings.cachedTrending);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
       return Future.value(parsed['results']
@@ -36,7 +36,7 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
   @override
   Future<void> cacheLastTrending(List<TrendingModel> trendingModel) {
     return sharedPreferences.setString(
-      Strings.cacheTrending,
+      Strings.cachedTrending,
       json.encode(List<dynamic>.from(trendingModel.map((x) => x.toJson()))),
     );
   }

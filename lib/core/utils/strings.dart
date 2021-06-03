@@ -16,7 +16,7 @@ class Strings {
 
   static String get cachedCategory => 'cachedCategory';
   static String get cachedConfiguration => 'cachedConfiguration';
-  static String get cacheTrending => 'cacheTrending';
+  static String get cachedTrending => 'cacheTrending';
 }
 
 String expiryDate(String key) => key + Strings.expiry;
