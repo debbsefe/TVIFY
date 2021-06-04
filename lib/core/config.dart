@@ -5,10 +5,11 @@ abstract class Config {
 }
 
 class ConfigImpl implements Config {
+  ConfigImpl(this.remoteConfig);
+
   ///fetch token from remote config
   final RemoteConfig remoteConfig;
 
-  ConfigImpl(this.remoteConfig);
   @override
   Future<String> fetchToken(String value) async {
     await remoteConfig.fetch();

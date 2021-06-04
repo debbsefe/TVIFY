@@ -29,7 +29,7 @@ void main() {
   late MockNetworkInfo mockNetworkInfo;
   late ConfigurationRepositoryImpl repository;
   late MockAppCache cache;
-  final tKey = CACHED_CONFIGURATION;
+  final tKey = Strings.cachedConfiguration;
 
   setUp(() {
     mockRemoteDataSource = MockConfigurationRemoteDataSource();
@@ -72,7 +72,7 @@ void main() {
         // arrange
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
         // act
-        repository.getConfiguration();
+        await repository.getConfiguration();
         // assert
         verify(mockNetworkInfo.isConnected);
       },
@@ -80,7 +80,8 @@ void main() {
 
     runTestsOnline(() {
       test(
-        'should return remote data when the call to remote data source is successful',
+        '''
+should return remote data when the call to remote data source is successful''',
         () async {
           // arrange
           when(mockRemoteDataSource.getRemoteConfiguration())
@@ -119,7 +120,8 @@ void main() {
       );
 
       test(
-        'should cache the data locally when the call to remote data source is successful',
+        '''
+should cache the data locally when the call to remote data source is successful''',
         () async {
           // arrange
           when(mockRemoteDataSource.getRemoteConfiguration())
@@ -134,7 +136,8 @@ void main() {
       );
 
       test(
-        'should return server failure when the call to remote data source is unsuccessful',
+        '''
+should return server failure when the call to remote data source is unsuccessful''',
         () async {
           // arrange
           when(mockRemoteDataSource.getRemoteConfiguration())
@@ -151,7 +154,8 @@ void main() {
 
     runTestsOffline(() {
       test(
-        'should return last locally cached data when the cached data is present',
+        '''
+should return last locally cached data when the cached data is present''',
         () async {
           // arrange
           when(mockLocalDataSource.getCachedConfiguration())

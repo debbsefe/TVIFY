@@ -38,16 +38,16 @@ void main() {
         final result = tConfigurationModel.toJson();
         // assert
         final expectedMap = {
-          "images": {
-            "base_url": "http://image.tmdb.org/t/p/",
-            "secure_base_url": "https://image.tmdb.org/t/p/",
-            "backdrop_sizes": ["w300"],
-            "logo_sizes": ["w45"],
-            "poster_sizes": ["w92"],
-            "profile_sizes": ["w45"],
-            "still_sizes": ["w92"]
+          'images': {
+            'base_url': 'http://image.tmdb.org/t/p/',
+            'secure_base_url': 'https://image.tmdb.org/t/p/',
+            'backdrop_sizes': ['w300'],
+            'logo_sizes': ['w45'],
+            'poster_sizes': ['w92'],
+            'profile_sizes': ['w45'],
+            'still_sizes': ['w92']
           },
-          "change_keys": ["adult"]
+          'change_keys': ['adult']
         };
         expect(result, expectedMap);
       },

@@ -24,7 +24,7 @@ void main() {
 
   group('GetCachedCategory', () {
     test('Return List<ConfigurationModel> when cache is available', () async {
-      when(mockPref.getString(CACHED_CONFIGURATION))
+      when(mockPref.getString(Strings.cachedConfiguration))
           .thenReturn(dataReader('configuration/configuration.json'));
 
       expect(
@@ -32,10 +32,10 @@ void main() {
     });
 
     test('Return cacheException when no cache is available', () async {
-      when(mockPref.getString(CACHED_CONFIGURATION)).thenReturn(null);
+      when(mockPref.getString(Strings.cachedConfiguration)).thenReturn(null);
 
       expect(() => dataSource.getCachedConfiguration(),
-          throwsA(TypeMatcher<CacheException>()));
+          throwsA(const TypeMatcher<CacheException>()));
     });
   });
 
@@ -44,11 +44,11 @@ void main() {
       'should call SharedPreferences to cache the data',
       () async {
         // act
-        dataSource.cacheLastConfiguration(tConfigurationModel);
+        await dataSource.cacheLastConfiguration(tConfigurationModel);
         // assert
         final expectedJsonString = json.encode(tConfigurationModel.toJson());
         verify(mockPref.setString(
-          CACHED_CONFIGURATION,
+          Strings.cachedConfiguration,
           expectedJsonString,
         ));
       },

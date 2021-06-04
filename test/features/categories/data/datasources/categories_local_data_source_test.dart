@@ -27,7 +27,7 @@ void main() {
   ];
   group('GetCachedCategory', () {
     test('Return List<CategoriesModel> when cache is available', () async {
-      when(mockPref.getString(CACHED_CATEGORY))
+      when(mockPref.getString(Strings.cachedCategory))
           .thenReturn(dataReader('categories_list.json'));
 
       expect(
@@ -35,10 +35,10 @@ void main() {
     });
 
     test('Return cacheException when no cache is available', () async {
-      when(mockPref.getString(CACHED_CATEGORY)).thenReturn(null);
+      when(mockPref.getString(Strings.cachedCategory)).thenReturn(null);
 
       expect(() => dataSource.getCachedCategory(),
-          throwsA(TypeMatcher<CacheException>()));
+          throwsA(const TypeMatcher<CacheException>()));
     });
   });
 
@@ -47,12 +47,12 @@ void main() {
       'should call SharedPreferences to cache the data',
       () async {
         // act
-        dataSource.cacheLastCategory(tCategoriesModel);
+        await dataSource.cacheLastCategory(tCategoriesModel);
         // assert
         final expectedJsonString = json.encode(
             List<dynamic>.from(tCategoriesModel.map((x) => x.toJson())));
         verify(mockPref.setString(
-          CACHED_CATEGORY,
+          Strings.cachedCategory,
           expectedJsonString,
         ));
       },

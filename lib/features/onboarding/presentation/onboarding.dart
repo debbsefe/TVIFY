@@ -1,12 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/buttons.dart';
-import 'dart:async';
-
 import 'widgets/slide_dots.dart';
 import 'widgets/slide_item.dart';
 
 class Onboarding extends StatefulWidget {
+  const Onboarding({Key? key}) : super(key: key);
+
   @override
   _OnboardingState createState() => _OnboardingState();
 }
@@ -21,15 +23,16 @@ class _OnboardingState extends State<Onboarding> {
   void initState() {
     super.initState();
 
-    timer = Timer.periodic(Duration(seconds: 5), (Timer t) {
-      if (_currentPage < 2)
+    timer = Timer.periodic(const Duration(seconds: 5), (Timer t) {
+      if (_currentPage < 2) {
         _currentPage++;
-      else
+      } else {
         _currentPage = 0;
+      }
 
       _pageController.animateToPage(
         _currentPage,
-        duration: Duration(milliseconds: 150),
+        duration: const Duration(milliseconds: 150),
         curve: Curves.easeInOut,
       );
     });
@@ -51,58 +54,59 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        child: Stack(children: <Widget>[
-          PageView.builder(
-            scrollDirection: Axis.horizontal,
-            onPageChanged: _onPageChanged,
-            controller: _pageController,
-            itemCount: slideList.length,
-            itemBuilder: (ctx, i) => SlideItem(i),
-          ),
-          Positioned(
-              bottom: 160,
-              left: 30,
-              right: 15,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  for (int i = 0; i < slideList.length; i++)
-                    if (i == _currentPage) SlideDots(true) else SlideDots(false)
-                ],
-              )),
-          Positioned(
-            bottom: 60,
+      child: Stack(children: <Widget>[
+        PageView.builder(
+          scrollDirection: Axis.horizontal,
+          onPageChanged: _onPageChanged,
+          controller: _pageController,
+          itemCount: slideList.length,
+          itemBuilder: (ctx, i) => SlideItem(index: i),
+        ),
+        Positioned(
+            bottom: 160,
             left: 30,
-            right: 35,
-            child: CustomButton(
-              name: "Get Started",
-              onPressed: () async {
-                //context.read(categoriesProvider.notifier).fetchCategory();
-              },
-            ),
+            right: 15,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                for (int i = 0; i < slideList.length; i++)
+                  if (i == _currentPage)
+                    const SlideDots(isActive: true)
+                  else
+                    const SlideDots(isActive: false)
+              ],
+            )),
+        Positioned(
+          bottom: 60,
+          left: 30,
+          right: 35,
+          child: CustomButton(
+            name: 'Get Started',
+            onPressed: () async {
+              //context.read(categoriesProvider.notifier).fetchCategory();
+            },
           ),
-          // Consumer(builder: (context, watch, child) {
-          //   var state = watch(categoriesProvider);
-          //   if (state is CategoriesInitial) {
-          //     print('initial');
-          //     return Container();
-          //   } else if (state is CategoriesLoading) {
-          //     print('loading');
+        ),
+        // Consumer(builder: (context, watch, child) {
+        //   var state = watch(categoriesProvider);
+        //   if (state is CategoriesInitial) {
+        //     print('initial');
+        //     return Container();
+        //   } else if (state is CategoriesLoading) {
+        //     print('loading');
 
-          //     return Container();
-          //   } else if (state is CategoriesLoaded) {
-          //     print('loaded ${state.categories}');
+        //     return Container();
+        //   } else if (state is CategoriesLoaded) {
+        //     print('loaded ${state.categories}');
 
-          //     return Container();
-          //   } else if (state is CategoriesError) {
-          //     print('error ${state.message}');
-          //     return Container();
-          //   }
-          //   return Container();
-          // }),
-        ]),
-      ),
+        //     return Container();
+        //   } else if (state is CategoriesError) {
+        //     print('error ${state.message}');
+        //     return Container();
+        //   }
+        //   return Container();
+        // }),
+      ]),
     );
   }
 }

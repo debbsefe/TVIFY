@@ -22,18 +22,18 @@ void main() {
   group('fetch string/value from firebase remote config', () {
     test('returns a String when activateFetched is true', () async {
       when(remoteConfig.activateFetched()).thenAnswer((_) async => true);
-      when(remoteConfig.getString("yes")).thenReturn("1234");
-      when(configImpl.fetchToken("yes")).thenAnswer((_) async => '1234');
+      when(remoteConfig.getString('yes')).thenReturn('1234');
+      when(configImpl.fetchToken('yes')).thenAnswer((_) async => '1234');
 
-      expect(await configImpl.fetchToken("yes"), "1234");
+      expect(await configImpl.fetchToken('yes'), '1234');
     });
 
     test('returns a String when activateFetched is false', () async {
       when(remoteConfig.activateFetched()).thenAnswer((_) async => false);
-      when(remoteConfig.getString("yes")).thenReturn("1234");
-      when(configImpl.fetchToken("yes")).thenAnswer((_) async => '1234');
+      when(remoteConfig.getString('yes')).thenReturn('1234');
+      when(configImpl.fetchToken('yes')).thenAnswer((_) async => '1234');
 
-      expect(await configImpl.fetchToken("yes"), "1234");
+      expect(await configImpl.fetchToken('yes'), '1234');
     });
   });
 }

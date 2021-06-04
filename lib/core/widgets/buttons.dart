@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import '../theme/theme.dart';
 
 class CustomButton extends StatelessWidget {
-  final String name;
-  final VoidCallback onPressed;
-  final double fontSize, height;
-  final Color? color, textColor;
-
   const CustomButton(
       {required this.name,
       required this.onPressed,
       this.fontSize = 16,
       this.color,
       this.textColor,
-      this.height = 55});
+      this.height = 55,
+      Key? key})
+      : super(key: key);
+  final String name;
+  final VoidCallback onPressed;
+  final double fontSize, height;
+  final Color? color, textColor;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(

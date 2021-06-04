@@ -1,0 +1,10 @@
+include: package:very_good_analysis/analysis_options.yaml
+analyzer:
+  errors:
+    # import_of_legacy_library_into_null_safe: ignore
+    # public_member_api_docs: ignore
+    # avoid_dynamic_calls: ignore
+    # overridden_fields: ignore
+    # cascade_invocations: ignore
+    # annotate_overrides: ignore
+    # omit_local_variable_types: ignore

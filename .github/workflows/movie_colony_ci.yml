@@ -44,18 +44,18 @@ jobs:
           min_coverage: 70
           exclude: "**/*_observer.dart **/change.dart **/*_notifier.dart"
 
-      # Build apk.
-      - run: |
-          mkdir $HOME/secrets
-          gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" \
-          --output $HOME/secrets/secrets.tar secrets.tar.gpg
-          tar xvf $HOME/secrets/secrets.tar
-          flutter build apk --no-sound-null-safety
-        env:
-          SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
+      # # Build apk.
+      # - run: |
+      #     mkdir $HOME/secrets
+      #     gpg --quiet --batch --yes --decrypt --passphrase="$SECRET_PASSPHRASE" \
+      #     --output $HOME/secrets/secrets.tar secrets.tar.gpg
+      #     tar xvf $HOME/secrets/secrets.tar
+      #     flutter build apk --no-sound-null-safety
+      #   env:
+      #     SECRET_PASSPHRASE: ${{ secrets.SECRET_PASSPHRASE }}
 
-      # Upload generated apk to the artifacts.
-      - uses: actions/upload-artifact@v1
-        with:
-          name: release-apk
-          path: build/app/outputs/apk/release/app-release.apk
+      # # Upload generated apk to the artifacts.
+      # - uses: actions/upload-artifact@v1
+      #   with:
+      #     name: release-apk
+      #     path: build/app/outputs/apk/release/app-release.apk
