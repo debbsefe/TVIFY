@@ -28,7 +28,7 @@ void main() {
   group('GetCachedCategory', () {
     test('Return List<CategoriesModel> when cache is available', () async {
       when(mockPref.getString(Strings.cachedCategory))
-          .thenReturn(dataReader('categories_list.json'));
+          .thenReturn(dataReader('categories/categories_list.json'));
 
       expect(
           await dataSource.getCachedCategory(), isA<List<CategoriesModel>>());

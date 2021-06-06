@@ -19,7 +19,7 @@ void main() {
   late MockClient client;
   late MockConfig mockConfig;
   late TrendingRemoteDataSourceImpl dataSource;
-  Uri url = Uri.parse('genre/tv/list?api_key=123456'.baseurl);
+  Uri url = Uri.parse('trending/tv/week?api_key=123456'.baseurl);
   setUp(() {
     client = MockClient();
     mockConfig = MockConfig();
@@ -32,12 +32,12 @@ void main() {
         .thenAnswer((_) async => '123456');
   }
 
-  group('fetchCategory', () {
-    test('returns a List of category if the http call completes successfully',
+  group('fetchTrending', () {
+    test('returns a List of trending if the http call completes successfully',
         () async {
       stubFetchToken();
-      when(client.get(url)).thenAnswer(
-          (_) async => http.Response(dataReader('Trending_list.json'), 200));
+      when(client.get(url)).thenAnswer((_) async =>
+          http.Response(dataReader('trending/trending_list.json'), 200));
 
       expect(await dataSource.getRemoteTrending(), isA<List<TrendingModel>>());
     });
