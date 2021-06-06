@@ -19,6 +19,7 @@ import 'features/categories/presentation/notifiers/categories_notifier.dart';
 
 final sl = GetIt.instance;
 
+// ignore_for_file: cascade_invocations
 Future<void> init() async {
   sl.registerLazySingleton<CustomTheme>(
     () => CustomTheme(sl()),
@@ -63,7 +64,7 @@ Future<void> init() async {
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
-  final RemoteConfig remoteConfig = await RemoteConfig.instance;
+  final RemoteConfig remoteConfig = RemoteConfig.instance;
 
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => remoteConfig);

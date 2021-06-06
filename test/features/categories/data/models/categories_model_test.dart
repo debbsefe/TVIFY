@@ -21,7 +21,7 @@ void main() {
       () async {
         // arrange
 
-        final String jsonString = dataReader('categories.json');
+        final String jsonString = dataReader('categories/categories.json');
         final Map<String, dynamic> jsonMap = json.decode(jsonString);
         // act
         final result = CategoriesModel.fromJson(jsonMap);

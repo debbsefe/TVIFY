@@ -12,10 +12,10 @@ import 'injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   //initialize dependency injection
   await di.init();
-  await Firebase.initializeApp();
 
   runApp(
     const ProviderScope(
