@@ -40,8 +40,8 @@ void main() {
     test('returns a List of category if the http call completes successfully',
         () async {
       stubFetchToken();
-      when(client.get(url)).thenAnswer(
-          (_) async => http.Response(dataReader('categories_list.json'), 200));
+      when(client.get(url)).thenAnswer((_) async =>
+          http.Response(dataReader('categories/categories_list.json'), 200));
 
       expect(
           await dataSource.getRemoteCategories(), isA<List<CategoriesModel>>());

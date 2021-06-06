@@ -1,44 +1,37 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:movie_colony/core/cache/app_cache.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
-import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
-import 'package:movie_colony/features/categories/data/models/categories_model.dart';
-import 'package:movie_colony/features/categories/data/repositories/categories_repository_impl.dart';
-import 'package:movie_colony/features/categories/domain/entities/categories.dart';
+import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
+import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
+import 'package:movie_colony/features/trending/data/repositories/trending_repository_impl.dart';
+import 'package:movie_colony/features/trending/domain/entities/trending.dart';
 
-class MockCategoriesRemoteDataSource extends Mock
-    implements CategoriesRemoteDataSource {}
+import '../../../../data/trending/constants.dart';
 
-class MockCategoriesLocalDataSource extends Mock
-    implements CategoriesLocalDataSource {}
+class MockTrendingRemoteDataSource extends Mock
+    implements TrendingRemoteDataSource {}
+
+class MockTrendingLocalDataSource extends Mock
+    implements TrendingLocalDataSource {}
 
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
-class MockAppCache extends Mock implements AppCache {}
-
 void main() {
-  late MockCategoriesRemoteDataSource mockRemoteDataSource;
-  late MockCategoriesLocalDataSource mockLocalDataSource;
+  late MockTrendingRemoteDataSource mockRemoteDataSource;
+  late MockTrendingLocalDataSource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
-  late CategoriesRepositoryImpl repository;
-  late MockAppCache cache;
-  final tKey = Strings.cachedCategory;
+  late TrendingRepositoryImpl repository;
 
   setUp(() {
-    mockRemoteDataSource = MockCategoriesRemoteDataSource();
-    mockLocalDataSource = MockCategoriesLocalDataSource();
+    mockRemoteDataSource = MockTrendingRemoteDataSource();
+    mockLocalDataSource = MockTrendingLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
-    cache = MockAppCache();
-    repository = CategoriesRepositoryImpl(
+    repository = TrendingRepositoryImpl(
         localDataSource: mockLocalDataSource,
         remoteDataSource: mockRemoteDataSource,
-        cache: cache,
         networkInfo: mockNetworkInfo);
   });
 
@@ -62,13 +55,8 @@ void main() {
     });
   }
 
-  group('getCategory', () {
-    final List<CategoriesModel> tCategoriesModel = [
-      CategoriesModel(id: 1, name: 'Romance'),
-      CategoriesModel(id: 2, name: 'Comedy'),
-      CategoriesModel(id: 3, name: 'Drama'),
-    ];
-    final List<Categories> tCategories = tCategoriesModel;
+  group('getTrending', () {
+    final List<Trending> tTrending = tTrendingModelList;
 
     test(
       'should check if the device is online',
@@ -76,7 +64,7 @@ void main() {
         // arrange
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
         // act
-        await repository.getCategories();
+        await repository.getTrending();
         // assert
         verify(mockNetworkInfo.isConnected);
       },
@@ -88,38 +76,14 @@ void main() {
 should return remote data when the call to remote data source is successful''',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteCategories())
-              .thenAnswer((_) async => tCategoriesModel);
+          when(mockRemoteDataSource.getRemoteTrending())
+              .thenAnswer((_) async => tTrendingModelList);
           // act
-          final result = await repository.getCategories();
+          final result = await repository.getTrending();
           // assert
-          verify(mockRemoteDataSource.getRemoteCategories());
+          verify(mockRemoteDataSource.getRemoteTrending());
 
-          expect(result, equals(Right(tCategories)));
-        },
-      );
-
-      test(
-        'should call remote data when hasExpired is true',
-        () async {
-          // act
-          when(cache.isExpired(tKey)).thenReturn(true);
-
-          await repository.getCategories();
-          verify(mockNetworkInfo.isConnected);
-
-          verify(mockRemoteDataSource.getRemoteCategories());
-        },
-      );
-
-      test(
-        'should call local data when hasExpired is false',
-        () async {
-          when(cache.isExpired(tKey)).thenReturn(false);
-          // act
-          await repository.getCategories();
-          // assert
-          verify(mockLocalDataSource.getCachedCategory());
+          expect(result, equals(Right(tTrending)));
         },
       );
 
@@ -128,13 +92,13 @@ should return remote data when the call to remote data source is successful''',
 should cache the data locally when the call to remote data source is successful''',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteCategories())
-              .thenAnswer((_) async => tCategoriesModel);
+          when(mockRemoteDataSource.getRemoteTrending())
+              .thenAnswer((_) async => tTrendingModelList);
           // act
-          await repository.getCategories();
+          await repository.getTrending();
           // assert
-          verify(mockRemoteDataSource.getRemoteCategories());
-          verify(mockLocalDataSource.cacheLastCategory(tCategoriesModel));
+          verify(mockRemoteDataSource.getRemoteTrending());
+          verify(mockLocalDataSource.cacheLastTrending(tTrendingModelList));
         },
       );
 
@@ -143,12 +107,12 @@ should cache the data locally when the call to remote data source is successful'
 should return server failure when the call to remote data source is unsuccessful''',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteCategories())
+          when(mockRemoteDataSource.getRemoteTrending())
               .thenThrow(ServerException());
           // act
-          final result = await repository.getCategories();
+          final result = await repository.getTrending();
           // assert
-          verify(mockRemoteDataSource.getRemoteCategories());
+          verify(mockRemoteDataSource.getRemoteTrending());
           verifyZeroInteractions(mockLocalDataSource);
           expect(result, equals(Left(ServerFailure())));
         },
@@ -161,14 +125,14 @@ should return server failure when the call to remote data source is unsuccessful
 should return last locally cached data when the cached data is present''',
         () async {
           // arrange
-          when(mockLocalDataSource.getCachedCategory())
-              .thenAnswer((_) async => tCategoriesModel);
+          when(mockLocalDataSource.getCachedTrending())
+              .thenAnswer((_) async => tTrendingModelList);
           // act
-          final result = await repository.getCategories();
+          final result = await repository.getTrending();
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
-          verify(mockLocalDataSource.getCachedCategory());
-          expect(result, equals(Right(tCategories)));
+          verify(mockLocalDataSource.getCachedTrending());
+          expect(result, equals(Right(tTrending)));
         },
       );
 
@@ -176,13 +140,13 @@ should return last locally cached data when the cached data is present''',
         'should return CacheFailure when there is no cached data present',
         () async {
           // arrange
-          when(mockLocalDataSource.getCachedCategory())
+          when(mockLocalDataSource.getCachedTrending())
               .thenThrow(CacheException());
           // act
-          final result = await repository.getCategories();
+          final result = await repository.getTrending();
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
-          verify(mockLocalDataSource.getCachedCategory());
+          verify(mockLocalDataSource.getCachedTrending());
           expect(result, equals(Left(CacheFailure())));
         },
       );

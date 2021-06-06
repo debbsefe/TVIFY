@@ -4,16 +4,14 @@ import 'package:movie_colony/features/trending/data/models/trending_model.dart';
 import 'package:movie_colony/features/trending/domain/entities/trending.dart';
 
 import '../../../../data/data_reader.dart';
+import '../../../../data/trending/constants.dart';
 
 void main() {
-  const tTrendingModel = TrendingModel(
-    id: 1,
-    name: 'Romance',
-    date: '02/12/12',
-    posterImage: 'xhw',
-    rating: 12,
-    backdropImage: '2',
-  );
+  Map<String, dynamic> jsonToMap() {
+    final String jsonString = dataReader('trending/trending.json');
+    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    return jsonMap;
+  }
 
   test(
     'should be a subclass of Trending entity',
@@ -28,10 +26,8 @@ void main() {
       () async {
         // arrange
 
-        final String jsonString = dataReader('trending.json');
-        final Map<String, dynamic> jsonMap = json.decode(jsonString);
         // act
-        final result = TrendingModel.fromJson(jsonMap);
+        final result = TrendingModel.fromJson(jsonToMap());
         // assert
         expect(result, tTrendingModel);
       },
@@ -44,11 +40,8 @@ void main() {
         // act
         final result = tTrendingModel.toJson();
         // assert
-        final expectedMap = {
-          'id': 1,
-          'name': 'Test',
-        };
-        expect(result, expectedMap);
+
+        expect(result, jsonToMap());
       },
     );
   });

@@ -1,0 +1,20 @@
+{
+    "results": [
+        {
+            "id": 1,
+            "name": "Romance",
+            "first_air_date": "02/12/12",
+            "poster_path": "xhw",
+            "vote_average": 12,
+            "backdrop_path": "2"
+        },
+        {
+            "id": 2,
+            "name": "Comedy",
+            "first_air_date": "02/12/12",
+            "poster_path": "xhw",
+            "vote_average": 12,
+            "backdrop_path": "2"
+        }
+    ]
+}
