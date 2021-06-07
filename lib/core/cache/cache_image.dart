@@ -9,7 +9,7 @@ class CachedImage extends StatelessWidget {
     this.radius = 0,
     this.height,
     this.width,
-    this.fit = BoxFit.cover,
+    this.fit = BoxFit.fill,
   }) : super(key: key);
   final String imageUrl;
   final bool isRound;

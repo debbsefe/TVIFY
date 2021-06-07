@@ -25,7 +25,7 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
     final jsonString = sharedPreferences.getString(Strings.cachedTrending);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
-      return Future.value(parsed['results']
+      return Future.value(parsed
           .map<TrendingModel>((json) => TrendingModel.fromJson(json))
           .toList());
     } else {

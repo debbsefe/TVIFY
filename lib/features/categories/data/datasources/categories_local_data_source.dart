@@ -25,7 +25,7 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
     final jsonString = sharedPreferences.getString(Strings.cachedCategory);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
-      return Future.value(parsed['genres']
+      return Future.value(parsed
           .map<CategoriesModel>((json) => CategoriesModel.fromJson(json))
           .toList());
     } else {
