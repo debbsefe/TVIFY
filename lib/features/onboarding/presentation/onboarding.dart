@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_colony/core/custom_shared_preference/custom_shared_preference.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/homescreen/presentation/homescreen.dart';
+import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
 
 import '../../../core/widgets/buttons.dart';
 import '../../../injection_container.dart' as di;

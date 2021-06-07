@@ -2,12 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:movie_colony/features/homescreen/presentation/homescreen.dart';
 import 'package:movie_colony/providers.dart';
 
 import 'core/custom_shared_preference/custom_shared_preference.dart';
 import 'core/theme/theme.dart';
 import 'core/utils/strings.dart';
+import 'features/homescreen/presentation/widgets/homescreen_tab.dart';
 import 'features/onboarding/presentation/onboarding.dart';
 import 'injection_container.dart' as di;
 
@@ -41,8 +41,7 @@ class MovieColony extends ConsumerWidget {
         debugShowCheckedModeBanner: false,
         title: 'MovieColony',
         theme: theme,
-        home:
-            isFirstTimeUser == null ? const Onboarding() : const HomeScreen());
+        home: isFirstTimeUser == null ? const Onboarding() : HomeScreenTab());
   }
 }
 

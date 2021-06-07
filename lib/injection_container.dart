@@ -31,10 +31,10 @@ Future<void> init() async {
   sl.registerLazySingleton<CustomTheme>(
     () => CustomTheme(sl()),
   );
-  sl.registerFactory<CategoriesNotifier>(
+  sl.registerLazySingleton<CategoriesNotifier>(
     () => CategoriesNotifier(sl()),
   );
-  sl.registerFactory<TrendingNotifier>(
+  sl.registerLazySingleton<TrendingNotifier>(
     () => TrendingNotifier(sl()),
   );
   sl.registerLazySingleton<ThemeSharedPreference>(
