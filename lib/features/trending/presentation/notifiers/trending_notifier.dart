@@ -10,7 +10,7 @@ class TrendingNotifier extends StateNotifier<TrendingState> {
 
   final GetAllTrending allTrending;
 
-  void fetchCategory() async {
+  void fetchTrending() async {
     state = TrendingLoading();
     final result = await allTrending(NoParams());
     result.fold(

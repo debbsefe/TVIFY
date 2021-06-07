@@ -90,11 +90,35 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static TextTheme darkTextTheme = const TextTheme(
     bodyText1: paragraph2Bold,
     subtitle1: subtitleRegDark,
+    subtitle2: subtitle,
+    headline6: headline6Dark,
   );
 
   static TextTheme lightTextTheme = const TextTheme(
     bodyText1: paragraph1Bold,
     subtitle1: subtitleRegLight,
+    subtitle2: subtitle,
+    headline6: headline6Light,
+  );
+
+  static const TextStyle headline6Light = TextStyle(
+    // headline6 -> headline6
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    color: greyColor1,
+  );
+
+  static const TextStyle headline6Dark = TextStyle(
+    // headline6 -> headline6
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    color: scaffoldLight,
+  );
+
+  static const TextStyle subtitle = TextStyle(
+    // subtitle -> subtitleLight
+    fontSize: 12,
+    color: greyColor4,
   );
 
   static const TextStyle subtitleRegLight = TextStyle(

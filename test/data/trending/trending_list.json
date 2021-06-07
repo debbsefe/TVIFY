@@ -6,7 +6,8 @@
             "first_air_date": "02/12/12",
             "poster_path": "xhw",
             "vote_average": 12,
-            "backdrop_path": "2"
+            "backdrop_path": "2",
+            "overview": "test"
         },
         {
             "id": 2,
@@ -14,7 +15,8 @@
             "first_air_date": "02/12/12",
             "poster_path": "xhw",
             "vote_average": 12,
-            "backdrop_path": "2"
+            "backdrop_path": "2",
+            "overview": "test"
         }
     ]
 }

@@ -8,11 +8,12 @@ class Trending extends Equatable {
     required this.posterImage,
     required this.id,
     required this.name,
+    required this.overview,
   });
 
   final int id;
   final String name;
-  final String date;
+  final String date, overview;
   final num rating;
   final String backdropImage;
   final String posterImage;

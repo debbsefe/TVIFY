@@ -13,6 +13,7 @@ class TrendingModel extends Trending {
     required this.date,
     required this.posterImage,
     required this.backdropImage,
+    required this.overview,
   }) : super(
           id: id,
           name: name,
@@ -20,6 +21,7 @@ class TrendingModel extends Trending {
           date: date,
           posterImage: posterImage,
           backdropImage: backdropImage,
+          overview: overview,
         );
 
   factory TrendingModel.fromJson(Map<String, dynamic> json) =>
@@ -35,6 +37,7 @@ class TrendingModel extends Trending {
   final String posterImage;
   @JsonKey(name: 'backdrop_path')
   final String backdropImage;
+  final String overview;
 
   Map<String, dynamic> toJson() => _$TrendingModelToJson(this);
 }
