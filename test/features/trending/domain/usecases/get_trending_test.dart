@@ -20,6 +20,7 @@ void main() {
       posterImage: 'xhw',
       rating: 12,
       backdropImage: '2',
+      overview: 'test',
     ),
     const Trending(
       id: 1,
@@ -28,14 +29,7 @@ void main() {
       posterImage: 'xhw',
       rating: 12,
       backdropImage: '2',
-    ),
-    const Trending(
-      id: 1,
-      name: 'Romance',
-      date: '02/12/12',
-      posterImage: 'xhw',
-      rating: 12,
-      backdropImage: '2',
+      overview: 'test',
     ),
   ];
 

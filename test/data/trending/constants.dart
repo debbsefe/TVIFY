@@ -7,6 +7,7 @@ const tTrendingModel = TrendingModel(
   posterImage: 'xhw',
   rating: 12,
   backdropImage: '2',
+  overview: 'test',
 );
 
 final tTrendingModelList = [
@@ -17,5 +18,6 @@ final tTrendingModelList = [
     posterImage: 'xhw',
     rating: 12,
     backdropImage: '2',
+    overview: 'test',
   ),
 ];

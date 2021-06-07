@@ -14,6 +14,7 @@ TrendingModel _$TrendingModelFromJson(Map<String, dynamic> json) {
     date: json['first_air_date'] as String,
     posterImage: json['poster_path'] as String,
     backdropImage: json['backdrop_path'] as String,
+    overview: json['overview'] as String,
   );
 }
 
@@ -25,4 +26,5 @@ Map<String, dynamic> _$TrendingModelToJson(TrendingModel instance) =>
       'first_air_date': instance.date,
       'poster_path': instance.posterImage,
       'backdrop_path': instance.backdropImage,
+      'overview': instance.overview,
     };
