@@ -39,7 +39,8 @@ void main() {
       when(client.get(url)).thenAnswer((_) async =>
           http.Response(dataReader('trending/trending_list.json'), 200));
 
-      expect(await dataSource.getRemoteTrending(), isA<List<TrendingModel>>());
+      expect(await dataSource.getRemoteTrendingWeekly(),
+          isA<List<TrendingModel>>());
     });
 
     test('throws an exception if the http call completes with an error', () {
@@ -48,7 +49,7 @@ void main() {
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(() => dataSource.getRemoteTrending(),
+      expect(() => dataSource.getRemoteTrendingWeekly(),
           throwsA(const TypeMatcher<ServerException>()));
     });
   });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/features/homescreen/presentation/widgets/categories_widget.dart';
+import 'package:movie_colony/features/homescreen/presentation/widgets/trending_widget.dart';
 
 import 'package:movie_colony/features/homescreen/presentation/widgets/tvshow_week.dart';
 
@@ -21,7 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> callProviders() async {
-    context.read(trendingProvider.notifier).fetchTrending();
+    context.read(weeklyTrendingProvider.notifier).fetchTrending();
+    context.read(dailyTrendingProvider.notifier).fetchTrending();
     context.read(categoriesProvider.notifier).fetchCategory();
   }
 
@@ -38,9 +40,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 const TvShowOfTheWeek(),
                 Text(
                   'Categories',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 const SizedBox(height: 100, child: CategoriesWidget()),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 10),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Explore what’s trending',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                      Text('See all',
+                          style: Theme.of(context).textTheme.subtitle2)
+                    ],
+                  ),
+                ),
+                Text(
+                  'Popular tv shows around the world',
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+                const SizedBox(height: 400, child: TrendingWidget()),
               ],
             ),
           ),

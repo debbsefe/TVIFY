@@ -9,7 +9,8 @@ import '../../../../core/utils/strings.dart';
 import '../models/trending_model.dart';
 
 abstract class TrendingRemoteDataSource {
-  Future<List<TrendingModel>> getRemoteTrending();
+  Future<List<TrendingModel>> getRemoteTrendingWeekly();
+  Future<List<TrendingModel>> getRemoteTrendingDaily();
 }
 
 class TrendingRemoteDataSourceImpl implements TrendingRemoteDataSource {
@@ -19,9 +20,27 @@ class TrendingRemoteDataSourceImpl implements TrendingRemoteDataSource {
   final Config config;
 
   @override
-  Future<List<TrendingModel>> getRemoteTrending() async {
+  Future<List<TrendingModel>> getRemoteTrendingWeekly() async {
     String _token = await config.fetchToken(Strings.apiKeyTmdb);
     String _url = 'trending/tv/week?api_key=$_token'.baseurl;
+    final response = await client.get(
+      Uri.parse(_url),
+    );
+
+    if (response.statusCode == 200) {
+      final parsed = json.decode(response.body);
+      return parsed['results']
+          .map<TrendingModel>((json) => TrendingModel.fromJson(json))
+          .toList();
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<TrendingModel>> getRemoteTrendingDaily() async {
+    String _token = await config.fetchToken(Strings.apiKeyTmdb);
+    String _url = 'trending/tv/day?api_key=$_token'.baseurl;
     final response = await client.get(
       Uri.parse(_url),
     );

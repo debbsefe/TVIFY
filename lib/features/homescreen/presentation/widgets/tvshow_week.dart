@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/cache/cache_image.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
 import 'package:movie_colony/features/trending/domain/entities/trending.dart';
-import 'package:movie_colony/features/trending/presentation/notifiers/trending_state.dart';
+import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_state.dart';
 
 import 'package:movie_colony/core/utils/extensions.dart';
 import '../../../../providers.dart';
@@ -13,9 +13,9 @@ class TvShowOfTheWeek extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final trending = watch(trendingProvider);
-    if (trending is TrendingLoaded) {
-      Trending trend = trending.trending[0];
+    final trending = watch(weeklyTrendingProvider);
+    if (trending is WeeklyTrendingLoaded) {
+      Trending trend = trending.weeklyTrending[0];
       return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +33,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
               children: [
                 Text(
                   'Tv show of the week',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline4,
                 ),
                 Text('About ${trend.name}',
                     style: Theme.of(context).textTheme.subtitle2)

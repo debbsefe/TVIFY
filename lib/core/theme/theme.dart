@@ -66,6 +66,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const Color orangeColor = Color(0xFFC8511B);
   static const Color yellowColor = Color(0xFFC9A717);
   static const Color buttonColor1 = Color(0xFFFBECEF);
+  static const Color yellowStar = Color(0xFFF3CD2A);
 
   static ThemeData lightThemeData = ThemeData(
       primarySwatch: Colors.brown,
@@ -93,6 +94,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static TextTheme darkTextTheme = const TextTheme(
     subtitle1: subtitleRegDark,
     subtitle2: subtitle,
+    headline4: headline4Dark,
     headline6: headline6Dark,
     caption: captionDark,
   );
@@ -100,22 +102,33 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static TextTheme lightTextTheme = const TextTheme(
     subtitle1: subtitleRegLight,
     subtitle2: subtitle,
+    headline4: headline4Light,
     headline6: headline6Light,
     caption: captionLight,
   );
 
-  static const TextStyle headline6Light = TextStyle(
-    // headline6 -> headline6
+  static const TextStyle headline4Light = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 16,
     color: greyColor1,
   );
 
-  static const TextStyle headline6Dark = TextStyle(
-    // headline6 -> headline6
+  static const TextStyle headline4Dark = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 16,
     color: scaffoldLight,
+  );
+
+  static const TextStyle headline6Light = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 12,
+    color: greyColor1,
+  );
+
+  static const TextStyle headline6Dark = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 12,
+    color: greyColor7,
   );
 
   static const TextStyle captionLight = TextStyle(

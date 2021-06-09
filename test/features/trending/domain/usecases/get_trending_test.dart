@@ -5,13 +5,13 @@ import 'package:movie_colony/core/usecases/usecase.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_colony/features/trending/domain/entities/trending.dart';
 import 'package:movie_colony/features/trending/domain/repositories/trending_repository.dart';
-import 'package:movie_colony/features/trending/domain/usecases/get_trending.dart';
+import 'package:movie_colony/features/trending/domain/usecases/get_trending_weekly.dart';
 
 class MockTrendingRepository extends Mock implements TrendingRepository {}
 
 void main() {
   MockTrendingRepository mockTrendingRepository;
-  GetAllTrending usecase;
+  GetWeeklyTrending usecase;
   final tTrending = [
     const Trending(
       id: 1,
@@ -37,15 +37,15 @@ void main() {
     'should get Trending from the repository',
     () async {
       mockTrendingRepository = MockTrendingRepository();
-      usecase = GetAllTrending(mockTrendingRepository);
+      usecase = GetWeeklyTrending(mockTrendingRepository);
       // arrange, stub the method
-      when(mockTrendingRepository.getTrending())
+      when(mockTrendingRepository.getTrendingWeekly())
           .thenAnswer((_) async => Right(tTrending));
       // act
       final result = await usecase(NoParams());
       // assert
       expect(result, Right(tTrending));
-      verify(mockTrendingRepository.getTrending());
+      verify(mockTrendingRepository.getTrendingWeekly());
       verifyNoMoreInteractions(mockTrendingRepository);
     },
   );

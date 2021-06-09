@@ -2,7 +2,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_colony/features/trending/domain/usecases/get_trending.dart';
+import 'package:movie_colony/features/trending/domain/usecases/get_trending_weekly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/cache/app_cache.dart';
@@ -21,7 +21,9 @@ import 'features/trending/data/datasources/trending_local_data_source.dart';
 import 'features/trending/data/datasources/trending_remote_data_source.dart';
 import 'features/trending/data/repositories/trending_repository_impl.dart';
 import 'features/trending/domain/repositories/trending_repository.dart';
-import 'features/trending/presentation/notifiers/trending_notifier.dart';
+import 'features/trending/domain/usecases/get_trending_daily.dart';
+import 'features/trending/presentation/notifiers/daily_trending_notifier.dart';
+import 'features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
 final sl = GetIt.instance;
 
@@ -34,8 +36,12 @@ Future<void> init() async {
   sl.registerLazySingleton<CategoriesNotifier>(
     () => CategoriesNotifier(sl()),
   );
-  sl.registerLazySingleton<TrendingNotifier>(
-    () => TrendingNotifier(sl()),
+  sl.registerLazySingleton<WeeklyTrendingNotifier>(
+    () => WeeklyTrendingNotifier(sl()),
+  );
+
+  sl.registerLazySingleton<DailyTrendingNotifier>(
+    () => DailyTrendingNotifier(sl()),
   );
   sl.registerLazySingleton<ThemeSharedPreference>(
     () => ThemeSharedPreference(sl()),
@@ -70,7 +76,8 @@ Future<void> init() async {
 
   ///usecases
   sl.registerLazySingleton(() => GetAllCategories(sl()));
-  sl.registerLazySingleton(() => GetAllTrending(sl()));
+  sl.registerLazySingleton(() => GetWeeklyTrending(sl()));
+  sl.registerLazySingleton(() => GetDailyTrending(sl()));
 
   ///repository
 
