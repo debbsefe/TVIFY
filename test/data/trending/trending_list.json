@@ -1,4 +1,4 @@
- [
+ {"results" : [
         {
             "id": 1,
             "name": "Romance",
@@ -18,3 +18,4 @@
             "overview": "test"
         }
     ]
+}

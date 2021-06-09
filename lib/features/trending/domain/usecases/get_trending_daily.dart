@@ -5,13 +5,13 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/trending.dart';
 import '../repositories/trending_repository.dart';
 
-class GetAllTrending extends UseCase<List<Trending>, NoParams> {
-  GetAllTrending(this.repository);
+class GetDailyTrending extends UseCase<List<Trending>, NoParams> {
+  GetDailyTrending(this.repository);
 
   final TrendingRepository repository;
 
   @override
   Future<Either<Failure, List<Trending>>> call(NoParams params) async {
-    return await repository.getTrending();
+    return await repository.getTrendingDaily();
   }
 }
