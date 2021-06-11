@@ -4,10 +4,10 @@ import 'package:matcher/matcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/models/movie_list/movie_list_model.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
-import 'package:movie_colony/features/trending/data/models/trending_model.dart';
 
 import '../../../../data/data_reader.dart';
 
@@ -37,10 +37,10 @@ void main() {
         () async {
       stubFetchToken();
       when(client.get(url)).thenAnswer((_) async =>
-          http.Response(dataReader('trending/trending_list.json'), 200));
+          http.Response(dataReader('movie_list/movie_list.json'), 200));
 
       expect(await dataSource.getRemoteTrendingWeekly(),
-          isA<List<TrendingModel>>());
+          isA<List<MovieListModel>>());
     });
 
     test('throws an exception if the http call completes with an error', () {

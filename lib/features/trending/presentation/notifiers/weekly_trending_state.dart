@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie_colony/features/trending/domain/entities/trending.dart';
+import 'package:movie_colony/core/models/movie_list/movie_list.dart';
 
 abstract class WeeklyTrendingState extends Equatable {}
 
@@ -16,7 +16,7 @@ class WeeklyTrendingLoading extends WeeklyTrendingState {
 class WeeklyTrendingLoaded extends WeeklyTrendingState {
   WeeklyTrendingLoaded(this.weeklyTrending);
 
-  final List<Trending> weeklyTrending;
+  final List<MovieList> weeklyTrending;
 
   @override
   List<Object> get props => [weeklyTrending];

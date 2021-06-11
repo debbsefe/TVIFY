@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entities/trending.dart';
+import 'movie_list.dart';
 
-part 'trending_model.g.dart';
+part 'movie_list_model.g.dart';
 
 @JsonSerializable()
-class TrendingModel extends Trending {
-  const TrendingModel({
+class MovieListModel extends MovieList {
+  const MovieListModel({
     required this.id,
     required this.name,
     required this.rating,
@@ -24,8 +24,8 @@ class TrendingModel extends Trending {
           overview: overview,
         );
 
-  factory TrendingModel.fromJson(Map<String, dynamic> json) =>
-      _$TrendingModelFromJson(json);
+  factory MovieListModel.fromJson(Map<String, dynamic> json) =>
+      _$MovieListModelFromJson(json);
 
   final int id;
   final String name;
@@ -39,5 +39,5 @@ class TrendingModel extends Trending {
   final String backdropImage;
   final String overview;
 
-  Map<String, dynamic> toJson() => _$TrendingModelToJson(this);
+  Map<String, dynamic> toJson() => _$MovieListModelToJson(this);
 }
