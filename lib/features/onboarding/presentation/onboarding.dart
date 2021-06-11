@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movie_colony/core/custom_shared_preference/custom_shared_preference.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
 
+import '../../../core/cache/app_cache.dart';
+import '../../../core/utils/strings.dart';
 import '../../../core/widgets/buttons.dart';
-import '../../../injection_container.dart' as di;
+import '../../../service_locator.dart' as di;
+import '../../homescreen/presentation/screens/homescreen.dart';
 import 'widgets/slide_dots.dart';
 import 'widgets/slide_item.dart';
 
@@ -25,7 +25,7 @@ class _OnboardingState extends State<Onboarding> {
 
   late Timer timer;
 
-  CustomSharedPreference prefs = di.sl<CustomSharedPreference>();
+  AppCache prefs = di.sl<AppCache>();
 
   @override
   void initState() {

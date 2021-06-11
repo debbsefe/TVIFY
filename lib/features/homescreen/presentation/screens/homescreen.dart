@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/features/homescreen/presentation/widgets/categories_widget.dart';
-import 'package:movie_colony/features/homescreen/presentation/widgets/trending_widget.dart';
-
-import 'package:movie_colony/features/homescreen/presentation/widgets/tvshow_week.dart';
 
 import '../../../../providers.dart';
+import '../widgets/categories_widget.dart';
+import '../widgets/trending_widget.dart';
+import '../widgets/tvshow_week.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

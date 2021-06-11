@@ -46,7 +46,7 @@ jobs:
       - uses: VeryGoodOpenSource/very_good_coverage@v1.1.1
         with:
           path: "./coverage/lcov.info"
-          min_coverage: 70
+          min_coverage: 50
           exclude: "**/*_observer.dart **/change.dart **/*_notifier.dart"
 
       # # Build apk.

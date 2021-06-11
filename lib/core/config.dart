@@ -19,5 +19,3 @@ class ConfigImpl implements Config {
     return remoteConfig.getString(value);
   }
 }
-
-//TODO:DOCUMENTATION HAS CHANGED NEED TO REWRITE METHOD

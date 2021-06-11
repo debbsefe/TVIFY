@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_colony/core/utils/strings.dart';
 
 import '../../../../core/cache/app_cache.dart';
 import '../../../../core/error/exception.dart';
 import '../../../../core/error/failure.dart';
 import '../../../../core/network/network_info.dart';
+import '../../../../core/utils/strings.dart';
 import '../../domain/entities/categories.dart';
 import '../../domain/repositories/categories_repository.dart';
 import '../datasources/categories_local_data_source.dart';

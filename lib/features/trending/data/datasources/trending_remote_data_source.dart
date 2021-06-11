@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movie_colony/core/models/movie_list/movie_list_model.dart';
 
 import '../../../../core/config.dart';
 import '../../../../core/error/exception.dart';
+import '../../../../core/models/movie_list/movie_list_model.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../../core/utils/strings.dart';
 

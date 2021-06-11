@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:movie_colony/core/models/movie_list/movie_list_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/error/exception.dart';
+import '../../../../core/models/movie_list/movie_list_model.dart';
 import '../../../../core/utils/strings.dart';
 
 abstract class TrendingLocalDataSource {

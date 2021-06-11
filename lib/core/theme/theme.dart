@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../cache/app_cache.dart';
 import '../utils/strings.dart';
-import 'theme_shared_preference.dart';
 
 class CustomTheme extends StateNotifier<ThemeData> {
-  CustomTheme(this.sharedPreference)
+  CustomTheme(this.appCache)
       : super(
             //check current theme at app start and pass to the super-constructor
-            sharedPreference.retrieveTheme() == Strings.darkTheme
+            appCache.retrieveString(Strings.theme) == Strings.darkTheme
                 ? CustomTheme.darkThemeData
                 : CustomTheme.lightThemeData);
-  final ThemeSharedPreference sharedPreference;
+  final AppCache appCache;
 
   //change the theme by passing selected themeData and name of the theme
   void changeTheme(ThemeData themeData, String name) {
     if (state != themeData) {
       state = themeData;
-      sharedPreference.saveTheme(name);
+      appCache.saveString(Strings.theme, name);
     }
   }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/theme/theme.dart';
-import 'package:movie_colony/core/utils/strings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/theme/theme.dart';
+import '../../../../core/utils/strings.dart';
 import '../../../../providers.dart';
 
 class SettingsWidget extends StatefulWidget {

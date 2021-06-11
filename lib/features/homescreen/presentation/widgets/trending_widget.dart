@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/cache/cache_image.dart';
-import 'package:movie_colony/core/models/movie_list/movie_list.dart';
-import 'package:movie_colony/core/theme/theme.dart';
 
-import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_state.dart';
-
-import 'package:movie_colony/core/utils/extensions.dart';
+import '../../../../core/models/movie_list/movie_list.dart';
+import '../../../../core/theme/theme.dart';
+import '../../../../core/utils/extensions.dart';
+import '../../../../core/widgets/cache_image.dart';
 import '../../../../providers.dart';
+import '../../../trending/presentation/notifiers/daily_trending_state.dart';
 
 class TrendingWidget extends ConsumerWidget {
   const TrendingWidget({Key? key}) : super(key: key);
