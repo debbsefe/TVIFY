@@ -40,6 +40,14 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-genhtml.perl
+
+# firebase related
 secrets.tar
-/coverage/
+
+# build runner related
+# *.freezed.dart
+*.g.dart
+*.mocks.dart
+
+
+
