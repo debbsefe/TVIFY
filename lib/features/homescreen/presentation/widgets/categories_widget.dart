@@ -40,5 +40,4 @@ class CategoriesWidget extends ConsumerWidget {
   }
 }
 
-
 ///TODO:NICE PLACEHOLDER AS LOADING SCREEN
