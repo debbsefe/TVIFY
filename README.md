@@ -12,7 +12,7 @@ If you don't have **Flutter** installed, go to the [Flutter Website](http://flut
 
 To install this app
 
-`git clone https://github.com/debbsefe/postly`
+`git clone https://github.com/debbsefe/Movie-Colony`
 
 And install the required dependencies
 
