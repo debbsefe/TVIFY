@@ -10,7 +10,7 @@ import 'features/trending/presentation/notifiers/daily_trending_notifier.dart';
 import 'features/trending/presentation/notifiers/daily_trending_state.dart';
 import 'features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 import 'features/trending/presentation/notifiers/weekly_trending_state.dart';
-import 'injection_container.dart' as di;
+import 'service_locator.dart' as di;
 
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return di.sl<CustomTheme>();

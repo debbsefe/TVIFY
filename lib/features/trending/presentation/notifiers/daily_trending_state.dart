@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie_colony/core/models/movie_list/movie_list.dart';
+
+import '../../../../core/models/movie_list/movie_list.dart';
 
 abstract class DailyTrendingState extends Equatable {}
 

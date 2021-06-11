@@ -2,14 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:movie_colony/providers.dart';
 
-import 'core/custom_shared_preference/custom_shared_preference.dart';
+import 'core/cache/app_cache.dart';
 import 'core/theme/theme.dart';
 import 'core/utils/strings.dart';
 import 'features/homescreen/presentation/widgets/homescreen_tab.dart';
 import 'features/onboarding/presentation/onboarding.dart';
-import 'injection_container.dart' as di;
+import 'providers.dart';
+import 'service_locator.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +30,7 @@ class MovieColony extends ConsumerWidget {
     Key? key,
   }) : super(key: key);
 
-  final CustomSharedPreference prefs = di.sl<CustomSharedPreference>();
+  final AppCache prefs = di.sl<AppCache>();
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
