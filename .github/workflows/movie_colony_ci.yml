@@ -1,4 +1,4 @@
-name: MovieColony CI
+name: ci
 
 # This workflow is triggered on pushes to the repository.
 
@@ -31,6 +31,11 @@ jobs:
 
       # Check for any formatting issues in the code.
       - run: flutter format --set-exit-if-changed .
+
+      # Generate build and mock files
+
+      - name: Run code generation
+        run: flutter pub pub run build_runner build --delete-conflicting-outputs
 
       # Run tests for our flutter project.
       - run: flutter test --no-sound-null-safety --coverage
