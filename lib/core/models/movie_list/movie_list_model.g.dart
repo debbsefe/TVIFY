@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'trending_model.dart';
+part of 'movie_list_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-TrendingModel _$TrendingModelFromJson(Map<String, dynamic> json) {
-  return TrendingModel(
+MovieListModel _$MovieListModelFromJson(Map<String, dynamic> json) {
+  return MovieListModel(
     id: json['id'] as int,
     name: json['name'] as String,
     rating: json['vote_average'] as num,
@@ -18,7 +18,7 @@ TrendingModel _$TrendingModelFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$TrendingModelToJson(TrendingModel instance) =>
+Map<String, dynamic> _$MovieListModelToJson(MovieListModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

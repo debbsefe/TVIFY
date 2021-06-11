@@ -1,22 +1,22 @@
 import 'dart:convert';
 
+import 'package:movie_colony/core/models/movie_list/movie_list_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/error/exception.dart';
 import '../../../../core/utils/strings.dart';
-import '../models/trending_model.dart';
 
 abstract class TrendingLocalDataSource {
   ///method to fetch the last data that was fetched,
   ///throws an exception if no cache data is present
-  Future<List<TrendingModel>> getCachedTrendingDaily();
+  Future<List<MovieListModel>> getCachedTrendingDaily();
 
-  Future<List<TrendingModel>> getCachedTrendingWeekly();
+  Future<List<MovieListModel>> getCachedTrendingWeekly();
 
   //method to cache the last data that was fetched
-  Future<void> cacheLastTrendingDaily(List<TrendingModel> trendingModel);
+  Future<void> cacheLastTrendingDaily(List<MovieListModel> trendingModel);
 
-  Future<void> cacheLastTrendingWeekly(List<TrendingModel> trendingModel);
+  Future<void> cacheLastTrendingWeekly(List<MovieListModel> trendingModel);
 }
 
 class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
@@ -25,12 +25,12 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
   final SharedPreferences sharedPreferences;
 
   @override
-  Future<List<TrendingModel>> getCachedTrendingWeekly() {
+  Future<List<MovieListModel>> getCachedTrendingWeekly() {
     final jsonString = sharedPreferences.getString(Strings.cachedTrending);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
       return Future.value(parsed
-          .map<TrendingModel>((json) => TrendingModel.fromJson(json))
+          .map<MovieListModel>((json) => MovieListModel.fromJson(json))
           .toList());
     } else {
       throw CacheException();
@@ -38,12 +38,12 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
   }
 
   @override
-  Future<List<TrendingModel>> getCachedTrendingDaily() {
+  Future<List<MovieListModel>> getCachedTrendingDaily() {
     final jsonString = sharedPreferences.getString(Strings.cachedTrending);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
       return Future.value(parsed
-          .map<TrendingModel>((json) => TrendingModel.fromJson(json))
+          .map<MovieListModel>((json) => MovieListModel.fromJson(json))
           .toList());
     } else {
       throw CacheException();
@@ -51,7 +51,7 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
   }
 
   @override
-  Future<void> cacheLastTrendingWeekly(List<TrendingModel> trendingModel) {
+  Future<void> cacheLastTrendingWeekly(List<MovieListModel> trendingModel) {
     return sharedPreferences.setString(
       Strings.cachedTrending,
       json.encode(List<dynamic>.from(trendingModel.map((x) => x.toJson()))),
@@ -59,7 +59,7 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
   }
 
   @override
-  Future<void> cacheLastTrendingDaily(List<TrendingModel> trendingModel) {
+  Future<void> cacheLastTrendingDaily(List<MovieListModel> trendingModel) {
     return sharedPreferences.setString(
       Strings.cachedTrending,
       json.encode(List<dynamic>.from(trendingModel.map((x) => x.toJson()))),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/cache/cache_image.dart';
+import 'package:movie_colony/core/models/movie_list/movie_list.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 
-import 'package:movie_colony/features/trending/domain/entities/trending.dart';
 import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_state.dart';
 
 import 'package:movie_colony/core/utils/extensions.dart';
@@ -16,7 +16,7 @@ class TrendingWidget extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final trending = watch(dailyTrendingProvider);
     if (trending is DailyTrendingLoaded) {
-      List<Trending> trend = trending.dailyTrending;
+      List<MovieList> trend = trending.dailyTrending;
       return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),
