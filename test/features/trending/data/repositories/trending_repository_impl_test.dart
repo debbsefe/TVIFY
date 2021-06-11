@@ -3,13 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/models/movie_list/movie_list.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
 import 'package:movie_colony/features/trending/data/repositories/trending_repository_impl.dart';
-import 'package:movie_colony/features/trending/domain/entities/trending.dart';
 
-import '../../../../data/trending/constants.dart';
+import '../../../../data/movie_list/constants.dart';
 
 class MockTrendingRemoteDataSource extends Mock
     implements TrendingRemoteDataSource {}
@@ -55,8 +55,8 @@ void main() {
     });
   }
 
-  group('getTrending', () {
-    final List<Trending> tTrending = tTrendingModelList;
+  group('getTrendingWeekly', () {
+    final List<MovieList> tTrending = tMovieListModel;
 
     test(
       'should check if the device is online',
@@ -64,7 +64,7 @@ void main() {
         // arrange
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
         // act
-        await repository.getTrending();
+        await repository.getTrendingWeekly();
         // assert
         verify(mockNetworkInfo.isConnected);
       },
@@ -76,12 +76,12 @@ void main() {
 should return remote data when the call to remote data source is successful''',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteTrending())
-              .thenAnswer((_) async => tTrendingModelList);
+          when(mockRemoteDataSource.getRemoteTrendingWeekly())
+              .thenAnswer((_) async => tMovieListModel);
           // act
-          final result = await repository.getTrending();
+          final result = await repository.getTrendingWeekly();
           // assert
-          verify(mockRemoteDataSource.getRemoteTrending());
+          verify(mockRemoteDataSource.getRemoteTrendingWeekly());
 
           expect(result, equals(Right(tTrending)));
         },
@@ -92,13 +92,13 @@ should return remote data when the call to remote data source is successful''',
 should cache the data locally when the call to remote data source is successful''',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteTrending())
-              .thenAnswer((_) async => tTrendingModelList);
+          when(mockRemoteDataSource.getRemoteTrendingWeekly())
+              .thenAnswer((_) async => tMovieListModel);
           // act
-          await repository.getTrending();
+          await repository.getTrendingWeekly();
           // assert
-          verify(mockRemoteDataSource.getRemoteTrending());
-          verify(mockLocalDataSource.cacheLastTrending(tTrendingModelList));
+          verify(mockRemoteDataSource.getRemoteTrendingWeekly());
+          verify(mockLocalDataSource.cacheLastTrendingWeekly(tMovieListModel));
         },
       );
 
@@ -107,12 +107,12 @@ should cache the data locally when the call to remote data source is successful'
 should return server failure when the call to remote data source is unsuccessful''',
         () async {
           // arrange
-          when(mockRemoteDataSource.getRemoteTrending())
+          when(mockRemoteDataSource.getRemoteTrendingWeekly())
               .thenThrow(ServerException());
           // act
-          final result = await repository.getTrending();
+          final result = await repository.getTrendingWeekly();
           // assert
-          verify(mockRemoteDataSource.getRemoteTrending());
+          verify(mockRemoteDataSource.getRemoteTrendingWeekly());
           verifyZeroInteractions(mockLocalDataSource);
           expect(result, equals(Left(ServerFailure())));
         },
@@ -125,13 +125,13 @@ should return server failure when the call to remote data source is unsuccessful
 should return last locally cached data when the cached data is present''',
         () async {
           // arrange
-          when(mockLocalDataSource.getCachedTrending())
-              .thenAnswer((_) async => tTrendingModelList);
+          when(mockLocalDataSource.getCachedTrendingWeekly())
+              .thenAnswer((_) async => tMovieListModel);
           // act
-          final result = await repository.getTrending();
+          final result = await repository.getTrendingWeekly();
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
-          verify(mockLocalDataSource.getCachedTrending());
+          verify(mockLocalDataSource.getCachedTrendingWeekly());
           expect(result, equals(Right(tTrending)));
         },
       );
@@ -140,13 +140,13 @@ should return last locally cached data when the cached data is present''',
         'should return CacheFailure when there is no cached data present',
         () async {
           // arrange
-          when(mockLocalDataSource.getCachedTrending())
+          when(mockLocalDataSource.getCachedTrendingWeekly())
               .thenThrow(CacheException());
           // act
-          final result = await repository.getTrending();
+          final result = await repository.getTrendingWeekly();
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
-          verify(mockLocalDataSource.getCachedTrending());
+          verify(mockLocalDataSource.getCachedTrendingWeekly());
           expect(result, equals(Left(CacheFailure())));
         },
       );

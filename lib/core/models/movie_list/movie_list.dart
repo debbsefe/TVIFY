@@ -1,18 +1,19 @@
 import 'package:equatable/equatable.dart';
 
-class Trending extends Equatable {
-  const Trending({
+class MovieList extends Equatable {
+  const MovieList({
     required this.date,
     required this.rating,
     required this.backdropImage,
     required this.posterImage,
     required this.id,
     required this.name,
+    required this.overview,
   });
 
   final int id;
   final String name;
-  final String date;
+  final String date, overview;
   final num rating;
   final String backdropImage;
   final String posterImage;

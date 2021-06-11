@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/utils/extensions.dart';
 import '../../../../core/utils/size_ext.dart';
 import '../../domain/entities/slides.dart';

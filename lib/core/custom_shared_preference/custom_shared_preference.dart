@@ -5,12 +5,19 @@ class CustomSharedPreference {
 
   final SharedPreferences pref;
 
-  Future<void> saveData(String key, String value) async {
+  Future<void> saveString(String key, String value) async {
     await pref.setString(key, value);
   }
 
-  String? retrieveData(String key) {
-    String? savedTheme = pref.getString(key);
-    return savedTheme;
+  String? retrieveString(String key) {
+    return pref.getString(key);
+  }
+
+  Future<void> saveBool(String key, bool value) async {
+    await pref.setBool(key, value);
+  }
+
+  bool? retrieveBool(String key) {
+    return pref.getBool(key);
   }
 }

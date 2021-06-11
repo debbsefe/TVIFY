@@ -2,11 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:movie_colony/providers.dart';
 
+import 'core/custom_shared_preference/custom_shared_preference.dart';
 import 'core/theme/theme.dart';
 import 'core/utils/strings.dart';
-import 'features/categories/presentation/notifiers/categories_notifier.dart';
-import 'features/categories/presentation/notifiers/categories_state.dart';
+import 'features/homescreen/presentation/widgets/homescreen_tab.dart';
 import 'features/onboarding/presentation/onboarding.dart';
 import 'injection_container.dart' as di;
 
@@ -18,35 +19,29 @@ void main() async {
   await di.init();
 
   runApp(
-    const ProviderScope(
+    ProviderScope(
       child: MovieColony(),
     ),
   );
 }
 
-//create themeProvider
-final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
-  return di.sl<CustomTheme>();
-});
-
-final categoriesProvider =
-    StateNotifierProvider<CategoriesNotifier, CategoriesState>((ref) {
-  return di.sl<CategoriesNotifier>();
-});
-
 class MovieColony extends ConsumerWidget {
-  const MovieColony({
+  MovieColony({
     Key? key,
   }) : super(key: key);
+
+  final CustomSharedPreference prefs = di.sl<CustomSharedPreference>();
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final theme = watch(themeProvider);
+    var isFirstTimeUser = prefs.retrieveBool(Strings.firstTimeUser);
 
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'MovieColony',
         theme: theme,
-        home: const Onboarding());
+        home: isFirstTimeUser == null ? const Onboarding() : HomeScreenTab());
   }
 }
 

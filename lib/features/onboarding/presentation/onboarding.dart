@@ -1,8 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:movie_colony/core/custom_shared_preference/custom_shared_preference.dart';
+import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
 
 import '../../../core/widgets/buttons.dart';
+import '../../../injection_container.dart' as di;
 import 'widgets/slide_dots.dart';
 import 'widgets/slide_item.dart';
 
@@ -15,14 +20,16 @@ class Onboarding extends StatefulWidget {
 
 class _OnboardingState extends State<Onboarding> {
   int _currentPage = 0;
-  final PageController _pageController = PageController(
-    initialPage: 0,
-  );
+
+  final PageController _pageController = PageController(initialPage: 0);
+
   late Timer timer;
+
+  CustomSharedPreference prefs = di.sl<CustomSharedPreference>();
+
   @override
   void initState() {
     super.initState();
-
     timer = Timer.periodic(const Duration(seconds: 5), (Timer t) {
       if (_currentPage < 2) {
         _currentPage++;
@@ -82,7 +89,10 @@ class _OnboardingState extends State<Onboarding> {
           right: 35,
           child: CustomButton(
             name: 'Get Started',
-            onPressed: () async {
+            onPressed: () {
+              prefs.saveBool(Strings.firstTimeUser, false);
+              Get.off(() => const HomeScreen());
+
               //context.read(categoriesProvider.notifier).fetchCategory();
             },
           ),

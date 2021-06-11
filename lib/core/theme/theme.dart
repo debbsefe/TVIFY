@@ -66,35 +66,84 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const Color orangeColor = Color(0xFFC8511B);
   static const Color yellowColor = Color(0xFFC9A717);
   static const Color buttonColor1 = Color(0xFFFBECEF);
+  static const Color yellowStar = Color(0xFFF3CD2A);
 
   static ThemeData lightThemeData = ThemeData(
-      primarySwatch: Colors.blue,
+      primarySwatch: Colors.brown,
       visualDensity: VisualDensity.adaptivePlatformDensity,
       fontFamily: 'NotoSansKR-Regular',
       scaffoldBackgroundColor: scaffoldLight,
       brightness: Brightness.light,
       primaryColor: primaryColor,
       buttonColor: buttonColor1,
+      cardColor: primaryTint5,
       textTheme: lightTextTheme);
 
   static ThemeData darkThemeData = ThemeData(
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      fontFamily: 'NotoSansKR-Regular',
-      primarySwatch: Colors.blue,
-      scaffoldBackgroundColor: scaffoldDark,
-      brightness: Brightness.dark,
-      primaryColor: scaffoldLight,
-      buttonColor: buttonColor1,
-      textTheme: darkTextTheme);
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    fontFamily: 'NotoSansKR-Regular',
+    primarySwatch: Colors.brown,
+    scaffoldBackgroundColor: scaffoldDark,
+    brightness: Brightness.dark,
+    primaryColor: scaffoldLight,
+    buttonColor: buttonColor1,
+    textTheme: darkTextTheme,
+    cardColor: primaryShade2,
+  );
 
   static TextTheme darkTextTheme = const TextTheme(
-    bodyText1: paragraph2Bold,
     subtitle1: subtitleRegDark,
+    subtitle2: subtitle,
+    headline4: headline4Dark,
+    headline6: headline6Dark,
+    caption: captionDark,
   );
 
   static TextTheme lightTextTheme = const TextTheme(
-    bodyText1: paragraph1Bold,
     subtitle1: subtitleRegLight,
+    subtitle2: subtitle,
+    headline4: headline4Light,
+    headline6: headline6Light,
+    caption: captionLight,
+  );
+
+  static const TextStyle headline4Light = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    color: greyColor1,
+  );
+
+  static const TextStyle headline4Dark = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+    color: scaffoldLight,
+  );
+
+  static const TextStyle headline6Light = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 12,
+    color: greyColor1,
+  );
+
+  static const TextStyle headline6Dark = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 12,
+    color: greyColor7,
+  );
+
+  static const TextStyle captionLight = TextStyle(
+    fontSize: 10,
+    color: greyColor2,
+  );
+
+  static const TextStyle captionDark = TextStyle(
+    fontSize: 10,
+    color: buttonColor1,
+  );
+  static const TextStyle subtitle = TextStyle(
+    // subtitle -> subtitleLight
+    fontSize: 12,
+    color: greyColor4,
   );
 
   static const TextStyle subtitleRegLight = TextStyle(
@@ -107,18 +156,5 @@ class CustomTheme extends StateNotifier<ThemeData> {
     // subtitle1 -> subtitleRegular
     fontSize: 20,
     color: scaffoldLight,
-  );
-
-  static const TextStyle paragraph1Bold = TextStyle(
-    // bodyText1 -> paragraph1Bold
-    fontWeight: FontWeight.w700,
-    fontSize: 16,
-    color: greyColor1,
-  );
-  static const TextStyle paragraph2Bold = TextStyle(
-    // bodyText1 -> paragraph1Bold
-    fontWeight: FontWeight.w700,
-    fontSize: 30,
-    color: Colors.white,
   );
 }

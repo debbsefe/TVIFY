@@ -3,55 +3,30 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/core/usecases/usecase.dart';
 
 import 'package:mockito/mockito.dart';
-import 'package:movie_colony/features/trending/domain/entities/trending.dart';
 import 'package:movie_colony/features/trending/domain/repositories/trending_repository.dart';
-import 'package:movie_colony/features/trending/domain/usecases/get_trending.dart';
+import 'package:movie_colony/features/trending/domain/usecases/get_trending_weekly.dart';
+
+import '../../../../data/movie_list/constants.dart';
 
 class MockTrendingRepository extends Mock implements TrendingRepository {}
 
 void main() {
   MockTrendingRepository mockTrendingRepository;
-  GetAllTrending usecase;
-  final tTrending = [
-    const Trending(
-      id: 1,
-      name: 'Romance',
-      date: '02/12/12',
-      posterImage: 'xhw',
-      rating: 12,
-      backdropImage: '2',
-    ),
-    const Trending(
-      id: 1,
-      name: 'Romance',
-      date: '02/12/12',
-      posterImage: 'xhw',
-      rating: 12,
-      backdropImage: '2',
-    ),
-    const Trending(
-      id: 1,
-      name: 'Romance',
-      date: '02/12/12',
-      posterImage: 'xhw',
-      rating: 12,
-      backdropImage: '2',
-    ),
-  ];
+  GetWeeklyTrending usecase;
 
   test(
     'should get Trending from the repository',
     () async {
       mockTrendingRepository = MockTrendingRepository();
-      usecase = GetAllTrending(mockTrendingRepository);
+      usecase = GetWeeklyTrending(mockTrendingRepository);
       // arrange, stub the method
-      when(mockTrendingRepository.getTrending())
-          .thenAnswer((_) async => Right(tTrending));
+      when(mockTrendingRepository.getTrendingWeekly())
+          .thenAnswer((_) async => Right(tMovieListModel));
       // act
       final result = await usecase(NoParams());
       // assert
-      expect(result, Right(tTrending));
-      verify(mockTrendingRepository.getTrending());
+      expect(result, Right(tMovieListModel));
+      verify(mockTrendingRepository.getTrendingWeekly());
       verifyNoMoreInteractions(mockTrendingRepository);
     },
   );

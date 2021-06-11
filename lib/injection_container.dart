@@ -2,6 +2,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:movie_colony/features/trending/domain/usecases/get_trending_weekly.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/cache/app_cache.dart';
@@ -16,22 +17,46 @@ import 'features/categories/data/repositories/categories_repository_impl.dart';
 import 'features/categories/domain/repositories/categories_repository.dart';
 import 'features/categories/domain/usecases/get_categories.dart';
 import 'features/categories/presentation/notifiers/categories_notifier.dart';
+import 'features/trending/data/datasources/trending_local_data_source.dart';
+import 'features/trending/data/datasources/trending_remote_data_source.dart';
+import 'features/trending/data/repositories/trending_repository_impl.dart';
+import 'features/trending/domain/repositories/trending_repository.dart';
+import 'features/trending/domain/usecases/get_trending_daily.dart';
+import 'features/trending/presentation/notifiers/daily_trending_notifier.dart';
+import 'features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
 final sl = GetIt.instance;
 
 // ignore_for_file: cascade_invocations
 Future<void> init() async {
+  //view models/notifiers
   sl.registerLazySingleton<CustomTheme>(
     () => CustomTheme(sl()),
   );
   sl.registerLazySingleton<CategoriesNotifier>(
     () => CategoriesNotifier(sl()),
   );
+  sl.registerLazySingleton<WeeklyTrendingNotifier>(
+    () => WeeklyTrendingNotifier(sl()),
+  );
+
+  sl.registerLazySingleton<DailyTrendingNotifier>(
+    () => DailyTrendingNotifier(sl()),
+  );
   sl.registerLazySingleton<ThemeSharedPreference>(
     () => ThemeSharedPreference(sl()),
   );
+
+  ///datasources
   sl.registerLazySingleton<CategoriesRemoteDataSource>(
     () => CategoriesRemoteDataSourceImpl(
+      client: sl(),
+      config: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<TrendingRemoteDataSource>(
+    () => TrendingRemoteDataSourceImpl(
       client: sl(),
       config: sl(),
     ),
@@ -43,7 +68,18 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<TrendingLocalDataSource>(
+    () => TrendingLocalDataSourceImpl(
+      sl(),
+    ),
+  );
+
+  ///usecases
   sl.registerLazySingleton(() => GetAllCategories(sl()));
+  sl.registerLazySingleton(() => GetWeeklyTrending(sl()));
+  sl.registerLazySingleton(() => GetDailyTrending(sl()));
+
+  ///repository
 
   sl.registerLazySingleton<CategoriesRepository>(
     () => CategoriesRepositoryImpl(
@@ -54,6 +90,13 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<TrendingRepository>(
+    () => TrendingRepositoryImpl(
+      localDataSource: sl(),
+      networkInfo: sl(),
+      remoteDataSource: sl(),
+    ),
+  );
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton<AppCache>(() => AppCacheImpl(sl()));

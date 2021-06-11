@@ -18,7 +18,7 @@ class AppCacheImpl implements AppCache {
 
   @override
   bool isExpired(String key) {
-    String? value = pref.retrieveData(expiryDate(key));
+    String? value = pref.retrieveString(expiryDate(key));
     if (value != null) {
       var currentDate = DateTime.now();
       return currentDate.isAfter(DateTime.parse(value));
