@@ -1,0 +1,20 @@
+{
+    "backdrop_path": "2",
+    "first_air_date": "02/12/12",
+    "genres": [
+        {
+            "id": 1,
+            "name": "Romance"
+        },
+        {
+            "id": 2,
+            "name": "Comedy"
+        }
+    ],
+    "id": 1,  
+    "name": "Romance",
+    "number_of_seasons": 2,
+    "overview": "test",
+    "poster_path": "xhw",
+    "vote_average": 12
+}
