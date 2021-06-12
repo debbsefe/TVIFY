@@ -21,11 +21,11 @@ void main() {
       usecase = GetWeeklyTrending(mockTrendingRepository);
       // arrange, stub the method
       when(mockTrendingRepository.getTrendingWeekly())
-          .thenAnswer((_) async => Right(tTvListModel));
+          .thenAnswer((_) async => const Right(tTvListModel));
       // act
       final result = await usecase(NoParams());
       // assert
-      expect(result, Right(tTvListModel));
+      expect(result, const Right(tTvListModel));
       verify(mockTrendingRepository.getTrendingWeekly());
       verifyNoMoreInteractions(mockTrendingRepository);
     },
