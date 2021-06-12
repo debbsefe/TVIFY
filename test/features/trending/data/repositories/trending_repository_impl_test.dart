@@ -3,13 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
-import 'package:movie_colony/core/models/movie_list/movie_list.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
 import 'package:movie_colony/features/trending/data/repositories/trending_repository_impl.dart';
 
-import '../../../../data/movie_list/constants.dart';
+import '../../../../data/tv_list/constants.dart';
 
 class MockTrendingRemoteDataSource extends Mock
     implements TrendingRemoteDataSource {}
@@ -56,7 +56,7 @@ void main() {
   }
 
   group('getTrendingWeekly', () {
-    final List<MovieList> tTrending = tMovieListModel;
+    final List<TvList> tTrending = tTvListModel;
 
     test(
       'should check if the device is online',
@@ -77,7 +77,7 @@ should return remote data when the call to remote data source is successful''',
         () async {
           // arrange
           when(mockRemoteDataSource.getRemoteTrendingWeekly())
-              .thenAnswer((_) async => tMovieListModel);
+              .thenAnswer((_) async => tTvListModel);
           // act
           final result = await repository.getTrendingWeekly();
           // assert
@@ -93,12 +93,12 @@ should cache the data locally when the call to remote data source is successful'
         () async {
           // arrange
           when(mockRemoteDataSource.getRemoteTrendingWeekly())
-              .thenAnswer((_) async => tMovieListModel);
+              .thenAnswer((_) async => tTvListModel);
           // act
           await repository.getTrendingWeekly();
           // assert
           verify(mockRemoteDataSource.getRemoteTrendingWeekly());
-          verify(mockLocalDataSource.cacheLastTrendingWeekly(tMovieListModel));
+          verify(mockLocalDataSource.cacheLastTrendingWeekly(tTvListModel));
         },
       );
 
@@ -126,7 +126,7 @@ should return last locally cached data when the cached data is present''',
         () async {
           // arrange
           when(mockLocalDataSource.getCachedTrendingWeekly())
-              .thenAnswer((_) async => tMovieListModel);
+              .thenAnswer((_) async => tTvListModel);
           // act
           final result = await repository.getTrendingWeekly();
           // assert

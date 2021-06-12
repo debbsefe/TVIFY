@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 
-import '../../../../core/models/movie_list/movie_list.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../../core/widgets/buttons.dart';
 import '../../../../core/widgets/cache_image.dart';
@@ -15,7 +15,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final trending = watch(weeklyTrendingProvider);
     if (trending is WeeklyTrendingLoaded) {
-      MovieList trend = trending.weeklyTrending[0];
+      TvList trend = trending.weeklyTrending[0];
       return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,

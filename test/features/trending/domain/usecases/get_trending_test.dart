@@ -6,7 +6,7 @@ import 'package:mockito/mockito.dart';
 import 'package:movie_colony/features/trending/domain/repositories/trending_repository.dart';
 import 'package:movie_colony/features/trending/domain/usecases/get_trending_weekly.dart';
 
-import '../../../../data/movie_list/constants.dart';
+import '../../../../data/tv_list/constants.dart';
 
 class MockTrendingRepository extends Mock implements TrendingRepository {}
 
@@ -21,11 +21,11 @@ void main() {
       usecase = GetWeeklyTrending(mockTrendingRepository);
       // arrange, stub the method
       when(mockTrendingRepository.getTrendingWeekly())
-          .thenAnswer((_) async => Right(tMovieListModel));
+          .thenAnswer((_) async => Right(tTvListModel));
       // act
       final result = await usecase(NoParams());
       // assert
-      expect(result, Right(tMovieListModel));
+      expect(result, Right(tTvListModel));
       verify(mockTrendingRepository.getTrendingWeekly());
       verifyNoMoreInteractions(mockTrendingRepository);
     },

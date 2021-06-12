@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import '../../../../core/models/movie_list/movie_list.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 
 abstract class DailyTrendingState extends Equatable {}
 
@@ -17,7 +16,7 @@ class DailyTrendingLoading extends DailyTrendingState {
 class DailyTrendingLoaded extends DailyTrendingState {
   DailyTrendingLoaded(this.dailyTrending);
 
-  final List<MovieList> dailyTrending;
+  final List<TvList> dailyTrending;
 
   @override
   List<Object> get props => [dailyTrending];

@@ -12,7 +12,7 @@ import 'core/network/network_info.dart';
 import 'core/theme/theme.dart';
 import 'features/categories/service_locator.dart';
 import 'features/configuration/service_locator.dart';
-import 'features/single_movie/service_locator.dart';
+import 'features/single_tv/service_locator.dart';
 import 'features/trending/service_locator.dart';
 
 final sl = GetIt.instance;
@@ -22,7 +22,7 @@ Future<void> init() async {
   ConfigurationServiceLocator(sl).init();
   CategoriesServiceLocator(sl).init();
   TrendingServiceLocator(sl).init();
-  SingleMovieServiceLocator(sl).init();
+  SingleTvServiceLocator(sl).init();
 
   ///view models/notifiers
   sl.registerLazySingleton<CustomTheme>(
