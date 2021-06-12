@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/cache/cache_image.dart';
-import 'package:movie_colony/core/models/movie_list/movie_list.dart';
-import 'package:movie_colony/core/widgets/buttons.dart';
-import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_state.dart';
 
-import 'package:movie_colony/core/utils/extensions.dart';
+import '../../../../core/models/tv_list/tv_list.dart';
+import '../../../../core/utils/extensions.dart';
+import '../../../../core/widgets/buttons.dart';
+import '../../../../core/widgets/cache_image.dart';
 import '../../../../providers.dart';
+import '../../../trending/presentation/notifiers/weekly_trending_state.dart';
 
 class TvShowOfTheWeek extends ConsumerWidget {
   const TvShowOfTheWeek({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final trending = watch(weeklyTrendingProvider);
     if (trending is WeeklyTrendingLoaded) {
-      MovieList trend = trending.weeklyTrending[0];
+      TvList trend = trending.weeklyTrending[0];
       return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'movie_list.dart';
+import 'tv_list.dart';
 
-part 'movie_list_model.g.dart';
+part 'tv_list_model.g.dart';
 
 @JsonSerializable()
-class MovieListModel extends MovieList {
-  const MovieListModel({
+class TvListModel extends TvList {
+  const TvListModel({
     required this.id,
     required this.name,
     required this.rating,
@@ -24,8 +24,8 @@ class MovieListModel extends MovieList {
           overview: overview,
         );
 
-  factory MovieListModel.fromJson(Map<String, dynamic> json) =>
-      _$MovieListModelFromJson(json);
+  factory TvListModel.fromJson(Map<String, dynamic> json) =>
+      _$TvListModelFromJson(json);
 
   final int id;
   final String name;
@@ -39,5 +39,5 @@ class MovieListModel extends MovieList {
   final String backdropImage;
   final String overview;
 
-  Map<String, dynamic> toJson() => _$MovieListModelToJson(this);
+  Map<String, dynamic> toJson() => _$TvListModelToJson(this);
 }

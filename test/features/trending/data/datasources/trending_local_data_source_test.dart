@@ -9,7 +9,7 @@ import 'package:movie_colony/features/trending/data/datasources/trending_local_d
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../data/movie_list/constants.dart';
+import '../../../../data/tv_list/constants.dart';
 
 // import '../../../../data/data_reader.dart';
 
@@ -46,10 +46,10 @@ void main() {
       'should call SharedPreferences to cache the data',
       () async {
         // act
-        await dataSource.cacheLastTrendingWeekly(tMovieListModel);
+        await dataSource.cacheLastTrendingWeekly(tTvListModel);
         // assert
         final expectedJsonString = json
-            .encode(List<dynamic>.from(tMovieListModel.map((x) => x.toJson())));
+            .encode(List<dynamic>.from(tTvListModel.map((x) => x.toJson())));
         verify(mockPref.setString(
           Strings.cachedTrending,
           expectedJsonString,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
-import 'package:movie_colony/features/homescreen/presentation/screens/settings_widget.dart';
+
+import '../screens/homescreen.dart';
+import '../screens/settings_widget.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomeScreenTab extends StatefulWidget {

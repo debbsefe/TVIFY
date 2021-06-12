@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import '../../domain/entities/categories.dart';
 
 abstract class CategoriesState extends Equatable {}

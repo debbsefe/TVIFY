@@ -1,6 +1,6 @@
-import 'package:movie_colony/core/models/movie_list/movie_list_model.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list_model.dart';
 
-const tMovieList = MovieListModel(
+const tTvList = TvListModel(
   id: 1,
   name: 'Romance',
   date: '02/12/12',
@@ -10,8 +10,8 @@ const tMovieList = MovieListModel(
   overview: 'test',
 );
 
-final tMovieListModel = [
-  const MovieListModel(
+final tTvListModel = [
+  const TvListModel(
     id: 2,
     name: 'Comedy',
     date: '02/12/12',

@@ -4,7 +4,7 @@ import 'package:matcher/matcher.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/core/models/movie_list/movie_list_model.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list_model.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
@@ -36,11 +36,11 @@ void main() {
     test('returns a List of trending if the http call completes successfully',
         () async {
       stubFetchToken();
-      when(client.get(url)).thenAnswer((_) async =>
-          http.Response(dataReader('movie_list/movie_list.json'), 200));
+      when(client.get(url)).thenAnswer(
+          (_) async => http.Response(dataReader('tv_list/tv_list.json'), 200));
 
-      expect(await dataSource.getRemoteTrendingWeekly(),
-          isA<List<MovieListModel>>());
+      expect(
+          await dataSource.getRemoteTrendingWeekly(), isA<List<TvListModel>>());
     });
 
     test('throws an exception if the http call completes with an error', () {

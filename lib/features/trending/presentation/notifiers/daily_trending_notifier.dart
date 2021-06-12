@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/features/trending/domain/usecases/get_trending_daily.dart';
+
 import '../../../../core/usecases/usecase.dart';
 import '../../../../core/utils/strings.dart';
+import '../../domain/usecases/get_trending_daily.dart';
 import 'daily_trending_state.dart';
 
 class DailyTrendingNotifier extends StateNotifier<DailyTrendingState> {

@@ -1,22 +1,23 @@
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:movie_colony/core/models/movie_list/movie_list.dart';
-import 'package:movie_colony/core/models/movie_list/movie_list_model.dart';
-import '../../../data/data_reader.dart';
-import '../../../data/movie_list/constants.dart';
+import 'package:movie_colony/features/single_tv/data/models/tv_detail_model.dart';
+import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
+
+import '../../../../data/data_reader.dart';
+import '../../../../data/single_tv/constants.dart';
 
 void main() {
   Map<String, dynamic> jsonToMap() {
-    final String jsonString = dataReader('movie_list/movie.json');
+    final String jsonString = dataReader('single_tv/tv_detail.json');
     final Map<String, dynamic> jsonMap = json.decode(jsonString);
     return jsonMap;
   }
 
   test(
-    'should be a subclass of MovieList entity',
+    'should be a subclass of MovieDetail entity',
     () async {
       // assert
-      expect(tMovieList, isA<MovieList>());
+      expect(tTvDetailModel, isA<TvDetail>());
     },
   );
   group('fromJson', () {
@@ -26,9 +27,9 @@ void main() {
         // arrange
 
         // act
-        final result = MovieListModel.fromJson(jsonToMap());
+        final result = TvDetailModel.fromJson(jsonToMap());
         // assert
-        expect(result, tMovieList);
+        expect(result, tTvDetailModel);
       },
     );
   });
@@ -37,9 +38,7 @@ void main() {
       'should return a JSON map containing the proper data',
       () async {
         // act
-
-        // act
-        final result = tMovieList.toJson();
+        final result = tTvDetailModel.toJson();
         // assert
 
         expect(result, jsonToMap());

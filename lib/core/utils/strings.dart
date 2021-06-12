@@ -17,6 +17,7 @@ class Strings {
   static String get cachedCategory => 'cachedCategory';
   static String get cachedConfiguration => 'cachedConfiguration';
   static String get cachedTrending => 'cacheTrending';
+  static String get cachedMovieDetail => 'cachedMovieDetail';
 
   static String get firstTimeUser => 'firstTimeUser';
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/features/categories/domain/entities/categories.dart';
-import 'package:movie_colony/features/categories/presentation/notifiers/categories_state.dart';
 
 // import 'package:movie_colony/core/utils/extensions.dart';
 import '../../../../providers.dart';
+import '../../../categories/domain/entities/categories.dart';
+import '../../../categories/presentation/notifiers/categories_state.dart';
 
 class CategoriesWidget extends ConsumerWidget {
   const CategoriesWidget({Key? key}) : super(key: key);

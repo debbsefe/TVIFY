@@ -1,30 +1,37 @@
 import 'package:equatable/equatable.dart';
 
-class MovieList extends Equatable {
-  const MovieList({
-    required this.date,
+import '../../../categories/domain/entities/categories.dart';
+
+class TvDetail extends Equatable {
+  const TvDetail({
+    required this.startDate,
     required this.rating,
     required this.backdropImage,
     required this.posterImage,
     required this.id,
     required this.name,
     required this.overview,
+    required this.categories,
+    required this.seasons,
   });
-
-  final int id;
+  final int id, seasons;
   final String name;
-  final String date, overview;
+  final String startDate, overview;
   final num rating;
   final String backdropImage;
   final String posterImage;
+  final List<Categories> categories;
 
   @override
   List<Object?> get props => [
         id,
         name,
-        date,
+        startDate,
         rating,
         backdropImage,
         posterImage,
+        categories,
+        seasons,
+        overview,
       ];
 }
