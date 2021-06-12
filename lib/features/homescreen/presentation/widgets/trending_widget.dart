@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/models/tv_list/tv_list.dart';
+import '../../../../core/models/tv_list/tv_list.dart';
 
 import '../../../../core/theme/theme.dart';
 import '../../../../core/utils/extensions.dart';

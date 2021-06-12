@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_colony/core/models/tv_list/tv_list.dart';
-import 'package:movie_colony/core/models/tv_list/tv_list_model.dart';
 
 import '../../../../core/error/exception.dart';
 import '../../../../core/error/failure.dart';
-
+import '../../../../core/models/tv_list/tv_list.dart';
+import '../../../../core/models/tv_list/tv_list_model.dart';
 import '../../../../core/network/network_info.dart';
 import '../../domain/repositories/trending_repository.dart';
 import '../datasources/trending_local_data_source.dart';

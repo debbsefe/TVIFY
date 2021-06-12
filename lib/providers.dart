@@ -5,7 +5,6 @@ import 'package:movie_colony/core/theme/theme.dart';
 
 import 'features/categories/presentation/notifiers/categories_notifier.dart';
 import 'features/categories/presentation/notifiers/categories_state.dart';
-
 import 'features/trending/presentation/notifiers/daily_trending_notifier.dart';
 import 'features/trending/presentation/notifiers/daily_trending_state.dart';
 import 'features/trending/presentation/notifiers/weekly_trending_notifier.dart';
