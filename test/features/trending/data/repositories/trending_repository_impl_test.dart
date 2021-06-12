@@ -56,7 +56,7 @@ void main() {
   }
 
   group('getTrendingWeekly', () {
-    final List<TvList> tTrending = tTvListModel;
+    const List<TvList> tTrending = tTvListModel;
 
     test(
       'should check if the device is online',
@@ -83,7 +83,7 @@ should return remote data when the call to remote data source is successful''',
           // assert
           verify(mockRemoteDataSource.getRemoteTrendingWeekly());
 
-          expect(result, equals(Right(tTrending)));
+          expect(result, equals(const Right(tTrending)));
         },
       );
 
@@ -132,7 +132,7 @@ should return last locally cached data when the cached data is present''',
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
           verify(mockLocalDataSource.getCachedTrendingWeekly());
-          expect(result, equals(Right(tTrending)));
+          expect(result, equals(const Right(tTrending)));
         },
       );
 
