@@ -6,8 +6,8 @@ import 'domain/repositories/movie_detail_repository.dart';
 import 'domain/usecases/get_movie_detail.dart';
 import 'presentation/notifiers/movie_detail_notifier.dart';
 
-class MovieDetailServiceLocator {
-  MovieDetailServiceLocator(this.sl);
+class SingleMovieServiceLocator {
+  SingleMovieServiceLocator(this.sl);
   final GetIt sl;
 
 // ignore_for_file: cascade_invocations
