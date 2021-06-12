@@ -4,5 +4,5 @@ import '../../../../core/error/failure.dart';
 import '../entities/tv_cast.dart';
 
 abstract class TvCastRepository {
-  Future<Either<Failure, TvCast>> getTvCast(String id);
+  Future<Either<Failure, List<TvCast>>> getTvCast(String id);
 }

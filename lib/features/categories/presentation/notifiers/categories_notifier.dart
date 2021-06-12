@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../core/usecases/usecase.dart';
 import '../../../../core/utils/strings.dart';
 import '../../domain/usecases/get_categories.dart';
-
 import 'categories_state.dart';
 
 class CategoriesNotifier extends StateNotifier<CategoriesState> {

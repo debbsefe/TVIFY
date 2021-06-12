@@ -6,13 +6,13 @@ import '../../../../core/usecases/usecase.dart';
 import '../entities/tv_cast.dart';
 import '../repositories/tv_cast_repository.dart';
 
-class GetTvCast extends UseCase<TvCast, Params> {
+class GetTvCast extends UseCase<List<TvCast>, Params> {
   GetTvCast(this.repository);
 
   final TvCastRepository repository;
 
   @override
-  Future<Either<Failure, TvCast>> call(Params params) async {
+  Future<Either<Failure, List<TvCast>>> call(Params params) async {
     return await repository.getTvCast(params.id);
   }
 }

@@ -1,6 +1,10 @@
 import 'package:movie_colony/features/categories/domain/entities/categories.dart';
+import 'package:movie_colony/features/single_tv/data/models/tv_cast_model.dart';
 import 'package:movie_colony/features/single_tv/data/models/tv_detail_model.dart';
+import 'package:movie_colony/features/single_tv/domain/entities/tv_cast.dart';
 import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
+
+const String tId = '555';
 
 const tTvDetail = TvDetail(
   id: 1,
@@ -36,4 +40,18 @@ final tTvDetailModel = TvDetailModel(
   ],
 );
 
-const String tId = '555';
+const tTvCastModel = TvCastModel(
+  id: 1,
+  name: 'Loki',
+  knownFor: 'Acting',
+  profileImage: 'test',
+);
+
+const tTvCast = [
+  TvCast(
+    id: 1,
+    name: 'Loki',
+    knownFor: 'Acting',
+    profileImage: 'test',
+  ),
+];
