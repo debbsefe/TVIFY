@@ -29,7 +29,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   void handleSwitch2(bool value) async {
     context
         .read(themeProvider.notifier)
-        .changeTheme(CustomTheme.lightThemeData, Strings.darkTheme);
+        .changeTheme(CustomTheme.lightThemeData, Strings.lightTheme);
     setState(() {
       notifications = value;
     });

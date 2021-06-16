@@ -17,13 +17,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    callProviders();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      _callProviders();
+    });
   }
 
-  Future<void> callProviders() async {
+  Future<void> _callProviders() async {
     context.read(weeklyTrendingProvider.notifier).fetchTrending();
     context.read(dailyTrendingProvider.notifier).fetchTrending();
     context.read(categoriesProvider.notifier).fetchCategory();
+    context.read(configurationProvider.notifier).fetchConfiguration();
   }
 
   @override

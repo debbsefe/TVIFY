@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/models/tv_list/tv_list.dart';
+import 'package:get/get.dart';
 
+import '../../../../core/models/tv_list/tv_list.dart';
 import '../../../../core/theme/theme.dart';
-import '../../../../core/utils/extensions.dart';
 import '../../../../core/widgets/cache_image.dart';
 import '../../../../providers.dart';
+import '../../../single_tv/presentation/screens/single_tv_detail.dart';
 import '../../../trending/presentation/notifiers/daily_trending_state.dart';
 
 class TrendingWidget extends ConsumerWidget {
@@ -14,6 +15,8 @@ class TrendingWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final trending = watch(dailyTrendingProvider);
+    var url = watch(configurationProvider.notifier).fetchPosterSizeUrl();
+
     if (trending is DailyTrendingLoaded) {
       List<TvList> trend = trending.dailyTrending;
       return ListView.builder(
@@ -28,10 +31,19 @@ class TrendingWidget extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CachedImage(
-                    trend[index].posterImage.image,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.3,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        () => SingleTvDetail(
+                          id: singleTrend.id.toString(),
+                        ),
+                      );
+                    },
+                    child: CachedImage(
+                      url + singleTrend.posterImage,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                    ),
                   ),
                   Text(
                     singleTrend.name,
