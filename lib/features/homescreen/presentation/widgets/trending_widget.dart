@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:movie_colony/features/single_tv/presentation/screens/single_tv_detail.dart';
 import '../../../../core/models/tv_list/tv_list.dart';
 
 import '../../../../core/theme/theme.dart';
@@ -28,10 +30,19 @@ class TrendingWidget extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CachedImage(
-                    trend[index].posterImage.image,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.3,
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(
+                        () => SingleTvDetail(
+                          id: singleTrend.id.toString(),
+                        ),
+                      );
+                    },
+                    child: CachedImage(
+                      singleTrend.posterImage.imageUrl,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      height: MediaQuery.of(context).size.height * 0.3,
+                    ),
                   ),
                   Text(
                     singleTrend.name,

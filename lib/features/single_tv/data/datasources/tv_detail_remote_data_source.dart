@@ -20,11 +20,10 @@ class TvDetailRemoteDataSourceImpl implements TvDetailRemoteDataSource {
   @override
   Future<TvDetailModel> getRemoteTvDetail(String id) async {
     String _token = await config.fetchToken(Strings.apiKeyTmdb);
-    String _url = 'tv/$id/?api_key=$_token'.baseurl;
+    String _url = 'tv/$id?api_key=$_token'.baseurl;
     final response = await client.get(
       Uri.parse(_url),
     );
-
     if (response.statusCode == 200) {
       return TvDetailModel.fromJson(
         json.decode(response.body),

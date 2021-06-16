@@ -17,9 +17,12 @@ extension StringExtensions on String {
   String get capitalize =>
       isNotEmpty ? '${this[0].toUpperCase()}${substring(1)}' : '';
 
-  String get image => 'https://image.tmdb.org/t/p/w500/$this';
+  String get imageUrl => 'https://image.tmdb.org/t/p/w500/$this';
+}
 
-  String get png => 'https://image.tmdb.org/t/p/w500/$this';
-
-  String get jpg => 'https://image.tmdb.org/t/p/w500/$this';
+extension PostFrameCallback on VoidCallback {
+  void withPostFrameCallback() =>
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        this();
+      });
 }

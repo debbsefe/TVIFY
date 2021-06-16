@@ -21,7 +21,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CachedImage(
-            trend.posterImage.image,
+            trend.posterImage.imageUrl,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.55,
           ),
