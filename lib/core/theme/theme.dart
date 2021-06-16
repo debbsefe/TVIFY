@@ -77,6 +77,11 @@ class CustomTheme extends StateNotifier<ThemeData> {
       primaryColor: primaryColor,
       buttonColor: buttonColor1,
       cardColor: primaryTint5,
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        backgroundColor: scaffoldLight,
+        iconTheme: IconThemeData(color: greyColor2),
+      ),
       textTheme: lightTextTheme);
 
   static ThemeData darkThemeData = ThemeData(
@@ -89,6 +94,11 @@ class CustomTheme extends StateNotifier<ThemeData> {
     buttonColor: buttonColor1,
     textTheme: darkTextTheme,
     cardColor: primaryShade2,
+    appBarTheme: const AppBarTheme(
+      elevation: 0,
+      backgroundColor: scaffoldDark,
+      iconTheme: IconThemeData(color: scaffoldLight),
+    ),
   );
 
   static TextTheme darkTextTheme = const TextTheme(
@@ -97,6 +107,8 @@ class CustomTheme extends StateNotifier<ThemeData> {
     headline4: headline4Dark,
     headline6: headline6Dark,
     caption: captionDark,
+    bodyText1: bodyTextDark,
+    bodyText2: bodyText2,
   );
 
   static TextTheme lightTextTheme = const TextTheme(
@@ -105,6 +117,22 @@ class CustomTheme extends StateNotifier<ThemeData> {
     headline4: headline4Light,
     headline6: headline6Light,
     caption: captionLight,
+    bodyText1: bodyTextLight,
+    bodyText2: bodyText2,
+  );
+
+  static const TextStyle bodyText2 = TextStyle(
+    color: greyColor1,
+    fontSize: 12,
+  );
+  static const TextStyle bodyTextLight = TextStyle(
+    color: greyColor2,
+    fontSize: 16,
+  );
+
+  static const TextStyle bodyTextDark = TextStyle(
+    color: scaffoldLight,
+    fontSize: 16,
   );
 
   static const TextStyle headline4Light = TextStyle(

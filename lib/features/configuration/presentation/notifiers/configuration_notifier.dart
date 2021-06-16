@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../../../core/usecases/usecase.dart';
 import '../../../../core/utils/strings.dart';
 import '../../domain/usecases/get_configuration.dart';
@@ -16,5 +17,18 @@ class ConfigurationNotifier extends StateNotifier<ConfigurationState> {
       (failure) => state = ConfigurationError(mapFailureToMessage(failure)),
       (result) => state = ConfigurationLoaded(result),
     );
+  }
+
+  ConfigurationState currentState() {
+    return state;
+  }
+
+  String fetchPosterSizeUrl() {
+    var current = currentState();
+    if (current is ConfigurationLoaded) {
+      return '${current.configuration.secureBaseUrl}${current.configuration.posterSizes[4]}/';
+    } else {
+      return 'https://image.tmdb.org/t/p/w500/';
+    }
   }
 }

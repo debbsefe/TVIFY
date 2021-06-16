@@ -10,8 +10,8 @@ const tTvList = TvListModel(
   overview: 'test',
 );
 
-final tTvListModel = [
-  const TvListModel(
+const tTvListModel = [
+  TvListModel(
     id: 2,
     name: 'Comedy',
     date: '02/12/12',
