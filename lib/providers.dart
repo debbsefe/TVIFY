@@ -5,6 +5,8 @@ import 'package:movie_colony/core/theme/theme.dart';
 
 import 'features/categories/presentation/notifiers/categories_notifier.dart';
 import 'features/categories/presentation/notifiers/categories_state.dart';
+import 'features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'features/configuration/presentation/notifiers/configuration_state.dart';
 import 'features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
 import 'features/single_tv/presentation/notifiers/similar_tv/similar_tv_state.dart';
 import 'features/single_tv/presentation/notifiers/tv_cast/tv_cast_notifier.dart';
@@ -19,6 +21,11 @@ import 'service_locator.dart' as di;
 
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return di.sl<CustomTheme>();
+});
+
+final configurationProvider =
+    StateNotifierProvider<ConfigurationNotifier, ConfigurationState>((ref) {
+  return di.sl<ConfigurationNotifier>();
 });
 
 final categoriesProvider =

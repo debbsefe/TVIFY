@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_state.dart';
-import '../../../../core/utils/extensions.dart';
 import '../../../../providers.dart';
+import 'header_image.dart';
+import 'tv_summary.dart';
 
 class SingleTvDetail extends StatefulWidget {
   const SingleTvDetail({Key? key, required this.id}) : super(key: key);
@@ -48,7 +47,8 @@ class _SingleTvDetailState extends State<SingleTvDetail> {
         child: SingleChildScrollView(
           child: Column(
             children: const [
-              ImageAndDetails(),
+              HeaderImage(),
+              TvSummary(),
             ],
           ),
         ),
@@ -56,26 +56,3 @@ class _SingleTvDetailState extends State<SingleTvDetail> {
     );
   }
 }
-
-class ImageAndDetails extends ConsumerWidget {
-  const ImageAndDetails({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final tvDetail = watch(tvDetailProvider);
-    if (tvDetail is TvDetailLoaded) {
-      return Column(
-        children: [
-          CachedImage(
-            tvDetail.tvDetail.posterImage.imageUrl,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.55,
-          ),
-        ],
-      );
-    }
-    return Container();
-  }
-}
-
-///TODO:NICE PLACEHOLDER AS LOADING SCREEN

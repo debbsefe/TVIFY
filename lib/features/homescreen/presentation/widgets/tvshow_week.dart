@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/models/tv_list/tv_list.dart';
-import '../../../../core/utils/extensions.dart';
 import '../../../../core/widgets/buttons.dart';
 import '../../../../core/widgets/cache_image.dart';
 import '../../../../providers.dart';
@@ -14,6 +13,8 @@ class TvShowOfTheWeek extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final trending = watch(weeklyTrendingProvider);
+    var url = watch(configurationProvider.notifier).fetchPosterSizeUrl();
+
     if (trending is WeeklyTrendingLoaded) {
       TvList trend = trending.weeklyTrending[0];
       return Column(
@@ -21,9 +22,10 @@ class TvShowOfTheWeek extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CachedImage(
-            trend.posterImage.imageUrl,
+            url + trend.posterImage,
+            fit: BoxFit.fitWidth,
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.55,
+            height: MediaQuery.of(context).size.height * 0.6,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),

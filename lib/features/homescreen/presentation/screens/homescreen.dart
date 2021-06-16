@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read(weeklyTrendingProvider.notifier).fetchTrending();
     context.read(dailyTrendingProvider.notifier).fetchTrending();
     context.read(categoriesProvider.notifier).fetchCategory();
+    context.read(configurationProvider.notifier).fetchConfiguration();
   }
 
   @override
