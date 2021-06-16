@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:movie_colony/features/single_tv/domain/usecases/get_similar_tv.dart';
 
 import 'data/datasources/similar_tv_remote_data_source.dart';
 import 'data/datasources/tv_cast_remote_data_source.dart';
@@ -10,6 +9,7 @@ import 'data/repositories/tv_detail_repository_impl.dart';
 import 'domain/repositories/similar_tv_repository.dart';
 import 'domain/repositories/tv_cast_repository.dart';
 import 'domain/repositories/tv_detail_repository.dart';
+import 'domain/usecases/get_similar_tv.dart';
 import 'domain/usecases/get_tv_cast.dart';
 import 'domain/usecases/get_tv_detail.dart';
 import 'presentation/notifiers/similar_tv/similar_tv_notifier.dart';

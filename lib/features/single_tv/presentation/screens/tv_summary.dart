@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/theme/theme.dart';
-import 'package:movie_colony/core/utils/date_parser.dart';
-import 'package:movie_colony/core/utils/size_ext.dart';
-import 'package:movie_colony/core/widgets/buttons.dart';
-import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_state.dart';
+
+import '../../../../core/theme/theme.dart';
+import '../../../../core/utils/size_ext.dart';
+import '../../../../core/widgets/buttons.dart';
 import '../../../../providers.dart';
+import '../notifiers/tv_detail/tv_detail_state.dart';
 
 class TvSummary extends ConsumerWidget {
   const TvSummary({Key? key}) : super(key: key);

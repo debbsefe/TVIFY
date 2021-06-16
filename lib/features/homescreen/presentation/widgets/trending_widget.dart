@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:movie_colony/features/single_tv/presentation/screens/single_tv_detail.dart';
-import '../../../../core/models/tv_list/tv_list.dart';
 
+import '../../../../core/models/tv_list/tv_list.dart';
 import '../../../../core/theme/theme.dart';
 import '../../../../core/widgets/cache_image.dart';
 import '../../../../providers.dart';
+import '../../../single_tv/presentation/screens/single_tv_detail.dart';
 import '../../../trending/presentation/notifiers/daily_trending_state.dart';
 
 class TrendingWidget extends ConsumerWidget {
