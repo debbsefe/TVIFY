@@ -1,20 +1,16 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
+import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
 
-import '../../../../../core/utils/strings.dart';
 import '../../../domain/usecases/get_tv_detail.dart';
-import 'tv_detail_state.dart';
 
-class TvDetailNotifier extends StateNotifier<TvDetailState> {
-  TvDetailNotifier(this.tvDetail) : super(TvDetailInitial());
+class TvDetailNotifier extends GenericStateNotifier<TvDetail> {
+  TvDetailNotifier(this.tvDetail);
 
   final GetTvDetail tvDetail;
 
-  void fetchTvDetail(String id) async {
-    state = TvDetailLoading();
-    final result = await tvDetail(Params(id: id));
-    result.fold(
-      (failure) => state = TvDetailError(mapFailureToMessage(failure)),
-      (result) => state = TvDetailLoaded(result),
-    );
+  void fetchTvDetail(String id) {
+    sendRequest(() async {
+      return await tvDetail(Params(id: id));
+    });
   }
 }

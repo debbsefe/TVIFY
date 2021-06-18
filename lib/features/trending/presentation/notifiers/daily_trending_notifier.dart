@@ -1,21 +1,17 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
+import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
 
 import '../../../../core/usecases/usecase.dart';
-import '../../../../core/utils/strings.dart';
 import '../../domain/usecases/get_trending_daily.dart';
-import 'daily_trending_state.dart';
 
-class DailyTrendingNotifier extends StateNotifier<DailyTrendingState> {
-  DailyTrendingNotifier(this.dailyTrending) : super(DailyTrendingInitial());
+class DailyTrendingNotifier extends GenericStateNotifier<List<TvList>> {
+  DailyTrendingNotifier(this.dailyTrending);
 
   final GetDailyTrending dailyTrending;
 
-  void fetchTrending() async {
-    state = DailyTrendingLoading();
-    final result = await dailyTrending(NoParams());
-    result.fold(
-      (failure) => state = DailyTrendingError(mapFailureToMessage(failure)),
-      (trivia) => state = DailyTrendingLoaded(trivia),
-    );
+  void fetchTrending() {
+    sendRequest(() async {
+      return await dailyTrending(NoParams());
+    });
   }
 }

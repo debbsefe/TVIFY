@@ -7,3 +7,6 @@ analyzer:
     overridden_fields: ignore
     annotate_overrides: ignore
     omit_local_variable_types: ignore
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"

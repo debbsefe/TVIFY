@@ -6,7 +6,6 @@ import '../../../../core/utils/date_parser.dart';
 import '../../../../core/utils/size_ext.dart';
 import '../../../../core/widgets/cache_image.dart';
 import '../../../../providers.dart';
-import '../notifiers/tv_detail/tv_detail_state.dart';
 
 class HeaderImage extends ConsumerWidget {
   const HeaderImage({Key? key}) : super(key: key);
@@ -16,82 +15,85 @@ class HeaderImage extends ConsumerWidget {
     final tvDetail = watch(tvDetailProvider);
     var url = watch(configurationProvider.notifier).fetchPosterSizeUrl();
 
-    if (tvDetail is TvDetailLoaded) {
-      return Column(
-        children: [
-          CachedImage(
-            url + tvDetail.tvDetail.posterImage,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.55,
-          ),
-          Container(
-            margin: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 16,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tvDetail.tvDetail.name,
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          yearFromDateString(tvDetail.tvDetail.startDate),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(color: CustomTheme.greyColor3),
-                        ),
-                        const Width(10),
-                        Text(
-                          fetchSeason(
-                            tvDetail.tvDetail.seasons,
-                          ),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1
-                              ?.copyWith(color: CustomTheme.greyColor3),
-                        ),
-                      ],
-                    )
-                  ],
+    return tvDetail.when(
+        initial: () => Container(),
+        loading: () => Container(),
+        error: (e) => Text(e.toString()),
+        loaded: (detail) {
+          return Column(
+            children: [
+              CachedImage(
+                url + detail!.posterImage,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.55,
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 16,
                 ),
-                Column(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(
-                          Icons.star,
-                          size: 16,
-                          color: CustomTheme.yellowStar,
-                        ),
-                        const Width(5),
                         Text(
-                          tvDetail.tvDetail.rating.toString(),
+                          detail.name,
                           style: Theme.of(context).textTheme.headline4,
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              yearFromDateString(detail.startDate),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(color: CustomTheme.greyColor3),
+                            ),
+                            const Width(10),
+                            Text(
+                              fetchSeason(
+                                detail.seasons,
+                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(color: CustomTheme.greyColor3),
+                            ),
+                          ],
+                        )
                       ],
-                    )
+                    ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              size: 16,
+                              color: CustomTheme.yellowStar,
+                            ),
+                            const Width(5),
+                            Text(
+                              detail.rating.toString(),
+                              style: Theme.of(context).textTheme.headline4,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          const Divider(
-            color: CustomTheme.primaryTint4,
-            thickness: 0.75,
-          )
-        ],
-      );
-    }
-    return Container();
+              ),
+              const Divider(
+                color: CustomTheme.primaryTint4,
+                thickness: 0.75,
+              )
+            ],
+          );
+        });
   }
 }
 
