@@ -7,13 +7,15 @@ import '../utils/strings.dart';
 class CustomTheme extends StateNotifier<ThemeData> {
   CustomTheme(this.appCache)
       : super(
-            //check current theme at app start and pass to the super-constructor
+
+            ///check current theme at app start
+            /// and pass to the super-constructor
             appCache.retrieveString(Strings.theme) == Strings.darkTheme
                 ? CustomTheme.darkThemeData
                 : CustomTheme.lightThemeData);
   final AppCache appCache;
 
-  //change the theme by passing selected themeData and name of the theme
+  ///change the theme by passing selected themeData and name of the theme
   void changeTheme(ThemeData themeData, String name) {
     if (state != themeData) {
       state = themeData;
