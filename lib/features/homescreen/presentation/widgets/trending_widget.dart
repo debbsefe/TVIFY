@@ -19,14 +19,18 @@ class TrendingWidget extends ConsumerWidget {
         initial: () => Container(),
         loading: () => Container(),
         error: (e) => Text(e.toString()),
-        loaded: (trend) {
+        loaded: (trends) {
+          var trend = trends ?? [];
+          // ignore: cascade_invocations
+          trend.shuffle();
           return ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.only(top: 10),
-              itemCount: trend!.length,
+              itemCount: trend.length,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
                 var singleTrend = trend[index];
+                String posterImage = singleTrend.posterImage ?? '';
                 return Container(
                   margin: const EdgeInsets.only(right: 10),
                   child: Column(
@@ -40,14 +44,17 @@ class TrendingWidget extends ConsumerWidget {
                             ),
                           );
                         },
-                        child: CachedImage(
-                          url + singleTrend.posterImage,
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          height: MediaQuery.of(context).size.height * 0.3,
+                        child: Hero(
+                          tag: 'imageHero-${url + posterImage}',
+                          child: CachedImage(
+                            url + posterImage,
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            height: MediaQuery.of(context).size.height * 0.3,
+                          ),
                         ),
                       ),
                       Text(
-                        singleTrend.name,
+                        singleTrend.name ?? '',
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       Text(

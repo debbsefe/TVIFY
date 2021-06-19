@@ -31,28 +31,28 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         .read(themeProvider.notifier)
         .changeTheme(CustomTheme.lightThemeData, Strings.lightTheme);
     setState(() {
-      notifications = value;
+      notifications2 = value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        CupertinoSwitch(
+        body: SafeArea(
+      child: Column(
+        children: [
+          CupertinoSwitch(
             value: notifications,
             // ignore: unnecessary_lambdas
-            onChanged: (value) {
-              handleSwitch(value);
-            }),
-        CupertinoSwitch(
+            onChanged: (value) => handleSwitch(value),
+          ),
+          CupertinoSwitch(
             value: notifications2,
             // ignore: unnecessary_lambdas
-            onChanged: (value) {
-              handleSwitch2(value);
-            }),
-      ],
+            onChanged: (value) => handleSwitch2(value),
+          ),
+        ],
+      ),
     ));
   }
 }

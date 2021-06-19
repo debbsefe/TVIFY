@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../screens/homescreen.dart';
-import '../screens/settings_widget.dart';
+import 'homescreen.dart';
+import 'settings_widget.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomeScreenTab extends StatefulWidget {
@@ -12,6 +12,7 @@ class HomeScreenTab extends StatefulWidget {
 
 class _HomeScreenTabState extends State<HomeScreenTab> {
   int _currentIndex = 0;
+  List<Widget> pageList = <Widget>[];
 
   void onTabTapped(int index) {
     setState(() {
@@ -20,16 +21,23 @@ class _HomeScreenTabState extends State<HomeScreenTab> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    const List<Widget> _children = [
-      HomeScreen(),
-      Search(),
-      WatchList(),
-      SettingsWidget()
-    ];
+  void initState() {
+    pageList
+      ..add(const HomeScreen())
+      ..add(const Search())
+      ..add(const WatchList())
+      ..add(const SettingsWidget());
 
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-        body: _children[_currentIndex],
+        body: IndexedStack(
+          index: _currentIndex,
+          children: pageList,
+        ),
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.grey,
           selectedItemColor: Theme.of(context).primaryColor,

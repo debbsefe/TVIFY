@@ -16,16 +16,22 @@ class HeaderImage extends ConsumerWidget {
     var url = watch(configurationProvider.notifier).fetchPosterSizeUrl();
 
     return tvDetail.when(
-        initial: () => Container(),
-        loading: () => Container(),
+        initial: () => Height(MediaQuery.of(context).size.height * 0.55),
+        loading: () => Height(MediaQuery.of(context).size.height * 0.55),
         error: (e) => Text(e.toString()),
         loaded: (detail) {
+          String posterImage = detail!.posterImage ?? '';
+          String name = detail.name ?? '';
+
           return Column(
             children: [
-              CachedImage(
-                url + detail!.posterImage,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.55,
+              Hero(
+                tag: 'imageHero-${url + posterImage}',
+                child: CachedImage(
+                  url + posterImage,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.55,
+                ),
               ),
               Container(
                 margin: const EdgeInsets.symmetric(
@@ -39,7 +45,7 @@ class HeaderImage extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          detail.name,
+                          name,
                           style: Theme.of(context).textTheme.headline4,
                         ),
                         Row(
@@ -97,6 +103,10 @@ class HeaderImage extends ConsumerWidget {
   }
 }
 
-String fetchSeason(int value) {
-  return value > 1 ? '$value Seasons' : '$value Season';
+String fetchSeason(int? value) {
+  return value == null
+      ? ''
+      : value > 1
+          ? '$value Seasons'
+          : '$value Season';
 }

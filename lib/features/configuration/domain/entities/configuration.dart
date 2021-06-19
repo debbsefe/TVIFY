@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class Configuration extends Equatable {
-  const Configuration(
-      {required this.baseUrl,
-      required this.secureBaseUrl,
-      required this.backdropSizes,
-      required this.logoSizes,
-      required this.posterSizes,
-      required this.profileSizes,
-      required this.stillSizes,
-      required this.changeKeys});
-  final String baseUrl;
-  final String secureBaseUrl;
+  const Configuration({
+    this.baseUrl,
+    this.secureBaseUrl,
+    required this.backdropSizes,
+    required this.logoSizes,
+    required this.posterSizes,
+    required this.profileSizes,
+    required this.stillSizes,
+    required this.changeKeys,
+  });
+  final String? baseUrl, secureBaseUrl;
   final List<String> backdropSizes;
   final List<String> logoSizes;
   final List<String> posterSizes;

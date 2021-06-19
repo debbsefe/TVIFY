@@ -28,4 +28,13 @@ class ConfigurationNotifier extends GenericStateNotifier<Configuration> {
       return 'https://image.tmdb.org/t/p/w500/';
     }
   }
+
+  String fetchProfileSizeUrl() {
+    var current = currentState();
+    if (current is Loaded<Configuration>) {
+      return '${current.value!.secureBaseUrl}${current.value!.profileSizes[3]}/';
+    } else {
+      return 'https://image.tmdb.org/t/p/original/';
+    }
+  }
 }

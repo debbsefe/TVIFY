@@ -2,21 +2,18 @@ import 'package:equatable/equatable.dart';
 
 class TvList extends Equatable {
   const TvList({
-    required this.date,
-    required this.rating,
-    required this.backdropImage,
-    required this.posterImage,
-    required this.id,
-    required this.name,
-    required this.overview,
+    this.date,
+    this.rating,
+    this.backdropImage,
+    this.posterImage,
+    this.id,
+    this.name,
+    this.overview,
   });
 
-  final int id;
-  final String name;
-  final String date, overview;
-  final num rating;
-  final String backdropImage;
-  final String posterImage;
+  final int? id;
+  final String? name, date, overview, backdropImage, posterImage;
+  final num? rating;
 
   @override
   List<Object?> get props => [

@@ -17,14 +17,15 @@ class TvShowOfTheWeek extends ConsumerWidget {
         loading: () => Container(),
         error: (e) => Text(e.toString()),
         loaded: (trends) {
-          var trend = trends![0];
+          var trend = trends!.first;
+          String posterImage = trend.posterImage ?? '';
 
           return Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CachedImage(
-                url + trend.posterImage,
+                url + posterImage,
                 fit: BoxFit.fitWidth,
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.6,
@@ -45,7 +46,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
                 ),
               ),
               Text(
-                trend.overview,
+                trend.overview ?? '',
                 style: Theme.of(context).textTheme.subtitle2,
               ),
               Padding(
