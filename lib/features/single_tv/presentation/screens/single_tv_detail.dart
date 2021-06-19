@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import '../../../../providers.dart';
 import 'header_image.dart';
+import 'similar_tv_shows_widget.dart';
+import 'top_cast.dart';
 import 'tv_summary.dart';
 
 class SingleTvDetail extends StatefulWidget {
@@ -46,9 +48,32 @@ class _SingleTvDetailState extends State<SingleTvDetail> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
-            children: const [
-              HeaderImage(),
-              TvSummary(),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HeaderImage(),
+              const TvSummary(),
+              Container(
+                margin: const EdgeInsets.only(
+                  left: 16,
+                  bottom: 10,
+                ),
+                child: Text(
+                  'Top Cast ',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ),
+              const SizedBox(height: 100, child: TopCast()),
+              Container(
+                margin: const EdgeInsets.only(
+                  left: 16,
+                  bottom: 10,
+                ),
+                child: Text(
+                  'TV Shows like this',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+              ),
+              const SizedBox(height: 300, child: SimilarTvShowsWidget()),
             ],
           ),
         ),

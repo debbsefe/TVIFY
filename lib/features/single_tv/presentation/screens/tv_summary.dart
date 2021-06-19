@@ -18,6 +18,8 @@ class TvSummary extends ConsumerWidget {
         loading: () => Container(),
         error: (e) => Text(e.toString()),
         loaded: (detail) {
+          String overview = detail!.overview ?? '';
+          var categories = detail.categories ?? [];
           return Container(
             margin: const EdgeInsets.symmetric(
               horizontal: 16,
@@ -32,7 +34,7 @@ class TvSummary extends ConsumerWidget {
                 ),
                 const Height(10),
                 Text(
-                  detail!.overview,
+                  overview,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1
@@ -48,7 +50,7 @@ class TvSummary extends ConsumerWidget {
                   spacing: 10,
                   runSpacing: 15,
                   alignment: WrapAlignment.spaceBetween,
-                  children: detail.categories.map((e) {
+                  children: categories.map((e) {
                     return InkWell(
                       child: Container(
                           padding: const EdgeInsets.symmetric(
@@ -62,14 +64,14 @@ class TvSummary extends ConsumerWidget {
                                 const BorderRadius.all(Radius.circular(3)),
                           ),
                           child: Text(
-                            e.name,
+                            e.name ?? '',
                             style: Theme.of(context).textTheme.bodyText2,
                           )),
                     );
                   }).toList(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 30),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                   child: CustomButton(
                     onPressed: () {},
                     name: 'Notify Me',

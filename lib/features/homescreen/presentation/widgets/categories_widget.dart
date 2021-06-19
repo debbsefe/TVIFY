@@ -30,7 +30,7 @@ class CategoriesWidget extends ConsumerWidget {
                 width: 100,
                 child: Center(
                   child: Text(
-                    category[index].name,
+                    category[index].name ?? '',
                     style: Theme.of(context).textTheme.caption,
                   ),
                 ),

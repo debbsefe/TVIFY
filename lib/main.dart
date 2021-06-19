@@ -4,9 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 import 'core/cache/app_cache.dart';
-import 'core/theme/theme.dart';
 import 'core/utils/strings.dart';
-import 'features/homescreen/presentation/widgets/homescreen_tab.dart';
+import 'features/homescreen/presentation/screens/homescreen_tab.dart';
 import 'features/onboarding/presentation/onboarding.dart';
 import 'providers.dart';
 import 'service_locator.dart' as di;
@@ -42,43 +41,5 @@ class MovieColony extends ConsumerWidget {
         title: 'MovieColony',
         theme: theme,
         home: isFirstTimeUser == null ? const Onboarding() : HomeScreenTab());
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({
-    Key? key,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('MovieColony')),
-      body: Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              context
-                  .read(themeProvider.notifier)
-                  .changeTheme(CustomTheme.darkThemeData, Strings.darkTheme);
-            },
-            child: Text(
-              'Hello World',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              context
-                  .read(themeProvider.notifier)
-                  .changeTheme(CustomTheme.lightThemeData, Strings.lightTheme);
-            },
-            child: Text(
-              'Hello Africa',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
