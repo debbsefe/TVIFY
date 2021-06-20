@@ -1,9 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
+
+import '../../../../app_router.gr.dart';
 import '../../../../core/widgets/cache_image.dart';
 import '../../../../providers.dart';
-import '../../../single_tv/presentation/screens/single_tv_detail.dart';
 
 class SimilarTvShowsWidget extends ConsumerWidget {
   const SimilarTvShowsWidget({Key? key}) : super(key: key);
@@ -35,11 +36,9 @@ class SimilarTvShowsWidget extends ConsumerWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.to(
-                            () => SingleTvDetail(
-                              id: singleTv.id.toString(),
-                            ),
-                          );
+                          context.pushRoute(SingleTvDetailRoute(
+                            id: singleTv.id.toString(),
+                          ));
                         },
                         child: CachedImage(
                           url + posterImage,

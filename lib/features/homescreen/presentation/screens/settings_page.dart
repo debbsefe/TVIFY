@@ -6,14 +6,14 @@ import '../../../../core/theme/theme.dart';
 import '../../../../core/utils/strings.dart';
 import '../../../../providers.dart';
 
-class SettingsWidget extends StatefulWidget {
-  const SettingsWidget({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  _SettingsWidgetState createState() => _SettingsWidgetState();
+  _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _SettingsWidgetState extends State<SettingsWidget> {
+class _SettingsPageState extends State<SettingsPage> {
   bool notifications = false;
   bool notifications2 = false;
 

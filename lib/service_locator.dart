@@ -14,6 +14,7 @@ import 'features/categories/service_locator.dart';
 import 'features/configuration/service_locator.dart';
 import 'features/single_tv/service_locator.dart';
 import 'features/trending/service_locator.dart';
+import 'main.dart';
 
 final sl = GetIt.instance;
 
@@ -29,6 +30,9 @@ Future<void> init() async {
     () => CustomTheme(sl()),
   );
 
+  sl.registerLazySingleton<FirstTimeNotifier>(
+    () => FirstTimeNotifier(sl()),
+  );
   //! Core
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
   sl.registerLazySingleton<AppCache>(() => AppCacheImpl(sl()));
