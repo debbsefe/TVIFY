@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/cache/app_cache.dart';
-import '../../../core/utils/strings.dart';
 import '../../../core/widgets/buttons.dart';
+import '../../../providers.dart';
 import '../../../service_locator.dart' as di;
-import '../../homescreen/presentation/screens/homescreen.dart';
 import 'widgets/slide_dots.dart';
 import 'widgets/slide_item.dart';
 
@@ -90,32 +89,18 @@ class _OnboardingState extends State<Onboarding> {
           child: CustomButton(
             name: 'Get Started',
             onPressed: () {
-              prefs.saveBool(Strings.firstTimeUser, false);
-              Get.off(() => const HomeScreen());
-
-              //context.read(categoriesProvider.notifier).fetchCategory();
+              context.read(firstTimeProvider.notifier).addData();
+              // context.replaceRoute(const HomeScreenTabRoute(children: [
+              //   // push any sequence of Account routes here
+              //   // the last route will be the one that is currently visible
+              //   HomeScreenRouter(),
+              //   SearchRouter(),
+              //   WatchListRouter(),
+              //   SettingsRouter()
+              // ]));
             },
           ),
         ),
-        // Consumer(builder: (context, watch, child) {
-        //   var state = watch(categoriesProvider);
-        //   if (state is CategoriesInitial) {
-        //     print('initial');
-        //     return Container();
-        //   } else if (state is CategoriesLoading) {
-        //     print('loading');
-
-        //     return Container();
-        //   } else if (state is CategoriesLoaded) {
-        //     print('loaded ${state.categories}');
-
-        //     return Container();
-        //   } else if (state is CategoriesError) {
-        //     print('error ${state.message}');
-        //     return Container();
-        //   }
-        //   return Container();
-        // }),
       ]),
     );
   }

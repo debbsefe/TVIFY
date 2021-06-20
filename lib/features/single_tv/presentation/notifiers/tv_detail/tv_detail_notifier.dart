@@ -1,6 +1,5 @@
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
-
+import '../../../../../core/notifiers/generic_state_notifier.dart';
+import '../../../domain/entities/tv_detail.dart';
 import '../../../domain/usecases/get_tv_detail.dart';
 
 class TvDetailNotifier extends GenericStateNotifier<TvDetail> {

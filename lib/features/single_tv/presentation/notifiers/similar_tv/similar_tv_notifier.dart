@@ -1,5 +1,5 @@
-import 'package:movie_colony/core/models/tv_list/tv_list.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
+import '../../../../../core/models/tv_list/tv_list.dart';
+import '../../../../../core/notifiers/generic_state_notifier.dart';
 
 import '../../../domain/usecases/get_similar_tv.dart';
 

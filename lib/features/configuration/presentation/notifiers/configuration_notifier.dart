@@ -1,8 +1,7 @@
-import 'package:movie_colony/core/notifiers/generic_state.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
-
+import '../../../../core/notifiers/generic_state.dart';
+import '../../../../core/notifiers/generic_state_notifier.dart';
 import '../../../../core/usecases/usecase.dart';
+import '../../domain/entities/configuration.dart';
 import '../../domain/usecases/get_configuration.dart';
 
 class ConfigurationNotifier extends GenericStateNotifier<Configuration> {

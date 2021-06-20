@@ -51,7 +51,7 @@ class TvSummary extends ConsumerWidget {
                   runSpacing: 15,
                   alignment: WrapAlignment.spaceBetween,
                   children: categories.map((e) {
-                    return InkWell(
+                    return GestureDetector(
                       child: Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 16, vertical: 8),

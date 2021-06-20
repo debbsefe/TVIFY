@@ -5,6 +5,7 @@ import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/features/single_tv/domain/entities/tv_cast.dart';
 import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
+
 import 'core/notifiers/generic_state.dart';
 import 'features/categories/domain/entities/categories.dart';
 import 'features/categories/presentation/notifiers/categories_notifier.dart';
@@ -15,11 +16,15 @@ import 'features/single_tv/presentation/notifiers/tv_cast/tv_cast_notifier.dart'
 import 'features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 import 'features/trending/presentation/notifiers/daily_trending_notifier.dart';
 import 'features/trending/presentation/notifiers/weekly_trending_notifier.dart';
+import 'main.dart';
 import 'service_locator.dart' as di;
 
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return di.sl<CustomTheme>();
 });
+
+final firstTimeProvider = StateNotifierProvider<FirstTimeNotifier, bool>(
+    (ref) => di.sl<FirstTimeNotifier>());
 
 final configurationProvider =
     StateNotifierProvider<ConfigurationNotifier, GenericState<Configuration>>(

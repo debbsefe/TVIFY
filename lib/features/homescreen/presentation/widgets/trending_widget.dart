@@ -1,11 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
-import 'package:movie_colony/core/utils/date_parser.dart';
+
+import '../../../../app_router.gr.dart';
 import '../../../../core/theme/theme.dart';
+import '../../../../core/utils/date_parser.dart';
 import '../../../../core/widgets/cache_image.dart';
 import '../../../../providers.dart';
-import '../../../single_tv/presentation/screens/single_tv_detail.dart';
 
 class TrendingWidget extends ConsumerWidget {
   const TrendingWidget({Key? key}) : super(key: key);
@@ -38,11 +39,9 @@ class TrendingWidget extends ConsumerWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.to(
-                            () => SingleTvDetail(
-                              id: singleTrend.id.toString(),
-                            ),
-                          );
+                          context.pushRoute(SingleTvDetailRoute(
+                            id: singleTrend.id.toString(),
+                          ));
                         },
                         child: Hero(
                           tag: 'imageHero-${url + posterImage}',

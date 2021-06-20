@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/error/failure.dart';
-import 'package:movie_colony/core/utils/strings.dart';
+import '../error/failure.dart';
+import '../utils/strings.dart';
 
 import 'generic_state.dart';
 
