@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,17 +29,16 @@ Future<void> init() async {
   );
 
   //! Core
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
   sl.registerLazySingleton<AppCache>(() => AppCacheImpl(sl()));
   sl.registerLazySingleton<Config>(() => ConfigImpl(sl()));
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
-  final RemoteConfig remoteConfig = RemoteConfig.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   sl.registerLazySingleton<SharedPreferences>(() => sharedPreferences);
-  sl.registerLazySingleton<RemoteConfig>(() => remoteConfig);
+  sl.registerLazySingleton<FirebaseFirestore>(() => firestore);
+
   sl.registerLazySingleton<http.Client>(() => http.Client());
-  sl.registerLazySingleton<DataConnectionChecker>(
-      () => DataConnectionChecker());
 }

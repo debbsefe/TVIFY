@@ -1,20 +1,16 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../core/notifiers/generic_state_notifier.dart';
+import '../../../domain/entities/tv_cast.dart';
 
-import '../../../../../core/utils/strings.dart';
 import '../../../domain/usecases/get_tv_cast.dart';
-import 'tv_cast_state.dart';
 
-class TvCastNotifier extends StateNotifier<TvCastState> {
-  TvCastNotifier(this.tvCast) : super(TvCastInitial());
+class TvCastNotifier extends GenericStateNotifier<List<TvCast>> {
+  TvCastNotifier(this.tvCast);
 
   final GetTvCast tvCast;
 
-  void fetchTvCast(String id) async {
-    state = TvCastLoading();
-    final result = await tvCast(Params(id: id));
-    result.fold(
-      (failure) => state = TvCastError(mapFailureToMessage(failure)),
-      (result) => state = TvCastLoaded(result),
-    );
+  void fetchTvCast(String id) {
+    sendRequest(() async {
+      return await tvCast(Params(id: id));
+    });
   }
 }

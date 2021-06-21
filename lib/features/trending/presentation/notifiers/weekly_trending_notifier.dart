@@ -1,21 +1,16 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/models/tv_list/tv_list.dart';
+import '../../../../core/notifiers/generic_state_notifier.dart';
 import '../../../../core/usecases/usecase.dart';
-import '../../../../core/utils/strings.dart';
 import '../../domain/usecases/get_trending_weekly.dart';
 
-import 'weekly_trending_state.dart';
-
-class WeeklyTrendingNotifier extends StateNotifier<WeeklyTrendingState> {
-  WeeklyTrendingNotifier(this.weeklyTrending) : super(WeeklyTrendingInitial());
+class WeeklyTrendingNotifier extends GenericStateNotifier<List<TvList>> {
+  WeeklyTrendingNotifier(this.weeklyTrending);
 
   final GetWeeklyTrending weeklyTrending;
 
-  void fetchTrending() async {
-    state = WeeklyTrendingLoading();
-    final result = await weeklyTrending(NoParams());
-    result.fold(
-      (failure) => state = WeeklyTrendingError(mapFailureToMessage(failure)),
-      (trivia) => state = WeeklyTrendingLoaded(trivia),
-    );
+  void fetchTrending() {
+    sendRequest(() async {
+      return await weeklyTrending(NoParams());
+    });
   }
 }

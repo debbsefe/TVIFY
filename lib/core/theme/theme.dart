@@ -7,13 +7,15 @@ import '../utils/strings.dart';
 class CustomTheme extends StateNotifier<ThemeData> {
   CustomTheme(this.appCache)
       : super(
-            //check current theme at app start and pass to the super-constructor
+
+            ///check current theme at app start
+            /// and pass to the super-constructor
             appCache.retrieveString(Strings.theme) == Strings.darkTheme
                 ? CustomTheme.darkThemeData
                 : CustomTheme.lightThemeData);
   final AppCache appCache;
 
-  //change the theme by passing selected themeData and name of the theme
+  ///change the theme by passing selected themeData and name of the theme
   void changeTheme(ThemeData themeData, String name) {
     if (state != themeData) {
       state = themeData;
@@ -78,6 +80,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
       buttonColor: buttonColor1,
       cardColor: primaryTint5,
       appBarTheme: const AppBarTheme(
+        titleTextStyle: bodyTextLight,
         elevation: 0,
         backgroundColor: scaffoldLight,
         iconTheme: IconThemeData(color: greyColor2),
@@ -95,8 +98,10 @@ class CustomTheme extends StateNotifier<ThemeData> {
     textTheme: darkTextTheme,
     cardColor: primaryShade2,
     appBarTheme: const AppBarTheme(
+      centerTitle: false,
       elevation: 0,
       backgroundColor: scaffoldDark,
+      titleTextStyle: bodyTextDark,
       iconTheme: IconThemeData(color: scaffoldLight),
     ),
   );

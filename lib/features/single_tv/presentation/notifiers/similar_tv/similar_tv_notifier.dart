@@ -1,20 +1,16 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../../core/models/tv_list/tv_list.dart';
+import '../../../../../core/notifiers/generic_state_notifier.dart';
 
-import '../../../../../core/utils/strings.dart';
 import '../../../domain/usecases/get_similar_tv.dart';
-import 'similar_tv_state.dart';
 
-class SimilarTvNotifier extends StateNotifier<SimilarTvState> {
-  SimilarTvNotifier(this.similarTv) : super(SimilarTvInitial());
+class SimilarTvNotifier extends GenericStateNotifier<List<TvList>> {
+  SimilarTvNotifier(this.similarTv);
 
   final GetSimilarTv similarTv;
 
-  void fetchSimilarTv(String id) async {
-    state = SimilarTvLoading();
-    final result = await similarTv(Params(id: id));
-    result.fold(
-      (failure) => state = SimilarTvError(mapFailureToMessage(failure)),
-      (result) => state = SimilarTvLoaded(result),
-    );
+  void fetchSimilarTv(String id) {
+    sendRequest(() async {
+      return await similarTv(Params(id: id));
+    });
   }
 }

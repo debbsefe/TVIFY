@@ -1,13 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 
+import 'app_router.gr.dart';
 import 'core/cache/app_cache.dart';
-import 'core/theme/theme.dart';
 import 'core/utils/strings.dart';
-import 'features/homescreen/presentation/widgets/homescreen_tab.dart';
-import 'features/onboarding/presentation/onboarding.dart';
 import 'providers.dart';
 import 'service_locator.dart' as di;
 
@@ -31,54 +29,27 @@ class MovieColony extends ConsumerWidget {
   }) : super(key: key);
 
   final AppCache prefs = di.sl<AppCache>();
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final theme = watch(themeProvider);
-    var isFirstTimeUser = prefs.retrieveBool(Strings.firstTimeUser);
+    var isFirstTime = prefs.retrieveBool(Strings.firstTimeUser);
 
-    return GetMaterialApp(
+    return MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: 'MovieColony',
         theme: theme,
-        home: isFirstTimeUser == null ? const Onboarding() : HomeScreenTab());
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({
-    Key? key,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('MovieColony')),
-      body: Column(
-        children: [
-          TextButton(
-            onPressed: () {
-              context
-                  .read(themeProvider.notifier)
-                  .changeTheme(CustomTheme.darkThemeData, Strings.darkTheme);
-            },
-            child: Text(
-              'Hello World',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              context
-                  .read(themeProvider.notifier)
-                  .changeTheme(CustomTheme.lightThemeData, Strings.lightTheme);
-            },
-            child: Text(
-              'Hello Africa',
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-          ),
-        ],
-      ),
-    );
+        routerDelegate: AutoRouterDelegate.declarative(
+          _appRouter,
+          routes: (_) => [
+            if (isFirstTime == null)
+              const OnboardingRoute()
+            else
+              const HomeScreenTabRoute(),
+          ],
+        ),
+        routeInformationParser:
+            _appRouter.defaultRouteParser(includePrefixMatches: true));
   }
 }

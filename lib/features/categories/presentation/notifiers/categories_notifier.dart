@@ -1,21 +1,16 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import '../../../../core/notifiers/generic_state_notifier.dart';
 import '../../../../core/usecases/usecase.dart';
-import '../../../../core/utils/strings.dart';
+import '../../domain/entities/categories.dart';
 import '../../domain/usecases/get_categories.dart';
-import 'categories_state.dart';
 
-class CategoriesNotifier extends StateNotifier<CategoriesState> {
-  CategoriesNotifier(this.allCategories) : super(CategoriesInitial());
+class CategoriesNotifier extends GenericStateNotifier<List<Categories>> {
+  CategoriesNotifier(this.allCategories);
 
   final GetAllCategories allCategories;
 
-  void fetchCategory() async {
-    state = CategoriesLoading();
-    final result = await allCategories(NoParams());
-    result.fold(
-      (failure) => state = CategoriesError(mapFailureToMessage(failure)),
-      (trivia) => state = CategoriesLoaded(trivia),
-    );
+  void fetchCategory() {
+    sendRequest(() async {
+      return await allCategories(NoParams());
+    });
   }
 }

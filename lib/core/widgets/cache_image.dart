@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 
 class CachedImage extends StatelessWidget {
   const CachedImage(
@@ -19,9 +20,6 @@ class CachedImage extends StatelessWidget {
 
   final BoxFit fit;
 
-  final String noImageAvailable =
-      'https://www.esm.rochester.edu/uploads/NoPhotoAvailable.jpg';
-
   @override
   Widget build(BuildContext context) {
     try {
@@ -36,7 +34,7 @@ class CachedImage extends StatelessWidget {
               placeholder: (context, url) =>
                   const Center(child: CircularProgressIndicator()),
               errorWidget: (context, url, error) => Image.network(
-                noImageAvailable,
+                Strings.noImageAvailable,
                 height: 25,
                 width: 25,
                 fit: BoxFit.cover,
@@ -47,7 +45,7 @@ class CachedImage extends StatelessWidget {
       // ignore: avoid_print
       print(e);
       return Image.network(
-        noImageAvailable,
+        Strings.noImageAvailable,
         height: 25,
         width: 25,
         fit: BoxFit.cover,

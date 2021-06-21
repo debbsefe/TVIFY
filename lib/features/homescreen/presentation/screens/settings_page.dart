@@ -6,14 +6,14 @@ import '../../../../core/theme/theme.dart';
 import '../../../../core/utils/strings.dart';
 import '../../../../providers.dart';
 
-class SettingsWidget extends StatefulWidget {
-  const SettingsWidget({Key? key}) : super(key: key);
+class SettingsPage extends StatefulWidget {
+  const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  _SettingsWidgetState createState() => _SettingsWidgetState();
+  _SettingsPageState createState() => _SettingsPageState();
 }
 
-class _SettingsWidgetState extends State<SettingsWidget> {
+class _SettingsPageState extends State<SettingsPage> {
   bool notifications = false;
   bool notifications2 = false;
 
@@ -31,28 +31,28 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         .read(themeProvider.notifier)
         .changeTheme(CustomTheme.lightThemeData, Strings.lightTheme);
     setState(() {
-      notifications = value;
+      notifications2 = value;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(
-      children: [
-        CupertinoSwitch(
+        body: SafeArea(
+      child: Column(
+        children: [
+          CupertinoSwitch(
             value: notifications,
             // ignore: unnecessary_lambdas
-            onChanged: (value) {
-              handleSwitch(value);
-            }),
-        CupertinoSwitch(
+            onChanged: (value) => handleSwitch(value),
+          ),
+          CupertinoSwitch(
             value: notifications2,
             // ignore: unnecessary_lambdas
-            onChanged: (value) {
-              handleSwitch2(value);
-            }),
-      ],
+            onChanged: (value) => handleSwitch2(value),
+          ),
+        ],
+      ),
     ));
   }
 }
