@@ -8,8 +8,8 @@ import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/single_tv/data/datasources/similar_tv_remote_data_source.dart';
 import 'package:movie_colony/features/single_tv/data/repositories/similar_tv_repository_impl.dart';
 
-import '../../../../data/Tv_list/constants.dart';
 import '../../../../data/single_tv/constants.dart';
+import '../../../../data/tv_list/constants.dart';
 
 class MockSimilarTvRemoteDataSource extends Mock
     implements SimilarTvRemoteDataSource {}
