@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 import '../../../../core/widgets/cache_image.dart';
 
 // import 'package:movie_colony/core/utils/extensions.dart';
@@ -26,13 +27,20 @@ class TopCast extends ConsumerWidget {
             itemCount: cast.length,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              String profileImage = cast[index].profileImage ?? '';
+              var imageUrl = (() {
+                switch (cast[index].profileImage) {
+                  case null:
+                    return Strings.noImageAvailable;
+                  default:
+                    return url + cast[index].profileImage!;
+                }
+              })();
               return Container(
                 margin: const EdgeInsets.only(left: 8),
                 child: Column(
                   children: [
                     CachedImage(
-                      url + profileImage,
+                      imageUrl,
                       isRound: true,
                       radius: 56,
                     ),
@@ -48,4 +56,5 @@ class TopCast extends ConsumerWidget {
         });
   }
 }
+
 ///TODO:NICE PLACEHOLDER AS LOADING SCREEN

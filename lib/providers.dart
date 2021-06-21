@@ -16,15 +16,11 @@ import 'features/single_tv/presentation/notifiers/tv_cast/tv_cast_notifier.dart'
 import 'features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 import 'features/trending/presentation/notifiers/daily_trending_notifier.dart';
 import 'features/trending/presentation/notifiers/weekly_trending_notifier.dart';
-import 'main.dart';
 import 'service_locator.dart' as di;
 
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return di.sl<CustomTheme>();
 });
-
-final firstTimeProvider = StateNotifierProvider<FirstTimeNotifier, bool>(
-    (ref) => di.sl<FirstTimeNotifier>());
 
 final configurationProvider =
     StateNotifierProvider<ConfigurationNotifier, GenericState<Configuration>>(

@@ -34,10 +34,7 @@ class MovieColony extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final theme = watch(themeProvider);
-    final firstTime = watch(firstTimeProvider);
-
-    var isFirstTimeUser =
-        context.read(firstTimeProvider.notifier).currentState();
+    var isFirstTime = prefs.retrieveBool(Strings.firstTimeUser);
 
     return MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -46,7 +43,7 @@ class MovieColony extends ConsumerWidget {
         routerDelegate: AutoRouterDelegate.declarative(
           _appRouter,
           routes: (_) => [
-            if (isFirstTimeUser && firstTime)
+            if (isFirstTime == null)
               const OnboardingRoute()
             else
               const HomeScreenTabRoute(),
@@ -54,29 +51,5 @@ class MovieColony extends ConsumerWidget {
         ),
         routeInformationParser:
             _appRouter.defaultRouteParser(includePrefixMatches: true));
-  }
-}
-
-class FirstTimeNotifier extends StateNotifier<bool> {
-  FirstTimeNotifier(this.cache) : super(true);
-  final AppCache cache;
-
-  bool currentState() {
-    return state;
-  }
-
-  void fetchData() {
-    var isFirstTime = cache.retrieveBool(Strings.firstTimeUser);
-
-    if (isFirstTime == null) {
-      state = true;
-    } else {
-      state = isFirstTime;
-    }
-  }
-
-  void addData() {
-    state = false;
-    cache.saveBool(Strings.firstTimeUser, false);
   }
 }

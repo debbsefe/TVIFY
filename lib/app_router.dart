@@ -22,11 +22,11 @@ import 'features/single_tv/presentation/screens/single_tv_detail.dart';
       children: [
         AutoRoute(
           name: 'HomeScreenRouter',
-          path: 'home',
+          path: '',
           page: EmptyRouterPage,
           children: [
             AutoRoute(path: '', page: HomeScreen),
-            AutoRoute(path: 'tv:id', page: SingleTvDetail),
+            AutoRoute(path: 'trending/tv/:id', page: SingleTvDetail),
             RedirectRoute(path: '*', redirectTo: ''),
           ],
         ),
