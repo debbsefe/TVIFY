@@ -19,6 +19,8 @@ class Strings {
   static String get cachedTrending => 'cacheTrending';
   static String get cachedMovieDetail => 'cachedMovieDetail';
 
+  static String get noImageAvailable =>
+      'https://www.esm.rochester.edu/uploads/NoPhotoAvailable.jpg';
   static String get firstTimeUser => 'firstTimeUser';
 }
 

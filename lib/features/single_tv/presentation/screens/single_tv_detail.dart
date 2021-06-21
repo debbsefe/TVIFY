@@ -38,15 +38,10 @@ class _SingleTvDetailState extends State<SingleTvDetail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => context.popRoute(),
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
         title: Text(
           'Back',
           style: Theme.of(context).textTheme.bodyText1,
         ),
-        centerTitle: false,
       ),
       body: SafeArea(
         child: SingleChildScrollView(

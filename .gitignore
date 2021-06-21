@@ -48,6 +48,7 @@ secrets.tar
 # *.freezed.dart
 *.g.dart
 *.mocks.dart
+*.gr.dart
 
 
 

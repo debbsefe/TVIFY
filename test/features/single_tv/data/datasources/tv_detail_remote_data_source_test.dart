@@ -20,7 +20,7 @@ void main() {
   late MockClient client;
   late MockConfig mockConfig;
   late TvDetailRemoteDataSourceImpl dataSource;
-  var url = Uri.parse('tv/$tId/?api_key=123456'.baseurl);
+  var url = Uri.parse('tv/$tId?api_key=123456'.baseurl);
   setUp(() {
     client = MockClient();
     mockConfig = MockConfig();

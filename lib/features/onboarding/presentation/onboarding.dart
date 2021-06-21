@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 
 import '../../../core/cache/app_cache.dart';
 import '../../../core/widgets/buttons.dart';
-import '../../../providers.dart';
 import '../../../service_locator.dart' as di;
 import 'widgets/slide_dots.dart';
 import 'widgets/slide_item.dart';
@@ -89,15 +88,7 @@ class _OnboardingState extends State<Onboarding> {
           child: CustomButton(
             name: 'Get Started',
             onPressed: () {
-              context.read(firstTimeProvider.notifier).addData();
-              // context.replaceRoute(const HomeScreenTabRoute(children: [
-              //   // push any sequence of Account routes here
-              //   // the last route will be the one that is currently visible
-              //   HomeScreenRouter(),
-              //   SearchRouter(),
-              //   WatchListRouter(),
-              //   SettingsRouter()
-              // ]));
+              prefs.saveBool(Strings.firstTimeUser, false);
             },
           ),
         ),

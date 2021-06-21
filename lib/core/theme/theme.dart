@@ -80,6 +80,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
       buttonColor: buttonColor1,
       cardColor: primaryTint5,
       appBarTheme: const AppBarTheme(
+        titleTextStyle: bodyTextLight,
         elevation: 0,
         backgroundColor: scaffoldLight,
         iconTheme: IconThemeData(color: greyColor2),
@@ -97,8 +98,10 @@ class CustomTheme extends StateNotifier<ThemeData> {
     textTheme: darkTextTheme,
     cardColor: primaryShade2,
     appBarTheme: const AppBarTheme(
+      centerTitle: false,
       elevation: 0,
       backgroundColor: scaffoldDark,
+      titleTextStyle: bodyTextDark,
       iconTheme: IconThemeData(color: scaffoldLight),
     ),
   );
