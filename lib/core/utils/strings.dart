@@ -10,8 +10,7 @@ class Strings {
   static String get apiKeyTmdb => 'api_key_tmdb';
   static String get baseUrl => 'https://api.themoviedb.org/3';
   static String get serverFailureMessage => 'No matches available for this day';
-  static String get cacheFailureMessage =>
-      'No internet connection detected or no match found';
+  static String get cacheFailureMessage => 'No internet connection';
   static String get expiry => '_expiry_date';
 
   static String get cachedCategory => 'cachedCategory';
@@ -35,9 +34,14 @@ final String sevenDaysLater =
 String mapFailureToMessage(Failure failure) {
   switch (failure.runtimeType) {
     case ServerFailure:
-      return Strings.serverFailureMessage;
+      return 'Something went wrong, please try again';
     case CacheFailure:
-      return Strings.cacheFailureMessage;
+      return 'No internet connection';
+    case InvalidFailure:
+      return 'Invalid request';
+    case ConflictFailure:
+      return 'Request failed or not found';
+
     default:
       return 'Unexpected error';
   }

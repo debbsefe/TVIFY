@@ -1,4 +1,5 @@
 //create themeProvider
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
@@ -7,6 +8,7 @@ import 'package:movie_colony/features/single_tv/domain/entities/tv_cast.dart';
 import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
 
 import 'core/notifiers/generic_state.dart';
+import 'features/auth/presentation/notifiers/google_sign_in_notifier.dart';
 import 'features/categories/domain/entities/categories.dart';
 import 'features/categories/presentation/notifiers/categories_notifier.dart';
 import 'features/configuration/domain/entities/configuration.dart';
@@ -17,6 +19,12 @@ import 'features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.d
 import 'features/trending/presentation/notifiers/daily_trending_notifier.dart';
 import 'features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 import 'service_locator.dart' as di;
+
+final firebaseAuthProvider =
+    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
+
+final authStateChangesProvider = StreamProvider<User?>(
+    (ref) => ref.watch(firebaseAuthProvider).userChanges());
 
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return di.sl<CustomTheme>();
@@ -59,4 +67,9 @@ final tvCastProvider =
 final tvDetailProvider =
     StateNotifierProvider<TvDetailNotifier, GenericState<TvDetail>>((ref) {
   return di.sl<TvDetailNotifier>();
+});
+
+final googleSignInProvider =
+    StateNotifierProvider<GoogleSignInNotifier, GenericState<User?>>((ref) {
+  return di.sl<GoogleSignInNotifier>();
 });
