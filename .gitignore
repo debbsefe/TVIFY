@@ -44,6 +44,10 @@ app.*.map.json
 # firebase related
 secrets.tar
 
+#firebase flutter web
+web/firebase-config.js
+
+
 # build runner related
 # *.freezed.dart
 *.g.dart
