@@ -8,6 +8,7 @@ import 'package:movie_colony/features/single_tv/domain/entities/tv_cast.dart';
 import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
 
 import 'core/notifiers/generic_state.dart';
+import 'features/auth/presentation/notifiers/anonymous_sign_in_notifier.dart';
 import 'features/auth/presentation/notifiers/google_sign_in_notifier.dart';
 import 'features/categories/domain/entities/categories.dart';
 import 'features/categories/presentation/notifiers/categories_notifier.dart';
@@ -72,4 +73,9 @@ final tvDetailProvider =
 final googleSignInProvider =
     StateNotifierProvider<GoogleSignInNotifier, GenericState<User?>>((ref) {
   return di.sl<GoogleSignInNotifier>();
+});
+
+final anonymousSignInProvider =
+    StateNotifierProvider<AnonymousSignInNotifier, GenericState<User?>>((ref) {
+  return di.sl<AnonymousSignInNotifier>();
 });
