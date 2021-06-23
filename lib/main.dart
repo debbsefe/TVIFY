@@ -37,7 +37,7 @@ class MovieColony extends HookWidget {
     final theme = useProvider(themeProvider);
 
     var isFirstTime = prefs.retrieveBool(Strings.firstTimeUser);
-    var user = useProvider(authStateChangesProvider).data?.value;
+    var user = useProvider(userChangesProvider).data?.value;
 
     return MaterialApp.router(
         debugShowCheckedModeBanner: false,
@@ -48,7 +48,7 @@ class MovieColony extends HookWidget {
           routes: (_) => [
             if (isFirstTime == null)
               const OnboardingRoute()
-            else if (user == null)
+            else if (user != null)
               const SignUpPageRoute()
             else
               const HomeScreenTabRoute(),

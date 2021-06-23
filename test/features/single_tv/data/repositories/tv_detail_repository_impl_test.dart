@@ -90,7 +90,7 @@ should return server failure when the call to remote data source is unsuccessful
           final result = await repository.getTvDetail(tId);
           // assert
           verify(mockRemoteDataSource.getRemoteTvDetail(tId));
-          expect(result, equals(Left(ServerFailure())));
+          expect(result, equals(const Left(ServerFailure())));
         },
       );
     });
@@ -103,7 +103,7 @@ should return server failure when the isConnected is false''',
           // act
           final result = await repository.getTvDetail(tId);
 
-          expect(result, equals(Left(ServerFailure())));
+          expect(result, equals(const Left(ServerFailure())));
         },
       );
     });

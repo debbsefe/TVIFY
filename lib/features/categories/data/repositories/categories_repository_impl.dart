@@ -49,14 +49,14 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
         await localDataSource.cacheLastCategory(remote);
         return Right(remote);
       } on ServerException {
-        return Left(ServerFailure());
+        return const Left(ServerFailure());
       }
     } else {
       try {
         final local = await localDataSource.getCachedCategory();
         return Right(local);
       } on CacheException {
-        return Left(CacheFailure());
+        return const Left(CacheFailure());
       }
     }
   }
@@ -66,7 +66,7 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
       final localCategory = await localDataSource.getCachedCategory();
       return Right(localCategory);
     } on CacheException {
-      return Left(CacheFailure());
+      return const Left(CacheFailure());
     }
   }
 }

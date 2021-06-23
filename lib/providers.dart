@@ -23,7 +23,7 @@ import 'service_locator.dart' as di;
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
 
-final authStateChangesProvider = StreamProvider<User?>(
+final userChangesProvider = StreamProvider<User?>(
     (ref) => ref.watch(firebaseAuthProvider).userChanges());
 
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {

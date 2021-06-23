@@ -23,14 +23,15 @@ class GoogleSignInRepositoryImpl implements GoogleSignInRepository {
         final remote = await remoteDataSource.signInWithGoogle();
         return Right(remote);
       } on ServerException {
-        return Left(ServerFailure());
+        return const Left(
+            ServerFailure(message: 'Something went wrong, please try again'));
       } on ConflictException {
-        return Left(ConflictFailure());
+        return const Left(ConflictFailure(message: 'Account already exists'));
       } on InvalidException {
-        return Left(InvalidFailure());
+        return const Left(InvalidFailure(message: 'Invalid details'));
       }
     } else {
-      return Left(CacheFailure());
+      return const Left(CacheFailure(message: 'Poor internet connection'));
     }
   }
 }
