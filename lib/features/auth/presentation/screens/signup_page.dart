@@ -44,13 +44,13 @@ class _SignUpPageState extends State<SignUpPage> with CustomSnackbar {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Text(
-                          'FlutterFire',
+                          'Movie',
                           style: TextStyle(
                             fontSize: 40,
                           ),
                         ),
                         Text(
-                          'Authentication',
+                          'Colony',
                           style: TextStyle(
                             fontSize: 40,
                           ),

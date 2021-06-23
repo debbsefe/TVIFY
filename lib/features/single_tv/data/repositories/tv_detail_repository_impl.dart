@@ -23,10 +23,10 @@ class TvDetailRepositoryImpl implements TvDetailRepository {
         final remote = await remoteDataSource.getRemoteTvDetail(id);
         return Right(remote);
       } on ServerException {
-        return Left(ServerFailure());
+        return const Left(ServerFailure());
       }
     } else {
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     }
   }
 }

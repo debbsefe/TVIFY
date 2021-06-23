@@ -13,8 +13,9 @@ class GenericStateNotifier<T> extends StateNotifier<GenericState<T>> {
     state = GenericState<T>.loading();
     final response = await function();
     return response.fold(
-        (failure) =>
-            state = GenericState<T>.error(mapFailureToMessage(failure)),
+        (failure) => state = GenericState<T>.error(failure.message == null
+            ? mapFailureToMessage(failure)
+            : failure.message!),
         (success) => state = GenericState<T>.loaded(success));
   }
 }

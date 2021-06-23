@@ -60,7 +60,7 @@ class TrendingRepositoryImpl implements TrendingRepository {
       }
       return Right(_remote);
     } on ServerException {
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     }
   }
 
@@ -75,7 +75,7 @@ class TrendingRepositoryImpl implements TrendingRepository {
 
       return Right(_local);
     } on CacheException {
-      return Left(CacheFailure());
+      return const Left(CacheFailure());
     }
   }
 }
