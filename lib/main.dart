@@ -48,7 +48,7 @@ class MovieColony extends HookWidget {
           routes: (_) => [
             if (isFirstTime == null)
               const OnboardingRoute()
-            else if (user != null)
+            else if (user == null)
               const SignUpPageRoute()
             else
               const HomeScreenTabRoute(),
