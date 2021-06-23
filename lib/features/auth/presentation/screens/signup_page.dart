@@ -36,8 +36,8 @@ class _SignUpPageState extends State<SignUpPage> with CustomSnackbar {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(),
                   Expanded(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -59,6 +59,16 @@ class _SignUpPageState extends State<SignUpPage> with CustomSnackbar {
                     ),
                   ),
                   GoogleSignInButton(),
+                  TextButton(
+                    onPressed: () async {
+                      // await FirebaseAuth.instance.signOut();
+
+                      context
+                          .read(anonymousSignInProvider.notifier)
+                          .signInAnonymous();
+                    },
+                    child: const Text('Skip to app'),
+                  ),
                 ],
               ),
             ),
