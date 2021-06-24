@@ -23,10 +23,10 @@ class TvCastRepositoryImpl implements TvCastRepository {
         final remote = await remoteDataSource.getRemoteTvCast(id);
         return Right(remote);
       } on ServerException {
-        return Left(ServerFailure());
+        return const Left(ServerFailure());
       }
     } else {
-      return Left(ServerFailure());
+      return const Left(ServerFailure());
     }
   }
 }

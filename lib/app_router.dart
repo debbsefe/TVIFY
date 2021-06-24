@@ -1,17 +1,27 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 
+import 'features/auth/presentation/screens/signup_page.dart';
 import 'features/homescreen/presentation/screens/homescreen.dart';
 import 'features/homescreen/presentation/screens/homescreen_tab.dart';
 import 'features/homescreen/presentation/screens/settings_page.dart';
+import 'features/notification/presentation/screens/notification_list_screen.dart';
 import 'features/onboarding/presentation/onboarding.dart';
 import 'features/single_tv/presentation/screens/single_tv_detail.dart';
 
 @AdaptiveAutoRouter(
+  replaceInRouteName: 'Page Screen Route',
   routes: <AutoRoute>[
     AutoRoute(
       path: '/onboarding',
       page: Onboarding,
+      children: [
+        RedirectRoute(path: '*', redirectTo: ''),
+      ],
+    ),
+    AutoRoute(
+      path: '/signup',
+      page: SignUpPage,
       children: [
         RedirectRoute(path: '*', redirectTo: ''),
       ],
@@ -40,11 +50,11 @@ import 'features/single_tv/presentation/screens/single_tv_detail.dart';
           ],
         ),
         AutoRoute(
-          name: 'WatchListRouter',
-          path: 'watchlist',
+          name: 'NotificationListRouter',
+          path: 'notification-list',
           page: EmptyRouterPage,
           children: [
-            AutoRoute(path: '', page: WatchList),
+            AutoRoute(path: '', page: NotificationListScreen),
             RedirectRoute(path: '*', redirectTo: ''),
           ],
         ),

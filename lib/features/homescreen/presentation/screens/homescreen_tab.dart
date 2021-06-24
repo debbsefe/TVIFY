@@ -11,7 +11,7 @@ class HomeScreenTab extends StatelessWidget {
         routes: const [
           HomeScreenRouter(),
           SearchRouter(),
-          WatchListRouter(),
+          NotificationListRouter(),
           SettingsRouter(),
         ],
         bottomNavigationBuilder: (_, tabsRouter) {
@@ -68,15 +68,6 @@ class HomeScreenTab extends StatelessWidget {
 
 class Search extends StatelessWidget {
   const Search({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
-  }
-}
-
-class WatchList extends StatelessWidget {
-  const WatchList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

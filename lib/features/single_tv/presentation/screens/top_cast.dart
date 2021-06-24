@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/utils/strings.dart';
+import '../../../../core/utils/strings.dart';
 import '../../../../core/widgets/cache_image.dart';
 
 // import 'package:movie_colony/core/utils/extensions.dart';

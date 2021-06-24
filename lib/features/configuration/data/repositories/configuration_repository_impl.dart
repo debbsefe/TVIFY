@@ -49,14 +49,14 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
         await localDataSource.cacheLastConfiguration(remote);
         return Right(remote);
       } on ServerException {
-        return Left(ServerFailure());
+        return const Left(ServerFailure());
       }
     } else {
       try {
         final local = await localDataSource.getCachedConfiguration();
         return Right(local);
       } on CacheException {
-        return Left(CacheFailure());
+        return const Left(CacheFailure());
       }
     }
   }
@@ -66,7 +66,7 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
       final local = await localDataSource.getCachedConfiguration();
       return Right(local);
     } on CacheException {
-      return Left(CacheFailure());
+      return const Left(CacheFailure());
     }
   }
 }

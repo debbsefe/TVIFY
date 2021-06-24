@@ -147,7 +147,7 @@ should return server failure when the call to remote data source is unsuccessful
           // assert
           verify(mockRemoteDataSource.getRemoteConfiguration());
           verifyZeroInteractions(mockLocalDataSource);
-          expect(result, equals(Left(ServerFailure())));
+          expect(result, equals(const Left(ServerFailure())));
         },
       );
     });
@@ -180,7 +180,7 @@ should return last locally cached data when the cached data is present''',
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
           verify(mockLocalDataSource.getCachedConfiguration());
-          expect(result, equals(Left(CacheFailure())));
+          expect(result, equals(const Left(CacheFailure())));
         },
       );
     });

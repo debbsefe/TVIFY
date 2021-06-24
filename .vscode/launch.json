@@ -3,23 +3,13 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
-    "configurations": [
+    "configurations": [    
         {
-            "name": "MovieColony (Web)",
+            "name": "Flutter: Run all Tests",
             "type": "dart",
             "request": "launch",
-            "program": "lib/main.dart",
-            "args": [
-                "--no-sound-null-safety"
-            ]
+            "program": "./test/"
         },
-
-    {
-        "name": "Flutter: Run all Tests",
-        "type": "dart",
-        "request": "launch",
-        "program": "./test/"
-    },
         {
             "name": "MovieColony",
             "request": "launch",
