@@ -5,6 +5,7 @@ import '../../../../core/theme/theme.dart';
 import '../../../../core/utils/size_ext.dart';
 import '../../../../core/widgets/buttons.dart';
 import '../../../../providers.dart';
+import '../../../notification/data/models/notification_list_model.dart';
 
 class TvSummary extends ConsumerWidget {
   const TvSummary({Key? key}) : super(key: key);
@@ -73,7 +74,19 @@ class TvSummary extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                   child: CustomButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      context
+                          .read(addNotificationListProvider.notifier)
+                          .addNotification(
+                            NotificationListModel(
+                              id: detail.id,
+                              name: detail.name,
+                              rating: detail.rating,
+                              date: detail.startDate,
+                              posterImage: detail.posterImage,
+                            ),
+                          );
+                    },
                     name: 'Notify Me',
                   ),
                 )

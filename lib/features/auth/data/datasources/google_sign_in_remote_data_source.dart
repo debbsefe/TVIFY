@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:movie_colony/core/error/exception.dart';
+import '../../../../core/error/exception.dart';
 
 abstract class GoogleSignInRemoteDataSource {
-  Future<User?> signInWithGoogle();
+  Future<void> signInWithGoogle();
 }
 
 class GoogleSignInRemoteDataSourceImpl extends GoogleSignInRemoteDataSource {
@@ -18,15 +18,10 @@ class GoogleSignInRemoteDataSourceImpl extends GoogleSignInRemoteDataSource {
   final GoogleSignIn googleSignIn;
 
   @override
-  Future<User?> signInWithGoogle() async {
-    User? user;
-
+  Future<void> signInWithGoogle() async {
     if (kIsWeb) {
       try {
-        final UserCredential userCredential =
-            await auth.signInWithPopup(authProvider);
-
-        user = userCredential.user;
+        await auth.signInWithPopup(authProvider);
       } catch (e) {
         throw ServerException();
       }
@@ -44,10 +39,7 @@ class GoogleSignInRemoteDataSourceImpl extends GoogleSignInRemoteDataSource {
         );
 
         try {
-          final UserCredential userCredential =
-              await auth.signInWithCredential(credential);
-
-          user = userCredential.user;
+          await auth.signInWithCredential(credential);
         } on FirebaseAuthException catch (e) {
           if (e.code == 'account-exists-with-different-credential') {
             throw ConflictException();
@@ -59,7 +51,5 @@ class GoogleSignInRemoteDataSourceImpl extends GoogleSignInRemoteDataSource {
         }
       }
     }
-
-    return user;
   }
 }

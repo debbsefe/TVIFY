@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AnonymousSignInRemoteDataSource {
-  Future<User?> signInAnonymous();
+  Future<void> signInAnonymous();
 }
 
 class AnonymousSignInRemoteDataSourceImpl
@@ -12,11 +12,7 @@ class AnonymousSignInRemoteDataSourceImpl
   final FirebaseAuth auth;
 
   @override
-  Future<User?> signInAnonymous() async {
-    User? user;
-
-    UserCredential userCredential = await auth.signInAnonymously();
-    user = userCredential.user;
-    return user;
+  Future<void> signInAnonymous() async {
+    await auth.signInAnonymously();
   }
 }

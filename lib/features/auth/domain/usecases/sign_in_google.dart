@@ -1,17 +1,16 @@
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:movie_colony/features/auth/domain/repositories/google_sign_in_repository.dart';
 
 import '../../../../core/error/failure.dart';
 import '../../../../core/usecases/usecase.dart';
+import '../repositories/google_sign_in_repository.dart';
 
-class SignInGoogle extends UseCase<User?, NoParams> {
+class SignInGoogle extends UseCase<void, NoParams> {
   SignInGoogle(this.repository);
 
   final GoogleSignInRepository repository;
 
   @override
-  Future<Either<Failure, User?>> call(NoParams params) async {
+  Future<Either<Failure, void>> call(NoParams params) async {
     return await repository.googleSignInAuth();
   }
 }

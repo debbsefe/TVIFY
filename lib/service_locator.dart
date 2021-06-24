@@ -9,11 +9,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/cache/app_cache.dart';
 import 'core/config.dart';
+import 'core/firebase_methods.dart';
 import 'core/network/network_info.dart';
 import 'core/theme/theme.dart';
 import 'features/auth/service_locator.dart';
 import 'features/categories/service_locator.dart';
 import 'features/configuration/service_locator.dart';
+import 'features/notification/service_locator.dart';
 import 'features/single_tv/service_locator.dart';
 import 'features/trending/service_locator.dart';
 
@@ -26,6 +28,7 @@ Future<void> init() async {
   TrendingServiceLocator(sl).init();
   SingleTvServiceLocator(sl).init();
   AuthServiceLocator(sl).init();
+  NotificationListServiceLocator(sl).init();
 
   ///view models/notifiers
   sl.registerLazySingleton<CustomTheme>(
@@ -36,6 +39,10 @@ Future<void> init() async {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
   sl.registerLazySingleton<AppCache>(() => AppCacheImpl(sl()));
   sl.registerLazySingleton<Config>(() => ConfigImpl(sl()));
+  sl.registerLazySingleton<FirebaseMethods>(() => FirebaseMethods(
+        store: sl(),
+        auth: sl(),
+      ));
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
