@@ -14,6 +14,7 @@ class TvDetail extends Equatable {
     this.categories,
     this.seasons,
   });
+
   final int? id, seasons;
   final String? name;
   final String? startDate, overview;

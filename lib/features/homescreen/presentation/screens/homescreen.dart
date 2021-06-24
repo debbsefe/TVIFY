@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<void> _callProviders() async {
+  void _callProviders() {
     context.read(weeklyTrendingProvider.notifier).fetchTrending();
     context.read(dailyTrendingProvider.notifier).fetchTrending();
     context.read(categoriesProvider.notifier).fetchCategory();

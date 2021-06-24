@@ -1,5 +1,4 @@
 import 'package:get_it/get_it.dart';
-import 'package:movie_colony/features/auth/domain/usecases/sign_in_anonymous.dart';
 
 import 'data/datasources/anonymous_sign_in_remote_data_source.dart';
 import 'data/datasources/google_sign_in_remote_data_source.dart';
@@ -7,6 +6,7 @@ import 'data/repositories/anonymous_repository_impl.dart';
 import 'data/repositories/google_sign_in_repository_impl.dart';
 import 'domain/repositories/anonymous_sign_in_repository.dart';
 import 'domain/repositories/google_sign_in_repository.dart';
+import 'domain/usecases/sign_in_anonymous.dart';
 import 'domain/usecases/sign_in_google.dart';
 import 'presentation/notifiers/anonymous_sign_in_notifier.dart';
 import 'presentation/notifiers/google_sign_in_notifier.dart';

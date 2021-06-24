@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/utils/strings.dart';
 
 import '../../../core/cache/app_cache.dart';
+import '../../../core/utils/strings.dart';
 import '../../../core/widgets/buttons.dart';
 import '../../../service_locator.dart' as di;
 import 'widgets/slide_dots.dart';
