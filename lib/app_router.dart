@@ -19,11 +19,15 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: OnboardingRoute.page),
         AutoRoute(page: SignUpRoute.page),
-        AutoRoute(page: HomeRouteTab.page),
-        AutoRoute(page: HomeRoute.page),
+        AutoRoute(
+          page: HomeRouteTab.page,
+          children: [
+            AutoRoute(page: HomeRoute.page),
+            AutoRoute(page: SearchRoute.page),
+            AutoRoute(page: NotificationListRoute.page),
+            AutoRoute(page: SettingsRoute.page),
+          ],
+        ),
         AutoRoute(page: SingleTvDetailRoute.page),
-        AutoRoute(page: SearchRoute.page),
-        AutoRoute(page: NotificationListRoute.page),
-        AutoRoute(page: SettingsRoute.page),
       ];
 }

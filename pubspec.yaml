@@ -23,7 +23,6 @@ dependencies:
   flutter_riverpod: ^2.4.10
   freezed_annotation: ^2.4.1
   get_it: ^7.2.0
-  go_router: ^13.2.1
   google_sign_in: ^6.1.6
   hooks_riverpod: ^2.4.10
   http: ^1.1.0
