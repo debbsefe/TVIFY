@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - directory: /
+    open-pull-requests-limit: 5
+    package-ecosystem: pub
+    rebase-strategy: auto
+    commit-message:
+      prefix: "dependabot:"
+    schedule:
+      interval: weekly
