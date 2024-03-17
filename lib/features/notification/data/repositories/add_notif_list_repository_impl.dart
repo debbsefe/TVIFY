@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/failure.dart';
-import '../../../../core/network/network_info.dart';
-import '../../domain/repositories/add_notif_list_repository.dart';
-import '../datasources/add_notif_list_remote_data_source.dart';
-import '../models/notification_list_model.dart';
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/features/notification/domain/repositories/add_notif_list_repository.dart';
+import 'package:movie_colony/features/notification/data/datasources/add_notif_list_remote_data_source.dart';
+import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
 
 class AddNotifListRepositoryImpl implements AddNotifListRepository {
   AddNotifListRepositoryImpl({
@@ -17,8 +17,8 @@ class AddNotifListRepositoryImpl implements AddNotifListRepository {
 
   @override
   Future<Either<Failure, void>> addNotificationList(
-      NotificationListModel model) async {
-    bool isConnected = await networkInfo.isConnected;
+      NotificationListModel model,) async {
+    final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final remote = await remoteDataSource.addNotifListRemote(model);

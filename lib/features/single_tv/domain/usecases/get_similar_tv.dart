@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/models/tv_list/tv_list.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../repositories/similar_tv_repository.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
+import 'package:movie_colony/core/usecases/usecase.dart';
+import 'package:movie_colony/features/single_tv/domain/repositories/similar_tv_repository.dart';
 
 class GetSimilarTv extends UseCase<List<TvList>, Params> {
   GetSimilarTv(this.repository);

@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/failure.dart';
-import '../../../../core/network/network_info.dart';
-import '../../domain/repositories/google_sign_in_repository.dart';
-import '../datasources/google_sign_in_remote_data_source.dart';
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/features/auth/domain/repositories/google_sign_in_repository.dart';
+import 'package:movie_colony/features/auth/data/datasources/google_sign_in_remote_data_source.dart';
 
 class GoogleSignInRepositoryImpl implements GoogleSignInRepository {
   GoogleSignInRepositoryImpl({
@@ -16,14 +16,14 @@ class GoogleSignInRepositoryImpl implements GoogleSignInRepository {
 
   @override
   Future<Either<Failure, void>> googleSignInAuth() async {
-    bool isConnected = await networkInfo.isConnected;
+    final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final remote = await remoteDataSource.signInWithGoogle();
         return Right(remote);
       } on ServerException {
         return const Left(
-            ServerFailure(message: 'Something went wrong, please try again'));
+            ServerFailure(message: 'Something went wrong, please try again'),);
       } on ConflictException {
         return const Left(ConflictFailure(message: 'Account already exists'));
       } on InvalidException {

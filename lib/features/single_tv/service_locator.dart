@@ -1,20 +1,18 @@
 import 'package:get_it/get_it.dart';
-
-import 'data/datasources/similar_tv_remote_data_source.dart';
-import 'data/datasources/tv_cast_remote_data_source.dart';
-import 'data/datasources/tv_detail_remote_data_source.dart';
-import 'data/repositories/similar_tv_repository_impl.dart';
-import 'data/repositories/tv_cast_repository_impl.dart';
-import 'data/repositories/tv_detail_repository_impl.dart';
-import 'domain/repositories/similar_tv_repository.dart';
-import 'domain/repositories/tv_cast_repository.dart';
-import 'domain/repositories/tv_detail_repository.dart';
-import 'domain/usecases/get_similar_tv.dart';
-import 'domain/usecases/get_tv_cast.dart';
-import 'domain/usecases/get_tv_detail.dart';
-import 'presentation/notifiers/similar_tv/similar_tv_notifier.dart';
-import 'presentation/notifiers/tv_cast/tv_cast_notifier.dart';
-import 'presentation/notifiers/tv_detail/tv_detail_notifier.dart';
+import 'package:movie_colony/features/single_tv/data/datasources/similar_tv_remote_data_source.dart';
+import 'package:movie_colony/features/single_tv/data/datasources/tv_cast_remote_data_source.dart';
+import 'package:movie_colony/features/single_tv/data/datasources/tv_detail_remote_data_source.dart';
+import 'package:movie_colony/features/single_tv/data/repositories/similar_tv_repository_impl.dart';
+import 'package:movie_colony/features/single_tv/data/repositories/tv_cast_repository_impl.dart';
+import 'package:movie_colony/features/single_tv/data/repositories/tv_detail_repository_impl.dart';
+import 'package:movie_colony/features/single_tv/domain/repositories/similar_tv_repository.dart';
+import 'package:movie_colony/features/single_tv/domain/repositories/tv_cast_repository.dart';
+import 'package:movie_colony/features/single_tv/domain/usecases/get_similar_tv.dart';
+import 'package:movie_colony/features/single_tv/domain/usecases/get_tv_cast.dart';
+import 'package:movie_colony/features/single_tv/domain/usecases/get_tv_detail.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_cast/tv_cast_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class SingleTvServiceLocator {
   SingleTvServiceLocator(this.sl);
@@ -52,7 +50,7 @@ class SingleTvServiceLocator {
     );
 
     sl.registerLazySingleton<SimilarTvRemoteDataSource>(
-      () => SimilarTvRemoteDataSourceImpl(
+      () => SimilarTvRemoteDataSource(
         client: sl(),
         config: sl(),
       ),
@@ -66,7 +64,7 @@ class SingleTvServiceLocator {
     ///repository
 
     sl.registerLazySingleton<TvDetailRepository>(
-      () => TvDetailRepositoryImpl(
+      () => TvDetailRepository(
         networkInfo: sl(),
         remoteDataSource: sl(),
       ),

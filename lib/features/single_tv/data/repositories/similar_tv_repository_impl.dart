@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/failure.dart';
-import '../../../../core/models/tv_list/tv_list.dart';
-import '../../../../core/network/network_info.dart';
-import '../../domain/repositories/similar_tv_repository.dart';
-import '../datasources/similar_tv_remote_data_source.dart';
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
+import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/features/single_tv/domain/repositories/similar_tv_repository.dart';
+import 'package:movie_colony/features/single_tv/data/datasources/similar_tv_remote_data_source.dart';
 
 class SimilarTvRepositoryImpl implements SimilarTvRepository {
   SimilarTvRepositoryImpl({
@@ -17,7 +17,7 @@ class SimilarTvRepositoryImpl implements SimilarTvRepository {
 
   @override
   Future<Either<Failure, List<TvList>>> getSimilarTv(String id) async {
-    bool isConnected = await networkInfo.isConnected;
+    final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final remote = await remoteDataSource.getRemoteSimilarTv(id);

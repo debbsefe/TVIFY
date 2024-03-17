@@ -1,32 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/features/homescreen/presentation/widgets/categories_widget.dart';
+import 'package:movie_colony/features/homescreen/presentation/widgets/trending_widget.dart';
+import 'package:movie_colony/features/homescreen/presentation/widgets/tvshow_week.dart';
+import 'package:movie_colony/providers.dart';
 
-import '../../../../providers.dart';
-import '../widgets/categories_widget.dart';
-import '../widgets/trending_widget.dart';
-import '../widgets/tvshow_week.dart';
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       _callProviders();
     });
   }
 
   void _callProviders() {
-    context.read(weeklyTrendingProvider.notifier).fetchTrending();
-    context.read(dailyTrendingProvider.notifier).fetchTrending();
-    context.read(categoriesProvider.notifier).fetchCategory();
-    context.read(configurationProvider.notifier).fetchConfiguration();
+    ref.read(weeklyTrendingProvider.notifier).fetchTrending();
+    ref.read(dailyTrendingProvider.notifier).fetchTrending();
+    ref.read(categoriesProvider.notifier).fetchCategory();
+    ref.read(configurationProvider.notifier).fetchConfiguration();
   }
 
   @override
@@ -35,34 +34,35 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const TvShowOfTheWeek(),
                 Text(
                   'Categories',
-                  style: Theme.of(context).textTheme.headline4,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 100, child: CategoriesWidget()),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 50, 0, 10),
                   child: Row(
-                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Explore what’s trending',
-                        style: Theme.of(context).textTheme.headline4,
+                        style: Theme.of(context).textTheme.headlineMedium,
                       ),
-                      Text('See all',
-                          style: Theme.of(context).textTheme.subtitle2)
+                      Text(
+                        'See all',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                     ],
                   ),
                 ),
                 Text(
                   'Popular tv shows around the world',
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
                 const SizedBox(height: 400, child: TrendingWidget()),
               ],

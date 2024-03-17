@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
 
-class CustomSnackbar {
+mixin CustomSnackbar {
   // ignore: always_declare_return_types
-  showErrorSnackBar(scaffoldKey, message) {
+  void showErrorSnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(
-        backgroundColor: Colors.red,
-        content: Text('$message', style: const TextStyle(color: Colors.white)));
+      backgroundColor: Colors.red,
+      content: Text(message, style: const TextStyle(color: Colors.white)),
+    );
 
-    scaffoldKey.currentState.showSnackBar(snackBar);
+    showSnack(context, snackBar);
   }
 
   // ignore: always_declare_return_types
-  showSuccessSnackBar(scaffoldKey, message) {
+  void showSuccessSnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(
-        backgroundColor: Colors.green,
-        content: Text('$message', style: const TextStyle(color: Colors.white)));
+      backgroundColor: Colors.green,
+      content: Text(message, style: const TextStyle(color: Colors.white)),
+    );
 
-    scaffoldKey.currentState.showSnackBar(snackBar);
+    showSnack(context, snackBar);
   }
 
   // ignore: always_declare_return_types
-  showSnackBar(scaffoldKey, message) {
+  void showSnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(
-        content: Text('$message', style: const TextStyle(color: Colors.white)));
+      content: Text(message, style: const TextStyle(color: Colors.white)),
+    );
 
-    // Find the Scaffold in the widget tree and use it to show a SnackBar.
-    scaffoldKey.currentState.showSnackBar(snackBar);
+    showSnack(context, snackBar);
   }
+}
+
+void showSnack(BuildContext context, SnackBar snackBar) {
+  ScaffoldMessenger.of(context).showSnackBar(snackBar);
 }

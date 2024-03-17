@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
 import 'package:movie_colony/features/categories/domain/entities/categories.dart';
@@ -22,7 +23,8 @@ void main() {
         // arrange
 
         final String jsonString = dataReader('categories/categories.json');
-        final Map<String, dynamic> jsonMap = json.decode(jsonString);
+        final Map<String, dynamic> jsonMap =
+            json.decode(jsonString) as Map<String, dynamic>;
         // act
         final result = CategoriesModel.fromJson(jsonMap);
         // assert

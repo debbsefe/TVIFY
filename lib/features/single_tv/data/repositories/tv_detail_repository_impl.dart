@@ -1,23 +1,20 @@
 import 'package:dartz/dartz.dart';
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/features/single_tv/data/datasources/tv_detail_remote_data_source.dart';
+import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
 
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/failure.dart';
-import '../../../../core/network/network_info.dart';
-import '../../domain/entities/tv_detail.dart';
-import '../../domain/repositories/tv_detail_repository.dart';
-import '../datasources/tv_detail_remote_data_source.dart';
-
-class TvDetailRepositoryImpl implements TvDetailRepository {
-  TvDetailRepositoryImpl({
+class TvDetailRepository {
+  TvDetailRepository({
     required this.remoteDataSource,
     required this.networkInfo,
   });
   final TvDetailRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 
-  @override
   Future<Either<Failure, TvDetail>> getTvDetail(String id) async {
-    bool isConnected = await networkInfo.isConnected;
+    final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final remote = await remoteDataSource.getRemoteTvDetail(id);

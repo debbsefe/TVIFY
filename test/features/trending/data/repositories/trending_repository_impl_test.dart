@@ -32,7 +32,7 @@ void main() {
     repository = TrendingRepositoryImpl(
         localDataSource: mockLocalDataSource,
         remoteDataSource: mockRemoteDataSource,
-        networkInfo: mockNetworkInfo);
+        networkInfo: mockNetworkInfo,);
   });
 
   void runTestsOnline(Function body) {

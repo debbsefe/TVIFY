@@ -1,16 +1,18 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/cache/app_cache.dart';
-import '../../../core/utils/strings.dart';
-import '../../../core/widgets/buttons.dart';
-import '../../../service_locator.dart' as di;
-import 'widgets/slide_dots.dart';
-import 'widgets/slide_item.dart';
+import 'package:movie_colony/core/cache/app_cache.dart';
+import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/core/widgets/buttons.dart';
+import 'package:movie_colony/service_locator.dart' as di;
+import 'package:movie_colony/features/onboarding/presentation/widgets/slide_dots.dart';
+import 'package:movie_colony/features/onboarding/presentation/widgets/slide_item.dart';
 
+@RoutePage()
 class Onboarding extends StatefulWidget {
-  const Onboarding({Key? key}) : super(key: key);
+  const Onboarding({super.key});
 
   @override
   _OnboardingState createState() => _OnboardingState();
@@ -19,7 +21,7 @@ class Onboarding extends StatefulWidget {
 class _OnboardingState extends State<Onboarding> {
   int _currentPage = 0;
 
-  final PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController();
 
   late Timer timer;
 
@@ -61,7 +63,6 @@ class _OnboardingState extends State<Onboarding> {
     return SafeArea(
       child: Stack(children: <Widget>[
         PageView.builder(
-          scrollDirection: Axis.horizontal,
           onPageChanged: _onPageChanged,
           controller: _pageController,
           itemCount: slideList.length,
@@ -78,9 +79,9 @@ class _OnboardingState extends State<Onboarding> {
                   if (i == _currentPage)
                     const SlideDots(isActive: true)
                   else
-                    const SlideDots(isActive: false)
+                    const SlideDots(isActive: false),
               ],
-            )),
+            ),),
         Positioned(
           bottom: 60,
           left: 30,
@@ -92,7 +93,7 @@ class _OnboardingState extends State<Onboarding> {
             },
           ),
         ),
-      ]),
+      ],),
     );
   }
 }

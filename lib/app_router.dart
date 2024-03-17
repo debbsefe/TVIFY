@@ -1,13 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-
-import 'features/auth/presentation/screens/signup_page.dart';
-import 'features/homescreen/presentation/screens/homescreen.dart';
-import 'features/homescreen/presentation/screens/homescreen_tab.dart';
-import 'features/homescreen/presentation/screens/settings_page.dart';
-import 'features/notification/presentation/screens/notification_list_screen.dart';
-import 'features/onboarding/presentation/onboarding.dart';
-import 'features/single_tv/presentation/screens/single_tv_detail.dart';
+import 'package:movie_colony/features/auth/presentation/screens/signup_page.dart';
+import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
+import 'package:movie_colony/features/homescreen/presentation/screens/homescreen_tab.dart';
+import 'package:movie_colony/features/homescreen/presentation/screens/settings_page.dart';
+import 'package:movie_colony/features/notification/presentation/screens/notification_list_screen.dart';
+import 'package:movie_colony/features/onboarding/presentation/onboarding.dart';
+import 'package:movie_colony/features/single_tv/presentation/screens/single_tv_detail.dart';
 
 @AdaptiveAutoRouter(
   replaceInRouteName: 'Page Screen Route',

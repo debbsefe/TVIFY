@@ -1,15 +1,17 @@
 import 'dart:convert';
-import 'package:flutter_test/flutter_test.dart';
 
+import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list_model.dart';
+
 import '../../../data/data_reader.dart';
 import '../../../data/tv_list/constants.dart';
 
 void main() {
   Map<String, dynamic> jsonToMap() {
     final String jsonString = dataReader('tv_list/tv.json');
-    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    final Map<String, dynamic> jsonMap =
+        json.decode(jsonString) as Map<String, dynamic>;
     return jsonMap;
   }
 

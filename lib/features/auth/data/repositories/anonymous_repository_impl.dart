@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/network/network_info.dart';
-import '../../domain/repositories/anonymous_sign_in_repository.dart';
-import '../datasources/anonymous_sign_in_remote_data_source.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/features/auth/domain/repositories/anonymous_sign_in_repository.dart';
+import 'package:movie_colony/features/auth/data/datasources/anonymous_sign_in_remote_data_source.dart';
 
 class AnonymousSignInRepositoryImpl implements AnonymousSignInRepository {
   AnonymousSignInRepositoryImpl({
@@ -15,7 +15,7 @@ class AnonymousSignInRepositoryImpl implements AnonymousSignInRepository {
 
   @override
   Future<Either<Failure, void>> anonymousSignInAuth() async {
-    bool isConnected = await networkInfo.isConnected;
+    final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       final remote = await remoteDataSource.signInAnonymous();
       return Right(remote);

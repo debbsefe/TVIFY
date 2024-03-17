@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entities/tv_cast.dart';
+import 'package:movie_colony/features/single_tv/domain/entities/tv_cast.dart';
 
 part 'tv_cast_model.g.dart';
 

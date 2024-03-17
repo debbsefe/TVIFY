@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../configuration/domain/entities/configuration.dart';
+import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
 
 abstract class ConfigurationState extends Equatable {}
 

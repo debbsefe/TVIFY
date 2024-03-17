@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../entities/configuration.dart';
-import '../repositories/configuration_repository.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/usecases/usecase.dart';
+import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
+import 'package:movie_colony/features/configuration/domain/repositories/configuration_repository.dart';
 
 class GetAllConfiguration extends UseCase<Configuration, NoParams> {
   GetAllConfiguration(this.repository);

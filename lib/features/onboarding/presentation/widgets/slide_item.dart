@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../../../core/utils/extensions.dart';
-import '../../../../core/utils/size_ext.dart';
-import '../../domain/entities/slides.dart';
+import 'package:movie_colony/core/utils/extensions.dart';
+import 'package:movie_colony/core/utils/size_ext.dart';
+import 'package:movie_colony/features/onboarding/domain/entities/slides.dart';
 
 class SlideItem extends StatelessWidget {
   const SlideItem({
     required this.index,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final int index;
 
@@ -32,10 +32,10 @@ class SlideItem extends StatelessWidget {
 }
 
 class SlideDescription extends StatelessWidget {
-  const SlideDescription({required this.text1, required this.text2, Key? key})
-      : super(key: key);
+  const SlideDescription({required this.text1, required this.text2, super.key});
 
-  final String text1, text2;
+  final String text1;
+  final String text2;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +46,11 @@ class SlideDescription extends StatelessWidget {
         children: [
           Text(
             text1,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
           Text(
             text2,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ],
       ),
@@ -76,17 +76,17 @@ final slideList = [
       description: SlideDescription(
         text1: onboarding1text1,
         text2: onboarding1text2,
-      )),
+      ),),
   const Slide(
       imageUrl: onboarding2,
       description: SlideDescription(
         text1: onboarding2text1,
         text2: onboarding1text2,
-      )),
+      ),),
   const Slide(
       imageUrl: onboarding3,
       description: SlideDescription(
         text1: onboarding3text1,
         text2: onboarding3text2,
-      )),
+      ),),
 ];

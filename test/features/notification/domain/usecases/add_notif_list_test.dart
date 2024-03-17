@@ -16,8 +16,8 @@ void main() {
     usecase = AddNotificationList(repository);
   });
 
-  var tModel = NotificationListModel(
-      id: 1, name: 'tv', rating: 8, date: 'date', posterImage: '');
+  final tModel = NotificationListModel(
+      id: 1, name: 'tv', rating: 8, date: 'date', posterImage: '',);
   test(
     'verify addNotificationList was called',
     () async {

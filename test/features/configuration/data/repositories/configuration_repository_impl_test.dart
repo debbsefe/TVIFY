@@ -40,7 +40,7 @@ void main() {
         localDataSource: mockLocalDataSource,
         remoteDataSource: mockRemoteDataSource,
         cache: cache,
-        networkInfo: mockNetworkInfo);
+        networkInfo: mockNetworkInfo,);
   });
 
   void runTestsOnline(Function body) {
@@ -131,7 +131,7 @@ should cache the data locally when the call to remote data source is successful'
           // assert
           verify(mockRemoteDataSource.getRemoteConfiguration());
           verify(
-              mockLocalDataSource.cacheLastConfiguration(tConfigurationModel));
+              mockLocalDataSource.cacheLastConfiguration(tConfigurationModel),);
         },
       );
 

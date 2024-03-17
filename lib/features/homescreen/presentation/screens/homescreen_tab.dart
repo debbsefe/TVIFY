@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../app_router.gr.dart';
+import 'package:movie_colony/app_router.gr.dart';
 
 // ignore: use_key_in_widget_constructors
 class HomeScreenTab extends StatelessWidget {
@@ -44,7 +44,7 @@ class HomeScreenTab extends StatelessWidget {
               ),
             ],
           );
-        });
+        },);
   }
 
   BottomNavigationBarItem bottomNavigationBar({
@@ -67,7 +67,7 @@ class HomeScreenTab extends StatelessWidget {
 }
 
 class Search extends StatelessWidget {
-  const Search({Key? key}) : super(key: key);
+  const Search({super.key});
 
   @override
   Widget build(BuildContext context) {

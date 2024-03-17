@@ -8,6 +8,6 @@ final tConfigurationModel = ConfigurationModel(
       logoSizes: ['w45'],
       posterSizes: ['w92'],
       profileSizes: ['w45'],
-      stillSizes: ['w92']),
+      stillSizes: ['w92'],),
   changeKeys: const ['adult'],
 );

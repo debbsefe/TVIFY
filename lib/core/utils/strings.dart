@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-import '../error/failure.dart';
+import 'package:movie_colony/core/error/failure.dart';
 
 class Strings {
   static String get theme => 'theme';

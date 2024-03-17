@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:mockito/mockito.dart';
-import 'package:movie_colony/features/single_tv/domain/repositories/tv_detail_repository.dart';
 import 'package:movie_colony/features/single_tv/domain/usecases/get_tv_detail.dart';
 
 import '../../../../data/single_tv/constants.dart';

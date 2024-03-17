@@ -1,7 +1,6 @@
-import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:matcher/matcher.dart';
 import 'package:http/http.dart' as http;
+import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
@@ -18,13 +17,13 @@ class MockConfig extends Mock implements Config {}
 void main() {
   late MockClient client;
   late MockConfig mockConfig;
-  late ConfigurationRemoteDataSourceImpl dataSource;
-  Uri url = Uri.parse('configuration/?api_key=123456'.baseurl);
+  late ConfigurationRemoteDataSource dataSource;
+  final Uri url = Uri.parse('configuration/?api_key=123456'.baseurl);
   setUp(() {
     client = MockClient();
     mockConfig = MockConfig();
     dataSource =
-        ConfigurationRemoteDataSourceImpl(client: client, config: mockConfig);
+        ConfigurationRemoteDataSource(client: client, config: mockConfig);
   });
   void stubFetchToken() {
     //stub/mock answer when fetch token method is called
@@ -36,11 +35,15 @@ void main() {
     test('returns configuration if the http call completes successfully',
         () async {
       stubFetchToken();
-      when(client.get(url)).thenAnswer((_) async =>
-          http.Response(dataReader('configuration/configuration.json'), 200));
+      when(client.get(url)).thenAnswer(
+        (_) async =>
+            http.Response(dataReader('configuration/configuration.json'), 200),
+      );
 
       expect(
-          await dataSource.getRemoteConfiguration(), isA<ConfigurationModel>());
+        await dataSource.getRemoteConfiguration(),
+        isA<ConfigurationModel>(),
+      );
     });
 
     test('throws an exception if the http call completes with an error', () {
@@ -49,8 +52,10 @@ void main() {
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(() => dataSource.getRemoteConfiguration(),
-          throwsA(const TypeMatcher<ServerException>()));
+      expect(
+        () => dataSource.getRemoteConfiguration(),
+        throwsA(const TypeMatcher<ServerException>()),
+      );
     });
   });
 }

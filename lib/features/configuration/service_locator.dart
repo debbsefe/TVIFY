@@ -1,11 +1,10 @@
 import 'package:get_it/get_it.dart';
-
-import 'data/datasources/configuration_local_data_source.dart';
-import 'data/datasources/configuration_remote_data_source.dart';
-import 'data/repositories/configuration_repository_impl.dart';
-import 'domain/repositories/configuration_repository.dart';
-import 'domain/usecases/get_configuration.dart';
-import 'presentation/notifiers/configuration_notifier.dart';
+import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
+import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
+import 'package:movie_colony/features/configuration/data/repositories/configuration_repository_impl.dart';
+import 'package:movie_colony/features/configuration/domain/repositories/configuration_repository.dart';
+import 'package:movie_colony/features/configuration/domain/usecases/get_configuration.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 
 class ConfigurationServiceLocator {
   ConfigurationServiceLocator(this.sl);
@@ -21,7 +20,7 @@ class ConfigurationServiceLocator {
 
     ///datasources
     sl.registerLazySingleton<ConfigurationRemoteDataSource>(
-      () => ConfigurationRemoteDataSourceImpl(
+      () => ConfigurationRemoteDataSource(
         client: sl(),
         config: sl(),
       ),

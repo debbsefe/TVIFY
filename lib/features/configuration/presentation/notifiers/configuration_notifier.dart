@@ -1,8 +1,8 @@
-import '../../../../core/notifiers/generic_state.dart';
-import '../../../../core/notifiers/generic_state_notifier.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../../domain/entities/configuration.dart';
-import '../../domain/usecases/get_configuration.dart';
+import 'package:movie_colony/core/notifiers/generic_state.dart';
+import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
+import 'package:movie_colony/core/usecases/usecase.dart';
+import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
+import 'package:movie_colony/features/configuration/domain/usecases/get_configuration.dart';
 
 class ConfigurationNotifier extends GenericStateNotifier<Configuration> {
   ConfigurationNotifier(this.allConfiguration);
@@ -20,7 +20,7 @@ class ConfigurationNotifier extends GenericStateNotifier<Configuration> {
   }
 
   String fetchPosterSizeUrl() {
-    var current = currentState();
+    final current = currentState();
     if (current is Loaded<Configuration>) {
       return '${current.value!.secureBaseUrl}${current.value!.posterSizes[4]}/';
     } else {
@@ -29,7 +29,7 @@ class ConfigurationNotifier extends GenericStateNotifier<Configuration> {
   }
 
   String fetchProfileSizeUrl() {
-    var current = currentState();
+    final current = currentState();
     if (current is Loaded<Configuration>) {
       return '${current.value!.secureBaseUrl}${current.value!.profileSizes[3]}/';
     } else {

@@ -1,64 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/widgets/buttons.dart';
-import '../../../../core/widgets/cache_image.dart';
-import '../../../../providers.dart';
+import 'package:movie_colony/core/widgets/buttons.dart';
+import 'package:movie_colony/core/widgets/cache_image.dart';
+import 'package:movie_colony/providers.dart';
 
 class TvShowOfTheWeek extends ConsumerWidget {
-  const TvShowOfTheWeek({Key? key}) : super(key: key);
+  const TvShowOfTheWeek({super.key});
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final trending = watch(weeklyTrendingProvider);
-    var url = watch(configurationProvider.notifier).fetchPosterSizeUrl();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final trending = ref.watch(weeklyTrendingProvider);
+    final url = ref.watch(configurationProvider.notifier).fetchPosterSizeUrl();
 
     return trending.when(
-        initial: () => Container(),
-        loading: () => Container(),
-        error: (e) => Text(e.toString()),
-        loaded: (trends) {
-          var trend = trends!.first;
-          String posterImage = trend.posterImage ?? '';
+      initial: Container.new,
+      loading: Container.new,
+      error: Text.new,
+      loaded: (trends) {
+        final trend = trends!.first;
+        final String posterImage = trend.posterImage ?? '';
 
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CachedImage(
-                url + posterImage,
-                fit: BoxFit.fitWidth,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.6,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CachedImage(
+              url + posterImage,
+              fit: BoxFit.fitWidth,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.6,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Tv show of the week',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  Text(
+                    'About ${trend.name}',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Tv show of the week',
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                    Text('About ${trend.name}',
-                        style: Theme.of(context).textTheme.subtitle2)
-                  ],
-                ),
+            ),
+            Text(
+              trend.overview ?? '',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 30),
+              child: CustomButton(
+                onPressed: () {},
+                name: 'Notify Me',
               ),
-              Text(
-                trend.overview ?? '',
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 30),
-                child: CustomButton(
-                  onPressed: () {},
-                  name: 'Notify Me',
-                ),
-              )
-            ],
-          );
-        });
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

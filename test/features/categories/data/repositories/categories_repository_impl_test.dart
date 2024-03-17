@@ -36,10 +36,11 @@ void main() {
     mockNetworkInfo = MockNetworkInfo();
     cache = MockAppCache();
     repository = CategoriesRepositoryImpl(
-        localDataSource: mockLocalDataSource,
-        remoteDataSource: mockRemoteDataSource,
-        cache: cache,
-        networkInfo: mockNetworkInfo);
+      localDataSource: mockLocalDataSource,
+      remoteDataSource: mockRemoteDataSource,
+      cache: cache,
+      networkInfo: mockNetworkInfo,
+    );
   });
 
   void runTestsOnline(Function body) {
@@ -95,7 +96,7 @@ should return remote data when the call to remote data source is successful''',
           // assert
           verify(mockRemoteDataSource.getRemoteCategories());
 
-          expect(result, equals(Right(tCategories)));
+          expect(result, equals(Right<Failure, List<Categories>>(tCategories)));
         },
       );
 
@@ -150,7 +151,10 @@ should return server failure when the call to remote data source is unsuccessful
           // assert
           verify(mockRemoteDataSource.getRemoteCategories());
           verifyZeroInteractions(mockLocalDataSource);
-          expect(result, equals(const Left(ServerFailure())));
+          expect(
+            result,
+            equals(const Left<Failure, List<Categories>>(ServerFailure())),
+          );
         },
       );
     });
@@ -168,7 +172,7 @@ should return last locally cached data when the cached data is present''',
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
           verify(mockLocalDataSource.getCachedCategory());
-          expect(result, equals(Right(tCategories)));
+          expect(result, equals(Right<Failure, List<Categories>>(tCategories)));
         },
       );
 
@@ -183,7 +187,10 @@ should return last locally cached data when the cached data is present''',
           // assert
           verifyZeroInteractions(mockRemoteDataSource);
           verify(mockLocalDataSource.getCachedCategory());
-          expect(result, equals(const Left(CacheFailure())));
+          expect(
+            result,
+            equals(const Left<Failure, List<Categories>>(CacheFailure())),
+          );
         },
       );
     });

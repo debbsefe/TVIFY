@@ -18,13 +18,15 @@ class MockNetworkInfo extends Mock implements NetworkInfo {}
 void main() {
   late MockTvDetailRemoteDataSource mockRemoteDataSource;
   late MockNetworkInfo mockNetworkInfo;
-  late TvDetailRepositoryImpl repository;
+  late TvDetailRepository repository;
 
   setUp(() {
     mockRemoteDataSource = MockTvDetailRemoteDataSource();
     mockNetworkInfo = MockNetworkInfo();
-    repository = TvDetailRepositoryImpl(
-        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo);
+    repository = TvDetailRepository(
+      remoteDataSource: mockRemoteDataSource,
+      networkInfo: mockNetworkInfo,
+    );
   });
 
   void runTestsOnline(Function body) {

@@ -1,4 +1,4 @@
-import '../../domain/entities/configuration.dart';
+import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
 
 // ignore: must_be_immutable
 class ConfigurationModel extends Configuration {
@@ -18,8 +18,10 @@ class ConfigurationModel extends Configuration {
 
   factory ConfigurationModel.fromJson(Map<String, dynamic> json) =>
       ConfigurationModel(
-        images: ImageModel.fromJson(json['images']),
-        changeKeys: List<String>.from(json['change_keys'].map((x) => x)),
+        images: ImageModel.fromJson(json['images'] as Map<String, dynamic>),
+        changeKeys: List<String>.from(
+          (json['change_keys'] as List<dynamic>).map((x) => x),
+        ),
       );
 
   ImageModel images;
@@ -43,13 +45,23 @@ class ImageModel {
   });
 
   factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
-        baseUrl: json['base_url'],
-        secureBaseUrl: json['secure_base_url'],
-        backdropSizes: List<String>.from(json['backdrop_sizes'].map((x) => x)),
-        logoSizes: List<String>.from(json['logo_sizes'].map((x) => x)),
-        posterSizes: List<String>.from(json['poster_sizes'].map((x) => x)),
-        profileSizes: List<String>.from(json['profile_sizes'].map((x) => x)),
-        stillSizes: List<String>.from(json['still_sizes'].map((x) => x)),
+        baseUrl: json['base_url'] as String,
+        secureBaseUrl: json['secure_base_url'] as String,
+        backdropSizes: List<String>.from(
+          (json['backdrop_sizes'] as List<dynamic>).map((x) => x as String),
+        ),
+        logoSizes: List<String>.from(
+          (json['logo_sizes'] as List<dynamic>).map((x) => x as String),
+        ),
+        posterSizes: List<String>.from(
+          (json['poster_sizes'] as List<dynamic>).map((x) => x as String),
+        ),
+        profileSizes: List<String>.from(
+          (json['profile_sizes'] as List<dynamic>).map((x) => x as String),
+        ),
+        stillSizes: List<String>.from(
+          (json['still_sizes'] as List<dynamic>).map((x) => x as String),
+        ),
       );
 
   String baseUrl;

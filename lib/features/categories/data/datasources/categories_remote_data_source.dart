@@ -1,35 +1,31 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:movie_colony/core/config.dart';
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/utils/extensions.dart';
+import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/features/categories/data/models/categories_model.dart';
 
-import '../../../../core/config.dart';
-import '../../../../core/error/exception.dart';
-import '../../../../core/utils/extensions.dart';
-import '../../../../core/utils/strings.dart';
-import '../models/categories_model.dart';
-
-abstract class CategoriesRemoteDataSource {
-  Future<List<CategoriesModel>> getRemoteCategories();
-}
-
-class CategoriesRemoteDataSourceImpl implements CategoriesRemoteDataSource {
-  CategoriesRemoteDataSourceImpl({required this.client, required this.config});
+class CategoriesRemoteDataSource {
+  CategoriesRemoteDataSource({required this.client, required this.config});
 
   final http.Client client;
   final Config config;
 
-  @override
   Future<List<CategoriesModel>> getRemoteCategories() async {
-    String _token = await config.fetchToken(Strings.apiKeyTmdb);
-    String _url = 'genre/tv/list?api_key=$_token&language=en-US'.baseurl;
+    final String token = await config.fetchToken(Strings.apiKeyTmdb);
+    final String url = 'genre/tv/list?api_key=$token&language=en-US'.baseurl;
     final response = await client.get(
-      Uri.parse(_url),
+      Uri.parse(url),
     );
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body);
-      return parsed['genres']
-          .map<CategoriesModel>((json) => CategoriesModel.fromJson(json))
+      return (parsed['genres'] as List)
+          .map<CategoriesModel>(
+            (item) => CategoriesModel.fromJson(item as Map<String, dynamic>),
+          )
           .toList();
     } else {
       throw ServerException();

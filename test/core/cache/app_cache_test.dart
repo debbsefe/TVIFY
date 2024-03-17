@@ -10,7 +10,7 @@ void main() {
   late AppCacheImpl cache;
   late MockSharedPreferences mockPref;
 
-  DateTime now = DateTime.now();
+  final DateTime now = DateTime.now();
   const String tKey = 'tKey';
   const String tString = 'tValue';
   const bool tBool = true;
@@ -21,12 +21,12 @@ void main() {
     cache = AppCacheImpl(mockPref);
   });
   group('isExpired', () {
-    String tExpiryDate1 =
+    final String tExpiryDate1 =
         dateFormat.format(now.subtract(const Duration(seconds: 5)));
-    String tExpiryDate2 =
+    final String tExpiryDate2 =
         dateFormat.format(now.add(const Duration(seconds: 5)));
 
-    String tKey = 'key';
+    const String tKey = 'key';
     test('return true when current date is after expiry date', () {
       when(cache.retrieveString('key_expiry_date')).thenReturn(tExpiryDate1);
       final result = cache.isExpired(tKey);

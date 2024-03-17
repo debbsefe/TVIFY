@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/features/single_tv/data/models/tv_detail_model.dart';
 import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
@@ -9,7 +10,8 @@ import '../../../../data/single_tv/constants.dart';
 void main() {
   Map<String, dynamic> jsonToMap() {
     final String jsonString = dataReader('single_tv/tv_detail.json');
-    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    final Map<String, dynamic> jsonMap =
+        json.decode(jsonString) as Map<String, dynamic>;
     return jsonMap;
   }
 

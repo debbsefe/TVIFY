@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SlideDots extends StatelessWidget {
-  const SlideDots({required this.isActive, Key? key}) : super(key: key);
+  const SlideDots({required this.isActive, super.key});
 
   final bool isActive;
   @override
@@ -17,6 +17,6 @@ class SlideDots extends StatelessWidget {
               ? Theme.of(context).primaryColor
               : const Color.fromRGBO(128, 96, 102, 0.56),
           borderRadius: const BorderRadius.all(Radius.circular(4)),
-        ));
+        ),);
   }
 }
