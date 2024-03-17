@@ -9,7 +9,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  auto_route: ^7.8.5
+  auto_route: 7.8.4
   cached_network_image: ^3.1.0
   cloud_firestore: ^4.14.0
   connectivity_plus: ^5.0.2
