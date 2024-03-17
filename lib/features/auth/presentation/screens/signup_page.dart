@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/widgets/snackbars.dart';
 import 'package:movie_colony/providers.dart';
 
+@RoutePage()
 class SignUpPage extends ConsumerStatefulWidget {
   const SignUpPage({super.key});
 

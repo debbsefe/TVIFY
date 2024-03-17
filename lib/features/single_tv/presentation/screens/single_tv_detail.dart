@@ -9,15 +9,16 @@ import 'package:movie_colony/features/single_tv/presentation/screens/top_cast.da
 import 'package:movie_colony/features/single_tv/presentation/screens/tv_summary.dart';
 import 'package:movie_colony/providers.dart';
 
-class SingleTvDetail extends ConsumerStatefulWidget {
-  const SingleTvDetail({@PathParam('id') required this.id, super.key});
+@RoutePage()
+class SingleTvDetailPage extends ConsumerStatefulWidget {
+  const SingleTvDetailPage({@PathParam('id') required this.id, super.key});
   final String id;
 
   @override
-  ConsumerState<SingleTvDetail> createState() => _SingleTvDetailState();
+  ConsumerState<SingleTvDetailPage> createState() => _SingleTvDetailPageState();
 }
 
-class _SingleTvDetailState extends ConsumerState<SingleTvDetail> {
+class _SingleTvDetailPageState extends ConsumerState<SingleTvDetailPage> {
   @override
   void initState() {
     super.initState();

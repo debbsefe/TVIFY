@@ -1,50 +1,52 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_colony/app_router.dart';
 
-import 'package:movie_colony/app_router.gr.dart';
-
-// ignore: use_key_in_widget_constructors
+@RoutePage()
 class HomeScreenTab extends StatelessWidget {
+  const HomeScreenTab({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-        routes: const [
-          HomeScreenRouter(),
-          SearchRouter(),
-          NotificationListRouter(),
-          SettingsRouter(),
-        ],
-        bottomNavigationBuilder: (_, tabsRouter) {
-          return BottomNavigationBar(
-            unselectedItemColor: Colors.grey,
-            selectedItemColor: Theme.of(context).primaryColor,
-            currentIndex: tabsRouter.activeIndex,
-            onTap: tabsRouter.setActiveIndex,
-            type: BottomNavigationBarType.fixed,
-            items: [
-              bottomNavigationBar(
-                icon: Icons.home_outlined,
-                semanticLabel: 'This is the Home Page',
-                label: 'Home',
-              ),
-              bottomNavigationBar(
-                icon: Icons.search,
-                semanticLabel: 'This is the Search Page ',
-                label: 'Search',
-              ),
-              bottomNavigationBar(
-                icon: Icons.movie,
-                semanticLabel: 'This is the WatchList Page',
-                label: 'WatchList',
-              ),
-              bottomNavigationBar(
-                icon: Icons.settings,
-                semanticLabel: 'This is the Settings Page',
-                label: 'Settings',
-              ),
-            ],
-          );
-        },);
+      routes: const [
+        HomeRoute(),
+        SearchRoute(),
+        NotificationListRoute(),
+        SettingsRoute(),
+      ],
+      bottomNavigationBuilder: (_, tabsRouter) {
+        return BottomNavigationBar(
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Theme.of(context).primaryColor,
+          currentIndex: tabsRouter.activeIndex,
+          onTap: tabsRouter.setActiveIndex,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            bottomNavigationBar(
+              icon: Icons.home_outlined,
+              semanticLabel: 'This is the Home Page',
+              label: 'Home',
+            ),
+            bottomNavigationBar(
+              icon: Icons.search,
+              semanticLabel: 'This is the Search Page ',
+              label: 'Search',
+            ),
+            bottomNavigationBar(
+              icon: Icons.movie,
+              semanticLabel: 'This is the WatchList Page',
+              label: 'WatchList',
+            ),
+            bottomNavigationBar(
+              icon: Icons.settings,
+              semanticLabel: 'This is the Settings Page',
+              label: 'Settings',
+            ),
+          ],
+        );
+      },
+    );
   }
 
   BottomNavigationBarItem bottomNavigationBar({
@@ -66,8 +68,9 @@ class HomeScreenTab extends StatelessWidget {
   }
 }
 
-class Search extends StatelessWidget {
-  const Search({super.key});
+@RoutePage()
+class SearchPage extends StatelessWidget {
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {

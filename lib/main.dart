@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:movie_colony/app_router.gr.dart';
+import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/cache/app_cache.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/providers.dart';
@@ -47,9 +47,9 @@ class MovieColony extends ConsumerWidget {
           if (isFirstTime == null)
             const OnboardingRoute()
           else if (user == null)
-            const SignUpPageRoute()
+            const SignUpRoute()
           else
-            const HomeScreenTabRoute(),
+            const HomeRouteTab(),
         ],
       ),
       routeInformationParser:

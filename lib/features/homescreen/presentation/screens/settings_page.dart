@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +6,7 @@ import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/providers.dart';
 
+@RoutePage()
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 
