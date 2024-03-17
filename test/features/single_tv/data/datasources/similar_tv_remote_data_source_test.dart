@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/core/models/tv_list/tv_list_model.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/single_tv/data/datasources/similar_tv_remote_data_source.dart';
@@ -40,7 +40,7 @@ void main() {
 
       expect(
         await dataSource.getRemoteSimilarTv(tId),
-        isA<List<TvListModel>>(),
+        isA<TvList>(),
       );
     });
 

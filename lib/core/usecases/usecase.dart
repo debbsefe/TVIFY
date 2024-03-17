@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-
 import 'package:movie_colony/core/error/failure.dart';
 
 // Parameters have to be put into a container object so that they can be

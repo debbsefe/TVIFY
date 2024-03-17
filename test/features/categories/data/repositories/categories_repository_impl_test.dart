@@ -26,7 +26,7 @@ void main() {
   late MockCategoriesRemoteDataSource mockRemoteDataSource;
   late MockCategoriesLocalDataSource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
-  late CategoriesRepositoryImpl repository;
+  late CategoriesRepository repository;
   late MockAppCache cache;
   final tKey = Strings.cachedCategory;
 
@@ -35,7 +35,7 @@ void main() {
     mockLocalDataSource = MockCategoriesLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
     cache = MockAppCache();
-    repository = CategoriesRepositoryImpl(
+    repository = CategoriesRepository(
       localDataSource: mockLocalDataSource,
       remoteDataSource: mockRemoteDataSource,
       cache: cache,

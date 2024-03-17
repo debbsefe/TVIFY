@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
 import 'package:movie_colony/features/categories/data/repositories/categories_repository_impl.dart';
-import 'package:movie_colony/features/categories/domain/repositories/categories_repository.dart';
 import 'package:movie_colony/features/categories/domain/usecases/get_categories.dart';
 import 'package:movie_colony/features/categories/presentation/notifiers/categories_notifier.dart';
 
@@ -39,7 +38,7 @@ class CategoriesServiceLocator {
     ///repository
 
     sl.registerLazySingleton<CategoriesRepository>(
-      () => CategoriesRepositoryImpl(
+      () => CategoriesRepository(
         cache: sl(),
         localDataSource: sl(),
         networkInfo: sl(),

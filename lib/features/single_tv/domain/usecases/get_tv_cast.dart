@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/usecases/usecase.dart';
+import 'package:movie_colony/features/single_tv/data/repositories/tv_cast_repository_impl.dart';
 import 'package:movie_colony/features/single_tv/domain/entities/tv_cast.dart';
-import 'package:movie_colony/features/single_tv/domain/repositories/tv_cast_repository.dart';
 
 class GetTvCast extends UseCase<List<TvCast>, Params> {
   GetTvCast(this.repository);
@@ -13,7 +12,7 @@ class GetTvCast extends UseCase<List<TvCast>, Params> {
 
   @override
   Future<Either<Failure, List<TvCast>>> call(Params params) async {
-    return await repository.getTvCast(params.id);
+    return repository.getTvCast(params.id);
   }
 }
 

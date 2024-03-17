@@ -1,31 +1,43 @@
-import 'package:equatable/equatable.dart';
+// ignore_for_file: invalid_annotation_target
 
-class TvList extends Equatable {
-  const TvList({
-    this.date,
-    this.rating,
-    this.backdropImage,
-    this.posterImage,
-    this.id,
-    this.name,
-    this.overview,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final int? id;
-  final String? name;
-  final String? date;
-  final String? overview;
-  final String? backdropImage;
-  final String? posterImage;
-  final num? rating;
+part 'tv_list.freezed.dart';
+part 'tv_list.g.dart';
 
-  @override
-  List<Object?> get props => [
-        id,
-        name,
-        date,
-        rating,
-        backdropImage,
-        posterImage,
-      ];
+@freezed
+class TvList with _$TvList {
+  const factory TvList({
+    int? page,
+    List<Result>? results,
+    @JsonKey(name: 'total_pages') int? totalPages,
+    @JsonKey(name: 'total_results') int? totalResults,
+  }) = _TvList;
+
+  factory TvList.fromJson(Map<String, dynamic> json) => _$TvListFromJson(json);
 }
+
+@freezed
+class Result with _$Result {
+  const factory Result({
+    bool? adult,
+    @JsonKey(name: 'backdrop_path') String? backdropPath,
+    int? id,
+    String? name,
+    @JsonKey(name: 'original_language') String? originalLanguage,
+    @JsonKey(name: 'original_name') String? originalName,
+    String? overview,
+    @JsonKey(name: 'poster_path') String? posterPath,
+    @JsonKey(name: 'media_type') MediaType? mediaType,
+    @JsonKey(name: 'genre_ids') List<int>? genreIds,
+    double? popularity,
+    @JsonKey(name: 'first_air_date') DateTime? firstAirDate,
+    @JsonKey(name: 'vote_average') double? voteAverage,
+    @JsonKey(name: 'vote_count') int? voteCount,
+    @JsonKey(name: 'origin_country') List<String>? originCountry,
+  }) = _Result;
+
+  factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
+}
+
+enum MediaType { tv }

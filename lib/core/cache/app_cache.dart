@@ -1,6 +1,5 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'package:movie_colony/core/utils/strings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class AppCache {
   ///check if the date is expired by comparing with current date.

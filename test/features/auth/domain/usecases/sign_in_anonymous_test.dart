@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/features/auth/domain/repositories/anonymous_sign_in_repository.dart';
+import 'package:movie_colony/features/auth/data/repositories/anonymous_repository_impl.dart';
 import 'package:movie_colony/features/auth/domain/usecases/sign_in_anonymous.dart';
 
 class MockAnonymousSignInRepository extends Mock

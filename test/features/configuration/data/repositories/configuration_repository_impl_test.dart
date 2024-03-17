@@ -27,7 +27,7 @@ void main() {
   late MockConfigurationRemoteDataSource mockRemoteDataSource;
   late MockConfigurationLocalDataSource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
-  late ConfigurationRepositoryImpl repository;
+  late ConfigurationRepository repository;
   late MockAppCache cache;
   final tKey = Strings.cachedConfiguration;
 
@@ -36,11 +36,12 @@ void main() {
     mockLocalDataSource = MockConfigurationLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
     cache = MockAppCache();
-    repository = ConfigurationRepositoryImpl(
-        localDataSource: mockLocalDataSource,
-        remoteDataSource: mockRemoteDataSource,
-        cache: cache,
-        networkInfo: mockNetworkInfo,);
+    repository = ConfigurationRepository(
+      localDataSource: mockLocalDataSource,
+      remoteDataSource: mockRemoteDataSource,
+      cache: cache,
+      networkInfo: mockNetworkInfo,
+    );
   });
 
   void runTestsOnline(Function body) {
@@ -131,7 +132,8 @@ should cache the data locally when the call to remote data source is successful'
           // assert
           verify(mockRemoteDataSource.getRemoteConfiguration());
           verify(
-              mockLocalDataSource.cacheLastConfiguration(tConfigurationModel),);
+            mockLocalDataSource.cacheLastConfiguration(tConfigurationModel),
+          );
         },
       );
 

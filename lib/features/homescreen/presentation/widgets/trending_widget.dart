@@ -20,9 +20,8 @@ class TrendingWidget extends ConsumerWidget {
       loading: Container.new,
       error: Text.new,
       loaded: (trends) {
-        final trend = trends ?? [];
-        // ignore: cascade_invocations
-        trend.shuffle();
+        final trend = trends?.results ?? [];
+
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),
@@ -30,7 +29,7 @@ class TrendingWidget extends ConsumerWidget {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final singleTrend = trend[index];
-            final String posterImage = singleTrend.posterImage ?? '';
+            final String posterImage = singleTrend.posterPath ?? '';
             return Container(
               margin: const EdgeInsets.only(right: 10),
               child: Column(
@@ -58,7 +57,7 @@ class TrendingWidget extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
-                    yearFromDateString(singleTrend.date),
+                    yearFromDateString(singleTrend.firstAirDate),
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall!
@@ -72,7 +71,7 @@ class TrendingWidget extends ConsumerWidget {
                         color: CustomTheme.yellowStar,
                       ),
                       Text(
-                        singleTrend.rating.toString(),
+                        singleTrend.voteAverage.toString(),
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall!

@@ -60,21 +60,19 @@ final categoriesProvider =
 
 ///trending
 final weeklyTrendingProvider =
-    StateNotifierProvider<WeeklyTrendingNotifier, GenericState<List<TvList>>>(
-        (ref) {
+    StateNotifierProvider<WeeklyTrendingNotifier, GenericState<TvList>>((ref) {
   return di.sl<WeeklyTrendingNotifier>();
 });
 
 final dailyTrendingProvider =
-    StateNotifierProvider<DailyTrendingNotifier, GenericState<List<TvList>>>(
-        (ref) {
+    StateNotifierProvider<DailyTrendingNotifier, GenericState<TvList>>((ref) {
   return di.sl<DailyTrendingNotifier>();
 });
 
 ///single tv
 
 final similarTvProvider =
-    StateNotifierProvider<SimilarTvNotifier, GenericState<List<TvList>>>((ref) {
+    StateNotifierProvider<SimilarTvNotifier, GenericState<TvList>>((ref) {
   return di.sl<SimilarTvNotifier>();
 });
 

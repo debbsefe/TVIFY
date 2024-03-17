@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
-import 'package:movie_colony/core/models/tv_list/tv_list_model.dart';
 
 import '../../../data/data_reader.dart';
 import '../../../data/tv_list/constants.dart';
@@ -29,7 +28,7 @@ void main() {
         // arrange
 
         // act
-        final result = TvListModel.fromJson(jsonToMap());
+        final result = TvList.fromJson(jsonToMap());
         // assert
         expect(result, tTvList);
       },

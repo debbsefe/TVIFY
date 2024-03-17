@@ -1,10 +1,8 @@
 import 'package:get_it/get_it.dart';
-
 import 'package:movie_colony/features/auth/data/datasources/anonymous_sign_in_remote_data_source.dart';
 import 'package:movie_colony/features/auth/data/datasources/google_sign_in_remote_data_source.dart';
 import 'package:movie_colony/features/auth/data/repositories/anonymous_repository_impl.dart';
 import 'package:movie_colony/features/auth/data/repositories/google_sign_in_repository_impl.dart';
-import 'package:movie_colony/features/auth/domain/repositories/anonymous_sign_in_repository.dart';
 import 'package:movie_colony/features/auth/domain/repositories/google_sign_in_repository.dart';
 import 'package:movie_colony/features/auth/domain/usecases/sign_in_anonymous.dart';
 import 'package:movie_colony/features/auth/domain/usecases/sign_in_google.dart';
@@ -29,7 +27,7 @@ class AuthServiceLocator {
 
     ///datasources
     sl.registerLazySingleton<GoogleSignInRemoteDataSource>(
-      () => GoogleSignInRemoteDataSourceImpl(
+      () => GoogleSignInRemoteDataSource(
         googleSignIn: sl(),
         auth: sl(),
         authProvider: sl(),
@@ -37,7 +35,7 @@ class AuthServiceLocator {
     );
 
     sl.registerLazySingleton<AnonymousSignInRemoteDataSource>(
-      () => AnonymousSignInRemoteDataSourceImpl(
+      () => AnonymousSignInRemoteDataSource(
         auth: sl(),
       ),
     );
@@ -56,7 +54,7 @@ class AuthServiceLocator {
     );
 
     sl.registerLazySingleton<AnonymousSignInRepository>(
-      () => AnonymousSignInRepositoryImpl(
+      () => AnonymousSignInRepository(
         networkInfo: sl(),
         remoteDataSource: sl(),
       ),

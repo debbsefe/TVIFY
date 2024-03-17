@@ -1,14 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:movie_colony/core/error/exception.dart';
 
-abstract class GoogleSignInRemoteDataSource {
-  Future<void> signInWithGoogle();
-}
-
-class GoogleSignInRemoteDataSourceImpl extends GoogleSignInRemoteDataSource {
-  GoogleSignInRemoteDataSourceImpl({
+class GoogleSignInRemoteDataSource {
+  GoogleSignInRemoteDataSource({
     required this.auth,
     required this.authProvider,
     required this.googleSignIn,
@@ -17,7 +13,6 @@ class GoogleSignInRemoteDataSourceImpl extends GoogleSignInRemoteDataSource {
   final GoogleAuthProvider authProvider;
   final GoogleSignIn googleSignIn;
 
-  @override
   Future<void> signInWithGoogle() async {
     if (kIsWeb) {
       try {

@@ -7,10 +7,9 @@ import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
 import 'package:movie_colony/features/categories/domain/entities/categories.dart';
-import 'package:movie_colony/features/categories/domain/repositories/categories_repository.dart';
 
-class CategoriesRepositoryImpl implements CategoriesRepository {
-  CategoriesRepositoryImpl({
+class CategoriesRepository {
+  CategoriesRepository({
     required this.cache,
     required this.remoteDataSource,
     required this.localDataSource,
@@ -21,11 +20,10 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   final NetworkInfo networkInfo;
   final AppCache cache;
 
-  @override
   Future<Either<Failure, List<Categories>>> getCategories() async {
     final bool hasExpired = cache.isExpired(Strings.cachedCategory);
 
-    return await getCategoriesSwitchCase(hasExpired);
+    return getCategoriesSwitchCase(hasExpired);
   }
 
   Future<Either<Failure, List<Categories>>> getCategoriesSwitchCase(

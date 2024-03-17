@@ -1,9 +1,7 @@
 import 'package:get_it/get_it.dart';
-
 import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
 import 'package:movie_colony/features/trending/data/repositories/trending_repository_impl.dart';
-import 'package:movie_colony/features/trending/domain/repositories/trending_repository.dart';
 import 'package:movie_colony/features/trending/domain/usecases/get_trending_daily.dart';
 import 'package:movie_colony/features/trending/domain/usecases/get_trending_weekly.dart';
 import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_notifier.dart';
@@ -25,14 +23,14 @@ class TrendingServiceLocator {
     ///datasources
 
     sl.registerLazySingleton<TrendingRemoteDataSource>(
-      () => TrendingRemoteDataSourceImpl(
+      () => TrendingRemoteDataSource(
         client: sl(),
         config: sl(),
       ),
     );
 
     sl.registerLazySingleton<TrendingLocalDataSource>(
-      () => TrendingLocalDataSourceImpl(
+      () => TrendingLocalDataSource(
         sl(),
       ),
     );
@@ -44,7 +42,7 @@ class TrendingServiceLocator {
     ///repository
 
     sl.registerLazySingleton<TrendingRepository>(
-      () => TrendingRepositoryImpl(
+      () => TrendingRepository(
         localDataSource: sl(),
         networkInfo: sl(),
         remoteDataSource: sl(),

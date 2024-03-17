@@ -18,7 +18,7 @@ class SimilarTvShowsWidget extends ConsumerWidget {
       loading: Container.new,
       error: Text.new,
       loaded: (similar) {
-        final tv = similar ?? [];
+        final tv = similar?.results ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),
@@ -26,7 +26,7 @@ class SimilarTvShowsWidget extends ConsumerWidget {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final singleTv = tv[index];
-            final String posterImage = singleTv.posterImage ?? '';
+            final String posterImage = singleTv.posterPath ?? '';
 
             return Container(
               margin: const EdgeInsets.only(left: 16),

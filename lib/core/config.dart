@@ -10,11 +10,9 @@ class Config {
 
   Future<String> fetchToken(String value) async {
     if (token == null) {
-      final DocumentSnapshot snapshot =
-          await store.collection('token').doc(value).get();
-      final Map<String, dynamic> snap = snapshot.data()! as Map<String, String>;
-      _token = snap['key'] as String;
-      return snap['key'] as String;
+      final snapshot = await store.collection('token').doc(value).get();
+      _token = snapshot.data()?['key'] as String;
+      return snapshot.data()?['key'] as String;
     }
 
     return token!;

@@ -5,8 +5,6 @@ import 'package:movie_colony/features/single_tv/data/datasources/tv_detail_remot
 import 'package:movie_colony/features/single_tv/data/repositories/similar_tv_repository_impl.dart';
 import 'package:movie_colony/features/single_tv/data/repositories/tv_cast_repository_impl.dart';
 import 'package:movie_colony/features/single_tv/data/repositories/tv_detail_repository_impl.dart';
-import 'package:movie_colony/features/single_tv/domain/repositories/similar_tv_repository.dart';
-import 'package:movie_colony/features/single_tv/domain/repositories/tv_cast_repository.dart';
 import 'package:movie_colony/features/single_tv/domain/usecases/get_similar_tv.dart';
 import 'package:movie_colony/features/single_tv/domain/usecases/get_tv_cast.dart';
 import 'package:movie_colony/features/single_tv/domain/usecases/get_tv_detail.dart';
@@ -71,14 +69,14 @@ class SingleTvServiceLocator {
     );
 
     sl.registerLazySingleton<TvCastRepository>(
-      () => TvCastRepositoryImpl(
+      () => TvCastRepository(
         networkInfo: sl(),
         remoteDataSource: sl(),
       ),
     );
 
     sl.registerLazySingleton<SimilarTvRepository>(
-      () => SimilarTvRepositoryImpl(
+      () => SimilarTvRepository(
         networkInfo: sl(),
         remoteDataSource: sl(),
       ),

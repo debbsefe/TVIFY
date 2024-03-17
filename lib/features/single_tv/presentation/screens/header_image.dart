@@ -51,7 +51,9 @@ class HeaderImage extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            yearFromDateString(detail.startDate),
+                            yearFromDateString(
+                              DateTime.parse(detail.startDate!),
+                            ),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge

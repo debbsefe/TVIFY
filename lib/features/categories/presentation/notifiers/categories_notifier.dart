@@ -10,7 +10,7 @@ class CategoriesNotifier extends GenericStateNotifier<List<Categories>> {
 
   void fetchCategory() {
     sendRequest(() async {
-      return await allCategories(NoParams());
+      return allCategories(NoParams());
     });
   }
 }

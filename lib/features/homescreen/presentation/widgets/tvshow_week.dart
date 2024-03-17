@@ -17,8 +17,8 @@ class TvShowOfTheWeek extends ConsumerWidget {
       loading: Container.new,
       error: Text.new,
       loaded: (trends) {
-        final trend = trends!.first;
-        final String posterImage = trend.posterImage ?? '';
+        final trend = trends?.results?.first;
+        final String posterImage = trend?.posterPath ?? '';
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,14 +39,14 @@ class TvShowOfTheWeek extends ConsumerWidget {
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   Text(
-                    'About ${trend.name}',
+                    'About ${trend?.name}',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ],
               ),
             ),
             Text(
-              trend.overview ?? '',
+              trend?.overview ?? '',
               style: Theme.of(context).textTheme.titleSmall,
             ),
             Padding(

@@ -9,7 +9,7 @@ class GoogleSignInNotifier extends GenericStateNotifier<void> {
 
   void signInWithGoogle() {
     sendRequest(() async {
-      return await usecase(NoParams());
+      return usecase(NoParams());
     });
   }
 }

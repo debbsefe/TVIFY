@@ -1,18 +1,15 @@
 import 'package:dartz/dartz.dart';
-
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
-import 'package:movie_colony/core/models/tv_list/tv_list_model.dart';
 import 'package:movie_colony/core/network/network_info.dart';
-import 'package:movie_colony/features/trending/domain/repositories/trending_repository.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
 
 enum TimeWindow { weekly, daily }
 
-class TrendingRepositoryImpl implements TrendingRepository {
-  TrendingRepositoryImpl({
+class TrendingRepository {
+  TrendingRepository({
     required this.remoteDataSource,
     required this.localDataSource,
     required this.networkInfo,
@@ -21,36 +18,37 @@ class TrendingRepositoryImpl implements TrendingRepository {
   final TrendingLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
-  @override
-  Future<Either<Failure, List<TvList>>> getTrendingWeekly() async {
+  Future<Either<Failure, TvList>> getTrendingWeekly() async {
     final bool isConnected = await networkInfo.isConnected;
 
-    return await getTrendingSwitchCase(isConnected, TimeWindow.weekly);
+    return getTrendingSwitchCase(isConnected, TimeWindow.weekly);
   }
 
-  @override
-  Future<Either<Failure, List<TvList>>> getTrendingDaily() async {
+  Future<Either<Failure, TvList>> getTrendingDaily() async {
     final bool isConnected = await networkInfo.isConnected;
 
-    return await getTrendingSwitchCase(isConnected, TimeWindow.daily);
+    return getTrendingSwitchCase(isConnected, TimeWindow.daily);
   }
 
-  Future<Either<Failure, List<TvList>>> getTrendingSwitchCase(
-      bool isConnected, TimeWindow timeWindow,) async {
+  Future<Either<Failure, TvList>> getTrendingSwitchCase(
+    bool isConnected,
+    TimeWindow timeWindow,
+  ) async {
     switch (isConnected) {
       case true:
-        return await remoteData(timeWindow);
+        return remoteData(timeWindow);
       case false:
-        return await localData(timeWindow);
+        return localData(timeWindow);
       default:
-        return await remoteData(timeWindow);
+        return remoteData(timeWindow);
     }
   }
 
-  Future<Either<Failure, List<TvList>>> remoteData(
-      TimeWindow timeWindow,) async {
+  Future<Either<Failure, TvList>> remoteData(
+    TimeWindow timeWindow,
+  ) async {
     try {
-      late List<TvListModel> remote;
+      late TvList remote;
       if (timeWindow == TimeWindow.daily) {
         remote = await remoteDataSource.getRemoteTrendingDaily();
         await localDataSource.cacheLastTrendingDaily(remote);
@@ -64,9 +62,9 @@ class TrendingRepositoryImpl implements TrendingRepository {
     }
   }
 
-  Future<Either<Failure, List<TvList>>> localData(TimeWindow timeWindow) async {
+  Future<Either<Failure, TvList>> localData(TimeWindow timeWindow) async {
     try {
-      late List<TvListModel> local;
+      late TvList local;
       if (timeWindow == TimeWindow.daily) {
         local = await localDataSource.getCachedTrendingDaily();
       } else {

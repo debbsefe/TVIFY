@@ -1,17 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class AnonymousSignInRemoteDataSource {
-  Future<void> signInAnonymous();
-}
-
-class AnonymousSignInRemoteDataSourceImpl
-    extends AnonymousSignInRemoteDataSource {
-  AnonymousSignInRemoteDataSourceImpl({
+class AnonymousSignInRemoteDataSource {
+  AnonymousSignInRemoteDataSource({
     required this.auth,
   });
   final FirebaseAuth auth;
 
-  @override
   Future<void> signInAnonymous() async {
     await auth.signInAnonymously();
   }

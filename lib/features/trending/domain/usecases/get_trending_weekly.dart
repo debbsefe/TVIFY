@@ -1,17 +1,16 @@
 import 'package:dartz/dartz.dart';
-
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/features/trending/domain/repositories/trending_repository.dart';
+import 'package:movie_colony/features/trending/data/repositories/trending_repository_impl.dart';
 
-class GetWeeklyTrending extends UseCase<List<TvList>, NoParams> {
+class GetWeeklyTrending extends UseCase<TvList, NoParams> {
   GetWeeklyTrending(this.repository);
 
   final TrendingRepository repository;
 
   @override
-  Future<Either<Failure, List<TvList>>> call(NoParams params) async {
-    return await repository.getTrendingWeekly();
+  Future<Either<Failure, TvList>> call(NoParams params) async {
+    return repository.getTrendingWeekly();
   }
 }

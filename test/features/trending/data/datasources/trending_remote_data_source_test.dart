@@ -17,13 +17,12 @@ class MockClient extends Mock implements http.Client {}
 void main() {
   late MockClient client;
   late MockConfig mockConfig;
-  late TrendingRemoteDataSourceImpl dataSource;
+  late TrendingRemoteDataSource dataSource;
   final Uri url = Uri.parse('trending/tv/week?api_key=123456'.baseurl);
   setUp(() {
     client = MockClient();
     mockConfig = MockConfig();
-    dataSource =
-        TrendingRemoteDataSourceImpl(client: client, config: mockConfig);
+    dataSource = TrendingRemoteDataSource(client: client, config: mockConfig);
   });
   void stubFetchToken() {
     //stub/mock answer when fetch token method is called
@@ -36,10 +35,13 @@ void main() {
         () async {
       stubFetchToken();
       when(client.get(url)).thenAnswer(
-          (_) async => http.Response(dataReader('tv_list/tv_list.json'), 200),);
+        (_) async => http.Response(dataReader('tv_list/tv_list.json'), 200),
+      );
 
       expect(
-          await dataSource.getRemoteTrendingWeekly(), isA<List<TvListModel>>(),);
+        await dataSource.getRemoteTrendingWeekly(),
+        isA<List<TvListModel>>(),
+      );
     });
 
     test('throws an exception if the http call completes with an error', () {
@@ -48,8 +50,10 @@ void main() {
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(() => dataSource.getRemoteTrendingWeekly(),
-          throwsA(const TypeMatcher<ServerException>()),);
+      expect(
+        () => dataSource.getRemoteTrendingWeekly(),
+        throwsA(const TypeMatcher<ServerException>()),
+      );
     });
   });
 }

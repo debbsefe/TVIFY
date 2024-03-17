@@ -9,7 +9,7 @@ class AnonymousSignInNotifier extends GenericStateNotifier<void> {
 
   void signInAnonymous() {
     sendRequest(() async {
-      return await usecase(NoParams());
+      return usecase(NoParams());
     });
   }
 }

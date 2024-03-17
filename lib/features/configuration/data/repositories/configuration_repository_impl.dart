@@ -1,17 +1,15 @@
 import 'package:dartz/dartz.dart';
-
 import 'package:movie_colony/core/cache/app_cache.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
-import 'package:movie_colony/features/configuration/domain/repositories/configuration_repository.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
+import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
 
-class ConfigurationRepositoryImpl implements ConfigurationRepository {
-  ConfigurationRepositoryImpl({
+class ConfigurationRepository {
+  ConfigurationRepository({
     required this.cache,
     required this.remoteDataSource,
     required this.localDataSource,
@@ -22,22 +20,22 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
   final NetworkInfo networkInfo;
   final AppCache cache;
 
-  @override
   Future<Either<Failure, Configuration>> getConfiguration() async {
     final bool hasExpired = cache.isExpired(Strings.cachedConfiguration);
 
-    return await getConfigurationSwitchCase(hasExpired);
+    return getConfigurationSwitchCase(hasExpired);
   }
 
   Future<Either<Failure, Configuration>> getConfigurationSwitchCase(
-      bool hasExpired,) async {
+    bool hasExpired,
+  ) async {
     switch (hasExpired) {
       case true:
-        return await remoteData();
+        return remoteData();
       case false:
-        return await localData();
+        return localData();
       default:
-        return await remoteData();
+        return remoteData();
     }
   }
 
