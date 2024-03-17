@@ -2,11 +2,7 @@ name: movie_colony
 
 on:
   pull_request:
-  push:
-    branches:
-      - main
-
-
+ 
 jobs:
   build:
     # This job will run on ubuntu virtual machine
