@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../cache/app_cache.dart';
-import '../utils/strings.dart';
+import 'package:movie_colony/core/cache/app_cache.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 
 class CustomTheme extends StateNotifier<ThemeData> {
   CustomTheme(this.appCache)
       : super(
-
-            ///check current theme at app start
-            /// and pass to the super-constructor
-            appCache.retrieveString(Strings.theme) == Strings.darkTheme
-                ? CustomTheme.darkThemeData
-                : CustomTheme.lightThemeData);
+          ///check current theme at app start
+          /// and pass to the super-constructor
+          appCache.retrieveString(Strings.theme) == Strings.darkTheme
+              ? CustomTheme.darkThemeData
+              : CustomTheme.lightThemeData,
+        );
   final AppCache appCache;
 
   ///change the theme by passing selected themeData and name of the theme
@@ -71,21 +70,21 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const Color yellowStar = Color(0xFFF3CD2A);
 
   static ThemeData lightThemeData = ThemeData(
-      primarySwatch: Colors.brown,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      fontFamily: 'NotoSansKR-Regular',
-      scaffoldBackgroundColor: scaffoldLight,
-      brightness: Brightness.light,
-      primaryColor: primaryColor,
-      buttonColor: buttonColor1,
-      cardColor: primaryTint5,
-      appBarTheme: const AppBarTheme(
-        titleTextStyle: bodyTextLight,
-        elevation: 0,
-        backgroundColor: scaffoldLight,
-        iconTheme: IconThemeData(color: greyColor2),
-      ),
-      textTheme: lightTextTheme);
+    primarySwatch: Colors.brown,
+    visualDensity: VisualDensity.adaptivePlatformDensity,
+    fontFamily: 'NotoSansKR-Regular',
+    scaffoldBackgroundColor: scaffoldLight,
+    brightness: Brightness.light,
+    primaryColor: primaryColor,
+    cardColor: primaryTint5,
+    appBarTheme: const AppBarTheme(
+      titleTextStyle: bodyTextLight,
+      elevation: 0,
+      backgroundColor: scaffoldLight,
+      iconTheme: IconThemeData(color: greyColor2),
+    ),
+    textTheme: lightTextTheme,
+  );
 
   static ThemeData darkThemeData = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -94,7 +93,6 @@ class CustomTheme extends StateNotifier<ThemeData> {
     scaffoldBackgroundColor: scaffoldDark,
     brightness: Brightness.dark,
     primaryColor: scaffoldLight,
-    buttonColor: buttonColor1,
     textTheme: darkTextTheme,
     cardColor: primaryShade2,
     appBarTheme: const AppBarTheme(
@@ -107,23 +105,23 @@ class CustomTheme extends StateNotifier<ThemeData> {
   );
 
   static TextTheme darkTextTheme = const TextTheme(
-    subtitle1: subtitleRegDark,
-    subtitle2: subtitle,
-    headline4: headline4Dark,
-    headline6: headline6Dark,
-    caption: captionDark,
-    bodyText1: bodyTextDark,
-    bodyText2: bodyText2,
+    titleMedium: subtitleRegDark,
+    titleSmall: subtitle,
+    headlineMedium: headline4Dark,
+    titleLarge: headline6Dark,
+    bodySmall: captionDark,
+    bodyLarge: bodyTextDark,
+    bodyMedium: bodyText2,
   );
 
   static TextTheme lightTextTheme = const TextTheme(
-    subtitle1: subtitleRegLight,
-    subtitle2: subtitle,
-    headline4: headline4Light,
-    headline6: headline6Light,
-    caption: captionLight,
-    bodyText1: bodyTextLight,
-    bodyText2: bodyText2,
+    titleMedium: subtitleRegLight,
+    titleSmall: subtitle,
+    headlineMedium: headline4Light,
+    titleLarge: headline6Light,
+    bodySmall: captionLight,
+    bodyLarge: bodyTextLight,
+    bodyMedium: bodyText2,
   );
 
   static const TextStyle bodyText2 = TextStyle(

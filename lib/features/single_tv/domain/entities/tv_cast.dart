@@ -8,7 +8,9 @@ class TvCast extends Equatable {
     this.knownFor,
   });
 
-  final String? name, profileImage, knownFor;
+  final String? name;
+  final String? profileImage;
+  final String? knownFor;
   final int? id;
 
   @override

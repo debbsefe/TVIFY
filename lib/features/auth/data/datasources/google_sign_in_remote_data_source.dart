@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../../../../core/error/exception.dart';
+import 'package:movie_colony/core/error/exception.dart';
 
 abstract class GoogleSignInRemoteDataSource {
   Future<void> signInWithGoogle();

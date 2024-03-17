@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../domain/entities/categories.dart';
+import 'package:movie_colony/features/categories/domain/entities/categories.dart';
 
 part 'categories_model.g.dart';
 

@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../utils/strings.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 
 class CachedImage extends StatelessWidget {
   const CachedImage(
     this.imageUrl, {
-    Key? key,
+    super.key,
     this.isRound = false,
     this.radius = 0,
     this.height,
     this.width,
     this.fit = BoxFit.cover,
-  }) : super(key: key);
+  });
   final String imageUrl;
   final bool isRound;
   final double radius;
@@ -39,7 +39,7 @@ class CachedImage extends StatelessWidget {
                 width: 25,
                 fit: BoxFit.cover,
               ),
-            )),
+            ),),
       );
     } catch (e) {
       // ignore: avoid_print

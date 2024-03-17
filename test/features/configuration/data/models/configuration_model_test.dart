@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_colony/features/configuration/data/models/configuration_model.dart';
 import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
@@ -22,7 +23,8 @@ void main() {
 
         final String jsonString =
             dataReader('configuration/configuration.json');
-        final Map<String, dynamic> jsonMap = json.decode(jsonString);
+        final Map<String, dynamic> jsonMap =
+            json.decode(jsonString) as Map<String, dynamic>;
         // act
         final result = ConfigurationModel.fromJson(jsonMap);
         // assert
@@ -45,9 +47,9 @@ void main() {
             'logo_sizes': ['w45'],
             'poster_sizes': ['w92'],
             'profile_sizes': ['w45'],
-            'still_sizes': ['w92']
+            'still_sizes': ['w92'],
           },
-          'change_keys': ['adult']
+          'change_keys': ['adult'],
         };
         expect(result, expectedMap);
       },

@@ -14,9 +14,6 @@
             "name": "MovieColony",
             "request": "launch",
             "type": "dart",
-            "args": [
-                "--no-sound-null-safety"
-            ]
         },
         {
             "name": "MovieColony (profile mode)",

@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../../data/models/notification_list_model.dart';
-import '../repositories/add_notif_list_repository.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/usecases/usecase.dart';
+import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
+import 'package:movie_colony/features/notification/domain/repositories/add_notif_list_repository.dart';
 
 class AddNotificationList extends UseCase<void, Params> {
   AddNotificationList(this.repository);

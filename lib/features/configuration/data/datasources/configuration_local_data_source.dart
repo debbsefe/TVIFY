@@ -1,10 +1,9 @@
 import 'dart:convert';
 
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/features/configuration/data/models/configuration_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../core/error/exception.dart';
-import '../../../../core/utils/strings.dart';
-import '../../../configuration/data/models/configuration_model.dart';
 
 abstract class ConfigurationLocalDataSource {
   ///method to fetch the last cache that was fetched,
@@ -24,7 +23,11 @@ class ConfigurationLocalDataSourceImpl implements ConfigurationLocalDataSource {
   Future<ConfigurationModel> getCachedConfiguration() {
     final jsonString = sharedPreferences.getString(Strings.cachedConfiguration);
     if (jsonString != null) {
-      return Future.value(ConfigurationModel.fromJson(json.decode(jsonString)));
+      return Future.value(
+        ConfigurationModel.fromJson(
+          json.decode(jsonString) as Map<String, dynamic>,
+        ),
+      );
     } else {
       throw CacheException();
     }
@@ -33,7 +36,9 @@ class ConfigurationLocalDataSourceImpl implements ConfigurationLocalDataSource {
   @override
   Future<void> cacheLastConfiguration(ConfigurationModel configurationModel) {
     sharedPreferences.setString(
-        expiryDate(Strings.cachedConfiguration), sevenDaysLater);
+      expiryDate(Strings.cachedConfiguration),
+      sevenDaysLater,
+    );
 
     return sharedPreferences.setString(
       Strings.cachedConfiguration,

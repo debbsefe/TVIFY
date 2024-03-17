@@ -1,7 +1,7 @@
-import '../../../../../core/models/tv_list/tv_list.dart';
-import '../../../../../core/notifiers/generic_state_notifier.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
+import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
 
-import '../../../domain/usecases/get_similar_tv.dart';
+import 'package:movie_colony/features/single_tv/domain/usecases/get_similar_tv.dart';
 
 class SimilarTvNotifier extends GenericStateNotifier<List<TvList>> {
   SimilarTvNotifier(this.similarTv);

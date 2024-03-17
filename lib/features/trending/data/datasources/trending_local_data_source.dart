@@ -1,10 +1,9 @@
 import 'dart:convert';
 
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list_model.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../../core/error/exception.dart';
-import '../../../../core/models/tv_list/tv_list_model.dart';
-import '../../../../core/utils/strings.dart';
 
 abstract class TrendingLocalDataSource {
   ///method to fetch the last data that was fetched,
@@ -29,9 +28,13 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
     final jsonString = sharedPreferences.getString(Strings.cachedTrending);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
-      return Future.value(parsed
-          .map<TvListModel>((json) => TvListModel.fromJson(json))
-          .toList());
+      return Future.value(
+        (parsed as List)
+            .map<TvListModel>(
+              (item) => TvListModel.fromJson(item as Map<String, dynamic>),
+            )
+            .toList(),
+      );
     } else {
       throw CacheException();
     }
@@ -42,9 +45,13 @@ class TrendingLocalDataSourceImpl implements TrendingLocalDataSource {
     final jsonString = sharedPreferences.getString(Strings.cachedTrending);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
-      return Future.value(parsed
-          .map<TvListModel>((json) => TvListModel.fromJson(json))
-          .toList());
+      return Future.value(
+        (parsed as List)
+            .map<TvListModel>(
+              (item) => TvListModel.fromJson(item as Map<String, dynamic>),
+            )
+            .toList(),
+      );
     } else {
       throw CacheException();
     }

@@ -1,14 +1,13 @@
 import 'package:dartz/dartz.dart';
-
-import '../../../../core/cache/app_cache.dart';
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/failure.dart';
-import '../../../../core/network/network_info.dart';
-import '../../../../core/utils/strings.dart';
-import '../../domain/entities/categories.dart';
-import '../../domain/repositories/categories_repository.dart';
-import '../datasources/categories_local_data_source.dart';
-import '../datasources/categories_remote_data_source.dart';
+import 'package:movie_colony/core/cache/app_cache.dart';
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
+import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
+import 'package:movie_colony/features/categories/domain/entities/categories.dart';
+import 'package:movie_colony/features/categories/domain/repositories/categories_repository.dart';
 
 class CategoriesRepositoryImpl implements CategoriesRepository {
   CategoriesRepositoryImpl({
@@ -24,25 +23,26 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
 
   @override
   Future<Either<Failure, List<Categories>>> getCategories() async {
-    bool hasExpired = cache.isExpired(Strings.cachedCategory);
+    final bool hasExpired = cache.isExpired(Strings.cachedCategory);
 
     return await getCategoriesSwitchCase(hasExpired);
   }
 
   Future<Either<Failure, List<Categories>>> getCategoriesSwitchCase(
-      bool hasExpired) async {
+    bool hasExpired,
+  ) async {
     switch (hasExpired) {
       case true:
-        return await remoteData();
+        return remoteData();
       case false:
-        return await localData();
+        return localData();
       default:
-        return await remoteData();
+        return remoteData();
     }
   }
 
   Future<Either<Failure, List<Categories>>> remoteData() async {
-    bool isConnected = await networkInfo.isConnected;
+    final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final remote = await remoteDataSource.getRemoteCategories();

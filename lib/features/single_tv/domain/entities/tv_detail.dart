@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../categories/domain/entities/categories.dart';
+import 'package:movie_colony/features/categories/domain/entities/categories.dart';
 
 class TvDetail extends Equatable {
   const TvDetail({
@@ -15,9 +15,11 @@ class TvDetail extends Equatable {
     this.seasons,
   });
 
-  final int? id, seasons;
+  final int? id;
+  final int? seasons;
   final String? name;
-  final String? startDate, overview;
+  final String? startDate;
+  final String? overview;
   final num? rating;
   final String? backdropImage;
   final String? posterImage;

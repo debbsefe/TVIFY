@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/cache/app_cache.dart';
-import '../../../../core/error/exception.dart';
-import '../../../../core/error/failure.dart';
-import '../../../../core/network/network_info.dart';
-import '../../../../core/utils/strings.dart';
-import '../../domain/entities/configuration.dart';
-import '../../domain/repositories/configuration_repository.dart';
-import '../datasources/configuration_local_data_source.dart';
-import '../datasources/configuration_remote_data_source.dart';
+import 'package:movie_colony/core/cache/app_cache.dart';
+import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
+import 'package:movie_colony/features/configuration/domain/repositories/configuration_repository.dart';
+import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
+import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
 
 class ConfigurationRepositoryImpl implements ConfigurationRepository {
   ConfigurationRepositoryImpl({
@@ -24,13 +24,13 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
 
   @override
   Future<Either<Failure, Configuration>> getConfiguration() async {
-    bool hasExpired = cache.isExpired(Strings.cachedConfiguration);
+    final bool hasExpired = cache.isExpired(Strings.cachedConfiguration);
 
     return await getConfigurationSwitchCase(hasExpired);
   }
 
   Future<Either<Failure, Configuration>> getConfigurationSwitchCase(
-      bool hasExpired) async {
+      bool hasExpired,) async {
     switch (hasExpired) {
       case true:
         return await remoteData();
@@ -42,7 +42,7 @@ class ConfigurationRepositoryImpl implements ConfigurationRepository {
   }
 
   Future<Either<Failure, Configuration>> remoteData() async {
-    bool isConnected = await networkInfo.isConnected;
+    final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
         final remote = await remoteDataSource.getRemoteConfiguration();

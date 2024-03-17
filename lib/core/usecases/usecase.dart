@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../error/failure.dart';
+import 'package:movie_colony/core/error/failure.dart';
 
 // Parameters have to be put into a container object so that they can be
 // included in this abstract base class method definition.

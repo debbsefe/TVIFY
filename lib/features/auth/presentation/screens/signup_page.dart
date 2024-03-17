@@ -1,95 +1,93 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/notifiers/generic_state.dart';
-import '../../../../core/widgets/snackbars.dart';
+import 'package:movie_colony/core/notifiers/generic_state.dart';
+import 'package:movie_colony/core/widgets/snackbars.dart';
+import 'package:movie_colony/providers.dart';
 
-import '../../../../providers.dart';
-
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({Key? key}) : super(key: key);
+@RoutePage()
+class SignUpPage extends ConsumerStatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  ConsumerState<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> with CustomSnackbar {
+class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return ProviderListener(
-        provider: googleSignInProvider,
-        onChange: (context, GenericState<void> counter) {
-          if (counter is Error<void>) {
-            showErrorSnackBar(_scaffoldKey, counter.message);
-          }
-        },
-        child: Scaffold(
-          key: _scaffoldKey,
-          body: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 16.0,
-                right: 16.0,
-                bottom: 20.0,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          'Movie',
-                          style: TextStyle(
-                            fontSize: 40,
-                          ),
-                        ),
-                        Text(
-                          'Colony',
-                          style: TextStyle(
-                            fontSize: 40,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GoogleSignInButton(),
-                  TextButton(
-                    onPressed: () async {
-                      // await FirebaseAuth.instance.signOut();
+    ref.listen(googleSignInProvider, (previous, next) {
+      if (next is Error<void>) {
+        showErrorSnackBar(context, next.message);
+      }
+    });
 
-                      context
-                          .read(anonymousSignInProvider.notifier)
-                          .signInAnonymous();
-                    },
-                    child: const Text('Skip to app'),
-                  ),
-                ],
-              ),
-            ),
+    return Scaffold(
+      key: _scaffoldKey,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            bottom: 20,
           ),
-        ));
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Movie',
+                      style: TextStyle(
+                        fontSize: 40,
+                      ),
+                    ),
+                    Text(
+                      'Colony',
+                      style: TextStyle(
+                        fontSize: 40,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const GoogleSignInButton(),
+              TextButton(
+                onPressed: () async {
+                  // await FirebaseAuth.instance.signOut();
+
+                  ref.read(anonymousSignInProvider.notifier).signInAnonymous();
+                },
+                child: const Text('Skip to app'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
-// ignore: use_key_in_widget_constructors
-class GoogleSignInButton extends StatefulWidget {
+class GoogleSignInButton extends ConsumerStatefulWidget {
+  const GoogleSignInButton({super.key});
+
   @override
-  _GoogleSignInButtonState createState() => _GoogleSignInButtonState();
+  ConsumerState<GoogleSignInButton> createState() => _GoogleSignInButtonState();
 }
 
-class _GoogleSignInButtonState extends State<GoogleSignInButton> {
-  bool _isSigningIn = false;
+class _GoogleSignInButtonState extends ConsumerState<GoogleSignInButton> {
+  bool isSigningIn = false;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: _isSigningIn
+      padding: const EdgeInsets.only(bottom: 16),
+      child: isSigningIn
           ? const CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
             )
@@ -104,17 +102,17 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
               ),
               onPressed: () async {
                 setState(() {
-                  _isSigningIn = true;
+                  isSigningIn = true;
                 });
 
-                context.read(googleSignInProvider.notifier).signInWithGoogle();
+                ref.read(googleSignInProvider.notifier).signInWithGoogle();
               },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+              child: const Padding(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Padding(
                       padding: EdgeInsets.only(left: 10),
                       child: Text(
@@ -125,7 +123,7 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

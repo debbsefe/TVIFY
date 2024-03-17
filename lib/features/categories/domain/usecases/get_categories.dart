@@ -1,10 +1,10 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
 
-import '../../../../core/error/failure.dart';
-import '../../../../core/usecases/usecase.dart';
-import '../entities/categories.dart';
-import '../repositories/categories_repository.dart';
+import 'package:movie_colony/core/error/failure.dart';
+import 'package:movie_colony/core/usecases/usecase.dart';
+import 'package:movie_colony/features/categories/domain/entities/categories.dart';
+import 'package:movie_colony/features/categories/domain/repositories/categories_repository.dart';
 
 class GetAllCategories extends UseCase<List<Categories>, NoParams> {
   GetAllCategories(this.repository);

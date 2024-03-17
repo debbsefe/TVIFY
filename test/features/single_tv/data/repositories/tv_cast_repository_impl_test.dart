@@ -25,7 +25,7 @@ void main() {
     mockRemoteDataSource = MockTvCastRemoteDataSource();
     mockNetworkInfo = MockNetworkInfo();
     repository = TvCastRepositoryImpl(
-        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo);
+        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo,);
   });
 
   void runTestsOnline(Function body) {
@@ -55,7 +55,7 @@ void main() {
         name: 'Loki',
         knownFor: 'Acting',
         profileImage: 'test',
-      )
+      ),
     ];
     const List<TvCast> tTvCast = tTvCastMod;
 

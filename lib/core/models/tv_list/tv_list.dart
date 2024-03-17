@@ -12,7 +12,11 @@ class TvList extends Equatable {
   });
 
   final int? id;
-  final String? name, date, overview, backdropImage, posterImage;
+  final String? name;
+  final String? date;
+  final String? overview;
+  final String? backdropImage;
+  final String? posterImage;
   final num? rating;
 
   @override

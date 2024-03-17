@@ -1,11 +1,10 @@
 import 'package:get_it/get_it.dart';
-
-import 'data/datasources/categories_local_data_source.dart';
-import 'data/datasources/categories_remote_data_source.dart';
-import 'data/repositories/categories_repository_impl.dart';
-import 'domain/repositories/categories_repository.dart';
-import 'domain/usecases/get_categories.dart';
-import 'presentation/notifiers/categories_notifier.dart';
+import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
+import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
+import 'package:movie_colony/features/categories/data/repositories/categories_repository_impl.dart';
+import 'package:movie_colony/features/categories/domain/repositories/categories_repository.dart';
+import 'package:movie_colony/features/categories/domain/usecases/get_categories.dart';
+import 'package:movie_colony/features/categories/presentation/notifiers/categories_notifier.dart';
 
 // ignore_for_file: cascade_invocations
 
@@ -22,7 +21,7 @@ class CategoriesServiceLocator {
 
     ///datasources
     sl.registerLazySingleton<CategoriesRemoteDataSource>(
-      () => CategoriesRemoteDataSourceImpl(
+      () => CategoriesRemoteDataSource(
         client: sl(),
         config: sl(),
       ),

@@ -25,7 +25,7 @@ void main() {
     mockRemoteDataSource = MockSimilarTvRemoteDataSource();
     mockNetworkInfo = MockNetworkInfo();
     repository = SimilarTvRepositoryImpl(
-        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo);
+        remoteDataSource: mockRemoteDataSource, networkInfo: mockNetworkInfo,);
   });
 
   void runTestsOnline(Function body) {

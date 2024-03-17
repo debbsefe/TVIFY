@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:mockito/mockito.dart';
+
 import 'package:flutter_test/flutter_test.dart';
-import 'package:matcher/matcher.dart';
+import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
@@ -28,14 +28,18 @@ void main() {
           .thenReturn(dataReader('configuration/configuration.json'));
 
       expect(
-          await dataSource.getCachedConfiguration(), isA<ConfigurationModel>());
+        await dataSource.getCachedConfiguration(),
+        isA<ConfigurationModel>(),
+      );
     });
 
     test('Return cacheException when no cache is available', () async {
       when(mockPref.getString(Strings.cachedConfiguration)).thenReturn(null);
 
-      expect(() => dataSource.getCachedConfiguration(),
-          throwsA(const TypeMatcher<CacheException>()));
+      expect(
+        () => dataSource.getCachedConfiguration(),
+        throwsA(const TypeMatcher<CacheException>()),
+      );
     });
   });
 
@@ -47,10 +51,12 @@ void main() {
         await dataSource.cacheLastConfiguration(tConfigurationModel);
         // assert
         final expectedJsonString = json.encode(tConfigurationModel.toJson());
-        verify(mockPref.setString(
-          Strings.cachedConfiguration,
-          expectedJsonString,
-        ));
+        verify(
+          mockPref.setString(
+            Strings.cachedConfiguration,
+            expectedJsonString,
+          ),
+        );
       },
     );
   });

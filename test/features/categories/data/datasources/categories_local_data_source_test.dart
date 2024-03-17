@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:mockito/mockito.dart';
+
 import 'package:flutter_test/flutter_test.dart';
-import 'package:matcher/matcher.dart';
+import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
@@ -31,14 +31,14 @@ void main() {
           .thenReturn(dataReader('categories/categories_list.json'));
 
       expect(
-          await dataSource.getCachedCategory(), isA<List<CategoriesModel>>());
+          await dataSource.getCachedCategory(), isA<List<CategoriesModel>>(),);
     });
 
     test('Return cacheException when no cache is available', () async {
       when(mockPref.getString(Strings.cachedCategory)).thenReturn(null);
 
       expect(() => dataSource.getCachedCategory(),
-          throwsA(const TypeMatcher<CacheException>()));
+          throwsA(const TypeMatcher<CacheException>()),);
     });
   });
 
@@ -50,11 +50,11 @@ void main() {
         await dataSource.cacheLastCategory(tCategoriesModel);
         // assert
         final expectedJsonString = json.encode(
-            List<dynamic>.from(tCategoriesModel.map((x) => x.toJson())));
+            List<dynamic>.from(tCategoriesModel.map((x) => x.toJson())),);
         verify(mockPref.setString(
           Strings.cachedCategory,
           expectedJsonString,
-        ));
+        ),);
       },
     );
   });

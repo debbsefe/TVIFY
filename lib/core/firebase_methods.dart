@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../features/notification/data/models/notification_list_model.dart';
+import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
 
 class FirebaseMethods {
   FirebaseMethods({required this.store, required this.auth});

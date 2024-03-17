@@ -1,25 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-abstract class Config {
-  Future<String> fetchToken(String value);
-}
-
-class ConfigImpl implements Config {
-  ConfigImpl(this.store);
+class Config {
+  Config(this.store);
 
   ///fetch token from store
   final FirebaseFirestore store;
   String? _token;
   String? get token => _token;
 
-  @override
   Future<String> fetchToken(String value) async {
     if (token == null) {
-      DocumentSnapshot snapshot =
+      final DocumentSnapshot snapshot =
           await store.collection('token').doc(value).get();
-      Map<String, dynamic> snap = snapshot.data() as Map<String, dynamic>;
-      _token = snap['key'];
-      return snap['key'];
+      final Map<String, dynamic> snap = snapshot.data()! as Map<String, String>;
+      _token = snap['key'] as String;
+      return snap['key'] as String;
     }
 
     return token!;

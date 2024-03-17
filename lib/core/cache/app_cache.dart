@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../utils/strings.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 
 abstract class AppCache {
   ///check if the date is expired by comparing with current date.
@@ -27,9 +27,9 @@ class AppCacheImpl implements AppCache {
 
   @override
   bool isExpired(String key) {
-    String? value = retrieveString(expiryDate(key));
+    final String? value = retrieveString(expiryDate(key));
     if (value != null) {
-      var currentDate = DateTime.now();
+      final currentDate = DateTime.now();
       return currentDate.isAfter(DateTime.parse(value));
     } else {
       return true;

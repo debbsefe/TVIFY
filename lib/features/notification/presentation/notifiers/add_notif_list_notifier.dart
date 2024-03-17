@@ -1,6 +1,6 @@
-import '../../../../../core/notifiers/generic_state_notifier.dart';
-import '../../data/models/notification_list_model.dart';
-import '../../domain/usecases/add_notif_list.dart';
+import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
+import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
+import 'package:movie_colony/features/notification/domain/usecases/add_notif_list.dart';
 
 class AddNotifListNotifier extends GenericStateNotifier<void> {
   AddNotifListNotifier(this.addNotifList);

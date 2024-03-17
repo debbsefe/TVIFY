@@ -1,34 +1,37 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:matcher/matcher.dart';
-import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
+
 // import 'package:movie_colony/features/categories/data/models/categories_model.dart';
 
 // import '../../../../data/data_reader.dart';
 import 'categories_remote_data_source_test.mocks.dart';
 
-@GenerateMocks([
-  http.Client,
-  Config
-], customMocks: [
-  MockSpec<Config>(as: #MockConfig2, returnNullOnMissingStub: true),
-])
+@GenerateMocks(
+  [
+    http.Client,
+    Config,
+  ],
+  customMocks: [
+    MockSpec<Config>(as: #MockConfig2),
+  ],
+)
 void main() {
   late MockClient client;
   late MockConfig mockConfig;
-  late CategoriesRemoteDataSourceImpl dataSource;
-  Uri url = Uri.parse(
-      'https://api.themoviedb.org/3/genre/tv/list?api_key=123456&language=en-US');
+  late CategoriesRemoteDataSource dataSource;
+  final Uri url = Uri.parse(
+    'https://api.themoviedb.org/3/genre/tv/list?api_key=123456&language=en-US',
+  );
   setUp(() {
     client = MockClient();
     mockConfig = MockConfig();
-    dataSource =
-        CategoriesRemoteDataSourceImpl(client: client, config: mockConfig);
+    dataSource = CategoriesRemoteDataSource(client: client, config: mockConfig);
   });
   void stubFetchToken() {
     //stub/mock answer when fetch token method is called
@@ -55,8 +58,10 @@ void main() {
       when(client.get(url))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(() => dataSource.getRemoteCategories(),
-          throwsA(const TypeMatcher<ServerException>()));
+      expect(
+        () => dataSource.getRemoteCategories(),
+        throwsA(const TypeMatcher<ServerException>()),
+      );
     });
   });
 }

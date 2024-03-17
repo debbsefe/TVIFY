@@ -54,5 +54,6 @@ web/firebase-config.js
 *.mocks.dart
 *.gr.dart
 
+.fvm/flutter_sdk
 
 

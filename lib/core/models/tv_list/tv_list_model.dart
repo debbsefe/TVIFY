@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'tv_list.dart';
+import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 
 part 'tv_list_model.g.dart';
 

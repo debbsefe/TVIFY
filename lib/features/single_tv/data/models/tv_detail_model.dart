@@ -1,5 +1,5 @@
-import '../../../categories/domain/entities/categories.dart';
-import '../../domain/entities/tv_detail.dart';
+import 'package:movie_colony/features/categories/domain/entities/categories.dart';
+import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
 
 class TvDetailModel extends TvDetail {
   const TvDetailModel({
@@ -26,19 +26,26 @@ class TvDetailModel extends TvDetail {
         );
 
   factory TvDetailModel.fromJson(Map<String, dynamic> json) => TvDetailModel(
-        backdropPath: json['backdrop_path'],
-        firstAirDate: json['first_air_date'],
-        genres: List<Genre>.from(json['genres'].map((x) => Genre.fromJson(x))),
-        id: json['id'],
-        name: json['name'],
-        numberOfSeasons: json['number_of_seasons'],
-        overview: json['overview'],
-        posterPath: json['poster_path'],
-        voteAverage: json['vote_average'].toDouble(),
-        categories: List<Categories>.from(json['genres'].map((x) => Categories(
-              id: x['id'],
-              name: x['name'],
-            ))),
+        backdropPath: json['backdrop_path'] as String,
+        firstAirDate: json['first_air_date'] as String,
+        genres: List<Genre>.from(
+          (json['genres'] as List)
+              .map((item) => Genre.fromJson(item as Map<String, dynamic>)),
+        ),
+        id: json['id'] as int,
+        name: json['name'] as String,
+        numberOfSeasons: json['number_of_seasons'] as int,
+        overview: json['overview'] as String,
+        posterPath: json['poster_path'] as String,
+        voteAverage: (json['vote_average'] as num).toDouble(),
+        categories: List<Categories>.from(
+          (json['genres'] as List).map(
+            (item) => Categories(
+              id: (item as Map<String, dynamic>)['id'] as int,
+              name: item['name'] as String,
+            ),
+          ),
+        ),
       );
 
   final String backdropPath;
@@ -73,8 +80,8 @@ class Genre {
     required this.name,
   });
   factory Genre.fromJson(Map<String, dynamic> json) => Genre(
-        id: json['id'],
-        name: json['name'],
+        id: json['id'] as int,
+        name: json['name'] as String,
       );
 
   final int id;
