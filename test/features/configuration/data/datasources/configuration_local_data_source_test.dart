@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
 import 'package:movie_colony/features/configuration/data/models/configuration_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

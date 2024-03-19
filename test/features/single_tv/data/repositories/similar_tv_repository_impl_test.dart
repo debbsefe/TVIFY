@@ -6,7 +6,7 @@ import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/single_tv/data/datasources/similar_tv_remote_data_source.dart';
-import 'package:movie_colony/features/single_tv/data/repositories/similar_tv_repository_impl.dart';
+import 'package:movie_colony/features/single_tv/data/repositories/similar_tv_repository.dart';
 
 import '../../../../data/single_tv/constants.dart';
 import '../../../../data/tv_list/constants.dart';

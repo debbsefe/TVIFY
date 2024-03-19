@@ -1,17 +1,20 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/firebase_methods.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
 
-abstract class AddNotifListRemoteDataSource {
-  Future<void> addNotifListRemote(NotificationListModel model);
-}
+final addNotifListRemoteDataSourceProvider =
+    Provider<AddNotifListRemoteDataSource>((ref) {
+  return AddNotifListRemoteDataSource(
+    methods: ref.watch(firebaseMethodsProvider),
+  );
+});
 
-class AddNotifListRemoteDataSourceImpl implements AddNotifListRemoteDataSource {
-  AddNotifListRemoteDataSourceImpl({required this.methods});
+class AddNotifListRemoteDataSource {
+  AddNotifListRemoteDataSource({required this.methods});
   final FirebaseMethods methods;
 
-  @override
   Future<void> addNotifListRemote(NotificationListModel model) async {
     try {
       final ref = methods.readWriteNotificationList(

@@ -1,9 +1,17 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/single_tv/data/datasources/similar_tv_remote_data_source.dart';
+
+final similarTvRepositoryProvider = Provider<SimilarTvRepository>((ref) {
+  return SimilarTvRepository(
+    remoteDataSource: ref.watch(similarTvRemoteDataSourceProvider),
+    networkInfo: ref.watch(networkInfoProvider),
+  );
+});
 
 class SimilarTvRepository {
   SimilarTvRepository({

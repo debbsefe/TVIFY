@@ -7,7 +7,6 @@ import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
-import 'package:movie_colony/features/trending/data/repositories/trending_repository_impl.dart';
 
 import '../../../../data/tv_list/constants.dart';
 

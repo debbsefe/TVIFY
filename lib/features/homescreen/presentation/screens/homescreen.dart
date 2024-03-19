@@ -1,10 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/features/categories/presentation/notifiers/categories_notifier.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 import 'package:movie_colony/features/homescreen/presentation/widgets/categories_widget.dart';
 import 'package:movie_colony/features/homescreen/presentation/widgets/trending_widget.dart';
 import 'package:movie_colony/features/homescreen/presentation/widgets/tvshow_week.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_notifier.dart';
+import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {
@@ -24,10 +27,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   }
 
   void _callProviders() {
-    ref.read(weeklyTrendingProvider.notifier).fetchTrending();
-    ref.read(dailyTrendingProvider.notifier).fetchTrending();
-    ref.read(categoriesProvider.notifier).fetchCategory();
-    ref.read(configurationProvider.notifier).fetchConfiguration();
+    ref.read(weeklyTrendingNotifierProvider.notifier).fetchTrending();
+    ref.read(dailyTrendingNotifierProvider.notifier).fetchTrending();
+    ref.read(categoriesNotiferProvider.notifier).fetchCategory();
+    ref.read(configurationNotifierProvider.notifier).fetchConfiguration();
   }
 
   @override

@@ -1,7 +1,16 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/auth/data/datasources/anonymous_sign_in_remote_data_source.dart';
+
+final anonymousSignInRepositoryrovider =
+    Provider<AnonymousSignInRepository>((ref) {
+  return AnonymousSignInRepository(
+    remoteDataSource: ref.watch(anonymousSignInRemoteDataSourceProvider),
+    networkInfo: ref.watch(networkInfoProvider),
+  );
+});
 
 class AnonymousSignInRepository {
   AnonymousSignInRepository({

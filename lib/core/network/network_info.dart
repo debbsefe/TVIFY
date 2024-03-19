@@ -1,11 +1,11 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-abstract class NetworkInfo {
-  Future<bool> get isConnected;
-}
+final networkInfoProvider = Provider<NetworkInfo>((ref) {
+  return NetworkInfo();
+});
 
-class NetworkInfoImpl implements NetworkInfo {
-  @override
+class NetworkInfo {
   Future<bool> get isConnected => check();
   Future<bool> check() async {
     final connectivityResult = await Connectivity().checkConnectivity();

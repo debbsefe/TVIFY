@@ -1,14 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:movie_colony/core/cache/app_cache.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
-import 'package:movie_colony/features/configuration/data/repositories/configuration_repository_impl.dart';
+import 'package:movie_colony/features/configuration/data/repositories/configuration_repository.dart';
 import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
 
 import '../../../../data/configuration/constants.dart';

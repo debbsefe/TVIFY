@@ -1,24 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/cache/app_cache.dart';
+import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 
+final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
+  return CustomTheme(
+    sharedPreferencesRepository: ref.watch(sharedPreferencesRepositoryProvider),
+  );
+});
+
 class CustomTheme extends StateNotifier<ThemeData> {
-  CustomTheme(this.appCache)
+  CustomTheme({required this.sharedPreferencesRepository})
       : super(
           ///check current theme at app start
           /// and pass to the super-constructor
-          appCache.retrieveString(Strings.theme) == Strings.darkTheme
+          sharedPreferencesRepository.retrieveString(Strings.theme) ==
+                  Strings.darkTheme
               ? CustomTheme.darkThemeData
               : CustomTheme.lightThemeData,
         );
-  final AppCache appCache;
+  final SharedPreferencesRepository sharedPreferencesRepository;
 
   ///change the theme by passing selected themeData and name of the theme
   void changeTheme(ThemeData themeData, String name) {
     if (state != themeData) {
       state = themeData;
-      appCache.saveString(Strings.theme, name);
+      sharedPreferencesRepository.saveString(Strings.theme, name);
     }
   }
 

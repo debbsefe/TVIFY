@@ -5,15 +5,17 @@ import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_notifier.dart';
 
 class TrendingWidget extends ConsumerWidget {
   const TrendingWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trending = ref.watch(dailyTrendingProvider);
-    final url = ref.watch(configurationProvider.notifier).fetchPosterSizeUrl();
+    final trending = ref.watch(dailyTrendingNotifierProvider);
+    final url =
+        ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return trending.when(
       initial: Container.new,

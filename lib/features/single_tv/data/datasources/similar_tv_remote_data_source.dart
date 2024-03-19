@@ -1,11 +1,21 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/providers.dart';
+
+final similarTvRemoteDataSourceProvider =
+    Provider<SimilarTvRemoteDataSource>((ref) {
+  return SimilarTvRemoteDataSource(
+    client: ref.watch(httpClientProvider),
+    config: ref.watch(configProvider),
+  );
+});
 
 class SimilarTvRemoteDataSource {
   SimilarTvRemoteDataSource({required this.client, required this.config});

@@ -4,14 +4,15 @@ import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
 import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class TvSummary extends ConsumerWidget {
   const TvSummary({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tvDetail = ref.watch(tvDetailProvider);
+    final tvDetail = ref.watch(tvDetailNotifierProvider);
 
     return tvDetail.when(
       initial: Container.new,
@@ -78,7 +79,7 @@ class TvSummary extends ConsumerWidget {
                 child: CustomButton(
                   onPressed: () {
                     ref
-                        .read(addNotificationListProvider.notifier)
+                        .read(addNotificationListNotifierProvider.notifier)
                         .addNotification(
                           NotificationListModel(
                             id: detail.id,

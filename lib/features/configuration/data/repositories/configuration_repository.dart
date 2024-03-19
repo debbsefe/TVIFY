@@ -1,16 +1,27 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_colony/core/cache/app_cache.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
 import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
 
+final configurationRepositoryProvider =
+    Provider<ConfigurationRepository>((ref) {
+  return ConfigurationRepository(
+    sharedPreferencesRepository: ref.watch(sharedPreferencesRepositoryProvider),
+    remoteDataSource: ref.watch(configurationRemoteDataSourceProvider),
+    localDataSource: ref.watch(configurationLocalDataSourceProvider),
+    networkInfo: ref.watch(networkInfoProvider),
+  );
+});
+
 class ConfigurationRepository {
   ConfigurationRepository({
-    required this.cache,
+    required this.sharedPreferencesRepository,
     required this.remoteDataSource,
     required this.localDataSource,
     required this.networkInfo,
@@ -18,10 +29,11 @@ class ConfigurationRepository {
   final ConfigurationRemoteDataSource remoteDataSource;
   final ConfigurationLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
-  final AppCache cache;
+  final SharedPreferencesRepository sharedPreferencesRepository;
 
   Future<Either<Failure, Configuration>> getConfiguration() async {
-    final bool hasExpired = cache.isExpired(Strings.cachedConfiguration);
+    final bool hasExpired =
+        sharedPreferencesRepository.isExpired(Strings.cachedConfiguration);
 
     return getConfigurationSwitchCase(hasExpired);
   }

@@ -1,16 +1,26 @@
 import 'package:dartz/dartz.dart';
-import 'package:movie_colony/core/cache/app_cache.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
+import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_remote_data_source.dart';
 import 'package:movie_colony/features/categories/domain/entities/categories.dart';
 
+final categoriesRepositoryProvider = Provider<CategoriesRepository>((ref) {
+  return CategoriesRepository(
+    localDataSource: ref.watch(categoriesLocalDataSourceProvider),
+    sharedPreferencesRepository: ref.watch(sharedPreferencesRepositoryProvider),
+    remoteDataSource: ref.watch(categoriesRemoteDataSourceProvider),
+    networkInfo: ref.watch(networkInfoProvider),
+  );
+});
+
 class CategoriesRepository {
   CategoriesRepository({
-    required this.cache,
+    required this.sharedPreferencesRepository,
     required this.remoteDataSource,
     required this.localDataSource,
     required this.networkInfo,
@@ -18,10 +28,11 @@ class CategoriesRepository {
   final CategoriesRemoteDataSource remoteDataSource;
   final CategoriesLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
-  final AppCache cache;
+  final SharedPreferencesRepository sharedPreferencesRepository;
 
   Future<Either<Failure, List<Categories>>> getCategories() async {
-    final bool hasExpired = cache.isExpired(Strings.cachedCategory);
+    final bool hasExpired =
+        sharedPreferencesRepository.isExpired(Strings.cachedCategory);
 
     return getCategoriesSwitchCase(hasExpired);
   }

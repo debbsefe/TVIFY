@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
 class TvShowOfTheWeek extends ConsumerWidget {
   const TvShowOfTheWeek({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trending = ref.watch(weeklyTrendingProvider);
-    final url = ref.watch(configurationProvider.notifier).fetchPosterSizeUrl();
+    final trending = ref.watch(weeklyTrendingNotifierProvider);
+    final url =
+        ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return trending.when(
       initial: Container.new,

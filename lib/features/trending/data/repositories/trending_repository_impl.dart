@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
@@ -7,6 +8,14 @@ import 'package:movie_colony/features/trending/data/datasources/trending_local_d
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
 
 enum TimeWindow { weekly, daily }
+
+final trendingRepositoryProvider = Provider<TrendingRepository>((ref) {
+  return TrendingRepository(
+    remoteDataSource: ref.watch(trendingRemoteDataSourceProvider),
+    localDataSource: ref.watch(trendingLocalDataSourceProvider),
+    networkInfo: ref.watch(networkInfoProvider),
+  );
+});
 
 class TrendingRepository {
   TrendingRepository({

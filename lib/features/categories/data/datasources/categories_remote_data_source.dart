@@ -1,11 +1,21 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
+import 'package:movie_colony/providers.dart';
+
+final categoriesRemoteDataSourceProvider =
+    Provider<CategoriesRemoteDataSource>((ref) {
+  return CategoriesRemoteDataSource(
+    client: ref.watch(httpClientProvider),
+    config: ref.watch(configProvider),
+  );
+});
 
 class CategoriesRemoteDataSource {
   CategoriesRemoteDataSource({required this.client, required this.config});

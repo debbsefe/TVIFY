@@ -1,23 +1,29 @@
 import 'package:dartz/dartz.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
-import 'package:movie_colony/features/notification/domain/repositories/add_notif_list_repository.dart';
 import 'package:movie_colony/features/notification/data/datasources/add_notif_list_remote_data_source.dart';
 import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
 
-class AddNotifListRepositoryImpl implements AddNotifListRepository {
-  AddNotifListRepositoryImpl({
+final addNotifListRepositoryProvider = Provider<AddNotifListRepository>((ref) {
+  return AddNotifListRepository(
+    remoteDataSource: ref.watch(addNotifListRemoteDataSourceProvider),
+    networkInfo: ref.watch(networkInfoProvider),
+  );
+});
+
+class AddNotifListRepository {
+  AddNotifListRepository({
     required this.remoteDataSource,
     required this.networkInfo,
   });
   final AddNotifListRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 
-  @override
   Future<Either<Failure, void>> addNotificationList(
-      NotificationListModel model,) async {
+    NotificationListModel model,
+  ) async {
     final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {

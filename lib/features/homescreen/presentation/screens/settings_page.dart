@@ -52,6 +52,17 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               // ignore: unnecessary_lambdas
               onChanged: (value) => handleSwitch2(value),
             ),
+            const SizedBox(height: 20),
+            TextButton(
+              onPressed: () {
+                ref.watch(firebaseAuthProvider).signOut();
+                // context.router.replace(SignUpRoute(onResult: (bool value) {}));
+              },
+              child: const Text(
+                'Sign Out',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
           ],
         ),
       ),

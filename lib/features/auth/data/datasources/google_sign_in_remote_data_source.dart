@@ -1,7 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/providers.dart';
+
+final googleSignInRemoteDataSourceProvider =
+    Provider<GoogleSignInRemoteDataSource>((ref) {
+  return GoogleSignInRemoteDataSource(
+    auth: ref.watch(firebaseAuthProvider),
+    authProvider: ref.watch(googleAuthProvider),
+    googleSignIn: ref.watch(googleSignInProvider),
+  );
+});
 
 class GoogleSignInRemoteDataSource {
   GoogleSignInRemoteDataSource({

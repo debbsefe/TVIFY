@@ -1,10 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/usecases/usecase.dart';
 import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
-import 'package:movie_colony/features/notification/domain/repositories/add_notif_list_repository.dart';
+import 'package:movie_colony/features/notification/data/repositories/add_notif_list_repository.dart';
+
+final addNotificationListProvider = Provider<AddNotificationList>((ref) {
+  return AddNotificationList(ref.watch(addNotifListRepositoryProvider));
+});
 
 class AddNotificationList extends UseCase<void, Params> {
   AddNotificationList(this.repository);
@@ -13,7 +17,7 @@ class AddNotificationList extends UseCase<void, Params> {
 
   @override
   Future<Either<Failure, void>> call(Params params) async {
-    return await repository.addNotificationList(params.model);
+    return repository.addNotificationList(params.model);
   }
 }
 

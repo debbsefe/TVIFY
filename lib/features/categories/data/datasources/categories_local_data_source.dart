@@ -1,27 +1,26 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class CategoriesLocalDataSource {
-  ///method to fetch the last category that was fetched,
-  ///throws an exception if no cache data is present
-  Future<List<CategoriesModel>> getCachedCategory();
+final categoriesLocalDataSourceProvider =
+    Provider<CategoriesLocalDataSource>((ref) {
+  return CategoriesLocalDataSource(
+    ref.watch(sharedPreferencesRepositoryProvider),
+  );
+});
 
-  //method to cache the last category that was fetched
-  Future<void> cacheLastCategory(List<CategoriesModel> categoriesModel);
-}
+class CategoriesLocalDataSource {
+  CategoriesLocalDataSource(this.sharedPreferencesRepository);
 
-class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
-  CategoriesLocalDataSourceImpl(this.sharedPreferences);
+  final SharedPreferencesRepository sharedPreferencesRepository;
 
-  final SharedPreferences sharedPreferences;
-
-  @override
   Future<List<CategoriesModel>> getCachedCategory() {
-    final jsonString = sharedPreferences.getString(Strings.cachedCategory);
+    final jsonString =
+        sharedPreferencesRepository.retrieveString(Strings.cachedCategory);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
       return Future.value(
@@ -36,13 +35,12 @@ class CategoriesLocalDataSourceImpl implements CategoriesLocalDataSource {
     }
   }
 
-  @override
   Future<void> cacheLastCategory(List<CategoriesModel> categoriesModel) {
-    sharedPreferences.setString(
+    sharedPreferencesRepository.saveString(
       expiryDate(Strings.cachedCategory),
       sevenDaysLater,
     );
-    return sharedPreferences.setString(
+    return sharedPreferencesRepository.saveString(
       Strings.cachedCategory,
       json.encode(List<dynamic>.from(categoriesModel.map((x) => x.toJson()))),
     );

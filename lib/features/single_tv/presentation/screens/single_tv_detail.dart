@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/widgets/dialogs.dart';
+import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_cast/tv_cast_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 import 'package:movie_colony/features/single_tv/presentation/screens/header_image.dart';
 import 'package:movie_colony/features/single_tv/presentation/screens/similar_tv_shows_widget.dart';
 import 'package:movie_colony/features/single_tv/presentation/screens/top_cast.dart';
 import 'package:movie_colony/features/single_tv/presentation/screens/tv_summary.dart';
-import 'package:movie_colony/providers.dart';
 
 @RoutePage()
 class SingleTvDetailPage extends ConsumerStatefulWidget {
@@ -28,20 +31,20 @@ class _SingleTvDetailPageState extends ConsumerState<SingleTvDetailPage> {
   }
 
   void _callProviders() {
-    ref.read(tvDetailProvider.notifier).fetchTvDetail(widget.id);
+    ref.read(tvDetailNotifierProvider.notifier).fetchTvDetail(widget.id);
 
-    ref.read(tvCastProvider.notifier).fetchTvCast(widget.id);
-    ref.read(similarTvProvider.notifier).fetchSimilarTv(widget.id);
+    ref.read(tvCastNotifierProvider.notifier).fetchTvCast(widget.id);
+    ref.read(similarTvNotifierProvider.notifier).fetchSimilarTv(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(addNotificationListProvider, (previous, next) {
+    ref.listen(addNotificationListNotifierProvider, (previous, next) {
       if (next is Error<void>) {
         messageDialog(
           context: context,
           onPressed: () {
-            context.router.root.pop();
+            context.router.root.maybePop();
           },
           content: next.message,
         );
@@ -49,7 +52,7 @@ class _SingleTvDetailPageState extends ConsumerState<SingleTvDetailPage> {
         messageDialog(
           context: context,
           onPressed: () {
-            context.router.root.pop();
+            context.router.root.maybePop();
           },
           content: 'Notification added',
         );

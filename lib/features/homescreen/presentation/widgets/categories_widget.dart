@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-// import 'package:movie_colony/core/utils/extensions.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/categories/presentation/notifiers/categories_notifier.dart';
 
 class CategoriesWidget extends ConsumerWidget {
   const CategoriesWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categories = ref.watch(categoriesProvider);
+    final categories = ref.watch(categoriesNotiferProvider);
     return categories.when(
       initial: Container.new,
       loading: Container.new,

@@ -1,19 +1,25 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/auth/data/datasources/google_sign_in_remote_data_source.dart';
-import 'package:movie_colony/features/auth/domain/repositories/google_sign_in_repository.dart';
 
-class GoogleSignInRepositoryImpl implements GoogleSignInRepository {
-  GoogleSignInRepositoryImpl({
+final googleSignInRepositoryProvider = Provider<GoogleSignInRepository>((ref) {
+  return GoogleSignInRepository(
+    remoteDataSource: ref.watch(googleSignInRemoteDataSourceProvider),
+    networkInfo: ref.watch(networkInfoProvider),
+  );
+});
+
+class GoogleSignInRepository {
+  GoogleSignInRepository({
     required this.remoteDataSource,
     required this.networkInfo,
   });
   final GoogleSignInRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
 
-  @override
   Future<Either<Failure, void>> googleSignInAuth() async {
     final bool isConnected = await networkInfo.isConnected;
     if (isConnected) {

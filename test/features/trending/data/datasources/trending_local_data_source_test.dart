@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
 // import 'package:movie_colony/features/trending/data/models/trending_model.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';

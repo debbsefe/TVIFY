@@ -4,15 +4,17 @@ import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class HeaderImage extends ConsumerWidget {
   const HeaderImage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tvDetail = ref.watch(tvDetailProvider);
-    final url = ref.watch(configurationProvider.notifier).fetchPosterSizeUrl();
+    final tvDetail = ref.watch(tvDetailNotifierProvider);
+    final url =
+        ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return tvDetail.when(
       initial: () => Height(MediaQuery.of(context).size.height * 0.55),

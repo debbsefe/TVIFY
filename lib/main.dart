@@ -1,59 +1,51 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/app_router.dart';
-import 'package:movie_colony/core/cache/app_cache.dart';
-import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
+import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/providers.dart';
-import 'package:movie_colony/service_locator.dart' as di;
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  //initialize dependency injection
-  await di.init();
+  final sharedPreferences = await SharedPreferences.getInstance();
+
+  final container = ProviderContainer(
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+    ],
+  );
 
   runApp(
-    ProviderScope(
-      child: MovieColony(),
+    UncontrolledProviderScope(
+      container: container,
+      child: const MovieColony(),
     ),
   );
 }
 
 class MovieColony extends ConsumerWidget {
-  MovieColony({
+  const MovieColony({
     super.key,
   });
-
-  final AppCache prefs = di.sl<AppCache>();
-  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeProvider);
-
-    final isFirstTime = prefs.retrieveBool(Strings.firstTimeUser);
-    final user = ref.watch(userChangesProvider).value;
+    final appRouter = ref.watch(appRouterProvider(ref));
+    final user = ref.watch(userChangesProvider.stream);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'MovieColony',
       theme: theme,
-      routerDelegate: AutoRouterDelegate.declarative(
-        _appRouter,
-        routes: (_) => [
-          if (isFirstTime == null)
-            const OnboardingRoute()
-          else if (user == null)
-            const SignUpRoute()
-          else
-            const HomeRouteTab(),
-        ],
+      routerConfig: appRouter.config(
+        reevaluateListenable: ReevaluateListenable.stream(user),
       ),
-      routeInformationParser:
-          _appRouter.defaultRouteParser(includePrefixMatches: true),
     );
   }
 }

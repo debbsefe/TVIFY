@@ -1,22 +1,26 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/single_tv/data/models/tv_cast_model.dart';
+import 'package:movie_colony/providers.dart';
 
-abstract class TvCastRemoteDataSource {
-  Future<List<TvCastModel>> getRemoteTvCast(String id);
-}
+final tvCastRemoteDataSourceProvider = Provider<TvCastRemoteDataSource>((ref) {
+  return TvCastRemoteDataSource(
+    client: ref.watch(httpClientProvider),
+    config: ref.watch(configProvider),
+  );
+});
 
-class TvCastRemoteDataSourceImpl implements TvCastRemoteDataSource {
-  TvCastRemoteDataSourceImpl({required this.client, required this.config});
+class TvCastRemoteDataSource {
+  TvCastRemoteDataSource({required this.client, required this.config});
   final http.Client client;
   final Config config;
 
-  @override
   Future<List<TvCastModel>> getRemoteTvCast(String id) async {
     final String token = await config.fetchToken(Strings.apiKeyTmdb);
     final String url = 'tv/$id/credits?api_key=$token'.baseurl;

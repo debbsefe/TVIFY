@@ -5,7 +5,6 @@ import 'package:movie_colony/core/config.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/single_tv/data/datasources/tv_cast_remote_data_source.dart';
 import 'package:movie_colony/features/single_tv/data/models/tv_cast_model.dart';
 
 import '../../../../data/data_reader.dart';

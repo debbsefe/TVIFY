@@ -1,17 +1,26 @@
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
+import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+final trendingLocalDataSourceProvider =
+    Provider<TrendingLocalDataSource>((ref) {
+  return TrendingLocalDataSource(
+    ref.watch(sharedPreferencesRepositoryProvider),
+  );
+});
 
 class TrendingLocalDataSource {
-  TrendingLocalDataSource(this.sharedPreferences);
+  TrendingLocalDataSource(this.sharedPreferencesRepository);
 
-  final SharedPreferences sharedPreferences;
+  final SharedPreferencesRepository sharedPreferencesRepository;
 
   Future<TvList> getCachedTrendingWeekly() {
-    final jsonString = sharedPreferences.getString(Strings.cachedTrending);
+    final jsonString =
+        sharedPreferencesRepository.retrieveString(Strings.cachedTrending);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
       return Future.value(
@@ -23,7 +32,8 @@ class TrendingLocalDataSource {
   }
 
   Future<TvList> getCachedTrendingDaily() {
-    final jsonString = sharedPreferences.getString(Strings.cachedTrending);
+    final jsonString =
+        sharedPreferencesRepository.retrieveString(Strings.cachedTrending);
     if (jsonString != null) {
       final parsed = json.decode(jsonString);
       return Future.value(
@@ -35,14 +45,14 @@ class TrendingLocalDataSource {
   }
 
   Future<void> cacheLastTrendingWeekly(TvList trendingModel) {
-    return sharedPreferences.setString(
+    return sharedPreferencesRepository.saveString(
       Strings.cachedTrending,
       json.encode(trendingModel.toJson()),
     );
   }
 
   Future<void> cacheLastTrendingDaily(TvList trendingModel) {
-    return sharedPreferences.setString(
+    return sharedPreferencesRepository.saveString(
       Strings.cachedTrending,
       json.encode(trendingModel.toJson()),
     );
