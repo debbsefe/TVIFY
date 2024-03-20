@@ -1,26 +1,25 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
+import 'package:movie_colony/features/configuration/data/repositories/configuration_repository.dart';
 import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
-import 'package:movie_colony/features/configuration/domain/usecases/get_configuration.dart';
 
 final configurationNotifierProvider =
     StateNotifierProvider<ConfigurationNotifier, GenericState<Configuration>>(
         (ref) {
   return ConfigurationNotifier(
-    allConfiguration: ref.watch(getAllConfigurationProvider),
+    configurationRepository: ref.watch(configurationRepositoryProvider),
   );
 });
 
 class ConfigurationNotifier extends GenericStateNotifier<Configuration> {
-  ConfigurationNotifier({required this.allConfiguration});
+  ConfigurationNotifier({required this.configurationRepository});
 
-  final GetAllConfiguration allConfiguration;
+  final ConfigurationRepository configurationRepository;
 
   void fetchConfiguration() {
     sendRequest(() async {
-      return allConfiguration(NoParams());
+      return configurationRepository.getConfiguration();
     });
   }
 

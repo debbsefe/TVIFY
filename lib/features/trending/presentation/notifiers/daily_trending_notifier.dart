@@ -2,22 +2,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/features/trending/domain/usecases/get_trending_daily.dart';
+import 'package:movie_colony/features/trending/data/repositories/trending_repository.dart';
 
 final dailyTrendingNotifierProvider =
     StateNotifierProvider<DailyTrendingNotifier, GenericState<TvList>>((ref) {
-  return DailyTrendingNotifier(ref.watch(getDailyTrendingProvider));
+  return DailyTrendingNotifier(ref.watch(trendingRepositoryProvider));
 });
 
 class DailyTrendingNotifier extends GenericStateNotifier<TvList> {
-  DailyTrendingNotifier(this.dailyTrending);
+  DailyTrendingNotifier(this.trendingRepository);
 
-  final GetDailyTrending dailyTrending;
+  final TrendingRepository trendingRepository;
 
   void fetchTrending() {
     sendRequest(() async {
-      return dailyTrending(NoParams());
+      return trendingRepository.getTrendingDaily();
     });
   }
 }

@@ -1,25 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
+import 'package:movie_colony/features/categories/data/repositories/categories_repository.dart';
 import 'package:movie_colony/features/categories/domain/entities/categories.dart';
-import 'package:movie_colony/features/categories/domain/usecases/get_categories.dart';
 
 ///categories
 final categoriesNotiferProvider =
     StateNotifierProvider<CategoriesNotifier, GenericState<List<Categories>>>(
         (ref) {
-  return CategoriesNotifier(ref.watch(getAllCategoriesProvider));
+  return CategoriesNotifier(ref.watch(categoriesRepositoryProvider));
 });
 
 class CategoriesNotifier extends GenericStateNotifier<List<Categories>> {
-  CategoriesNotifier(this.allCategories);
+  CategoriesNotifier(this.categoriesRepository);
 
-  final GetAllCategories allCategories;
+  final CategoriesRepository categoriesRepository;
 
   void fetchCategory() {
     sendRequest(() async {
-      return allCategories(NoParams());
+      return categoriesRepository.getCategories();
     });
   }
 }

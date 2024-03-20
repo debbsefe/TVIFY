@@ -1,7 +1,4 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/models/tv_list/tv_list.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
@@ -27,19 +24,19 @@ class TrendingRepository {
   final TrendingLocalDataSource localDataSource;
   final NetworkInfo networkInfo;
 
-  Future<Either<Failure, TvList>> getTrendingWeekly() async {
-    final bool isConnected = await networkInfo.isConnected;
+  Future<TvList> getTrendingWeekly() async {
+    final bool isConnected = networkInfo.isConnected;
 
     return getTrendingSwitchCase(isConnected, TimeWindow.weekly);
   }
 
-  Future<Either<Failure, TvList>> getTrendingDaily() async {
-    final bool isConnected = await networkInfo.isConnected;
+  Future<TvList> getTrendingDaily() async {
+    final bool isConnected = networkInfo.isConnected;
 
     return getTrendingSwitchCase(isConnected, TimeWindow.daily);
   }
 
-  Future<Either<Failure, TvList>> getTrendingSwitchCase(
+  Future<TvList> getTrendingSwitchCase(
     bool isConnected,
     TimeWindow timeWindow,
   ) async {
@@ -53,36 +50,28 @@ class TrendingRepository {
     }
   }
 
-  Future<Either<Failure, TvList>> remoteData(
+  Future<TvList> remoteData(
     TimeWindow timeWindow,
   ) async {
-    try {
-      late TvList remote;
-      if (timeWindow == TimeWindow.daily) {
-        remote = await remoteDataSource.getRemoteTrendingDaily();
-        await localDataSource.cacheLastTrendingDaily(remote);
-      } else {
-        remote = await remoteDataSource.getRemoteTrendingWeekly();
-        await localDataSource.cacheLastTrendingWeekly(remote);
-      }
-      return Right(remote);
-    } on ServerException {
-      return const Left(ServerFailure());
+    late TvList remote;
+    if (timeWindow == TimeWindow.daily) {
+      remote = await remoteDataSource.getRemoteTrendingDaily();
+      await localDataSource.cacheLastTrendingDaily(remote);
+    } else {
+      remote = await remoteDataSource.getRemoteTrendingWeekly();
+      await localDataSource.cacheLastTrendingWeekly(remote);
     }
+    return remote;
   }
 
-  Future<Either<Failure, TvList>> localData(TimeWindow timeWindow) async {
-    try {
-      late TvList local;
-      if (timeWindow == TimeWindow.daily) {
-        local = await localDataSource.getCachedTrendingDaily();
-      } else {
-        local = await localDataSource.getCachedTrendingWeekly();
-      }
-
-      return Right(local);
-    } on CacheException {
-      return const Left(CacheFailure());
+  Future<TvList> localData(TimeWindow timeWindow) async {
+    late TvList local;
+    if (timeWindow == TimeWindow.daily) {
+      local = await localDataSource.getCachedTrendingDaily();
+    } else {
+      local = await localDataSource.getCachedTrendingWeekly();
     }
+
+    return local;
   }
 }

@@ -1,7 +1,4 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/core/error/failure.dart';
 import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
@@ -30,14 +27,14 @@ class CategoriesRepository {
   final NetworkInfo networkInfo;
   final SharedPreferencesRepository sharedPreferencesRepository;
 
-  Future<Either<Failure, List<Categories>>> getCategories() async {
+  Future<List<Categories>> getCategories() async {
     final bool hasExpired =
         sharedPreferencesRepository.isExpired(Strings.cachedCategory);
 
     return getCategoriesSwitchCase(hasExpired);
   }
 
-  Future<Either<Failure, List<Categories>>> getCategoriesSwitchCase(
+  Future<List<Categories>> getCategoriesSwitchCase(
     bool hasExpired,
   ) async {
     switch (hasExpired) {
@@ -50,32 +47,20 @@ class CategoriesRepository {
     }
   }
 
-  Future<Either<Failure, List<Categories>>> remoteData() async {
-    final bool isConnected = await networkInfo.isConnected;
+  Future<List<Categories>> remoteData() async {
+    final bool isConnected = networkInfo.isConnected;
     if (isConnected) {
-      try {
-        final remote = await remoteDataSource.getRemoteCategories();
-        await localDataSource.cacheLastCategory(remote);
-        return Right(remote);
-      } on ServerException {
-        return const Left(ServerFailure());
-      }
+      final remote = await remoteDataSource.getRemoteCategories();
+      await localDataSource.cacheLastCategory(remote);
+      return remote;
     } else {
-      try {
-        final local = await localDataSource.getCachedCategory();
-        return Right(local);
-      } on CacheException {
-        return const Left(CacheFailure());
-      }
+      final local = await localDataSource.getCachedCategory();
+      return local;
     }
   }
 
-  Future<Either<Failure, List<Categories>>> localData() async {
-    try {
-      final localCategory = await localDataSource.getCachedCategory();
-      return Right(localCategory);
-    } on CacheException {
-      return const Left(CacheFailure());
-    }
+  Future<List<Categories>> localData() async {
+    final localCategory = await localDataSource.getCachedCategory();
+    return localCategory;
   }
 }

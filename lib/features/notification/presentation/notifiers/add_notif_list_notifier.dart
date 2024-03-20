@@ -2,21 +2,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
 import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
-import 'package:movie_colony/features/notification/domain/usecases/add_notif_list.dart';
+import 'package:movie_colony/features/notification/data/repositories/add_notif_list_repository.dart';
 
 final addNotificationListNotifierProvider =
     StateNotifierProvider<AddNotifListNotifier, GenericState<void>>((ref) {
-  return AddNotifListNotifier(ref.watch(addNotificationListProvider));
+  return AddNotifListNotifier(ref.watch(addNotifListRepositoryProvider));
 });
 
 class AddNotifListNotifier extends GenericStateNotifier<void> {
-  AddNotifListNotifier(this.addNotifList);
+  AddNotifListNotifier(this.addNotifListRepository);
 
-  final AddNotificationList addNotifList;
+  final AddNotifListRepository addNotifListRepository;
 
   void addNotification(NotificationListModel model) {
     sendRequest(() async {
-      return addNotifList(Params(model: model));
+      return addNotifListRepository.addNotificationList(model);
     });
   }
 }
