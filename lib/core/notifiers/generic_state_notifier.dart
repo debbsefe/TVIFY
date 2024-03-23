@@ -14,7 +14,6 @@ class GenericStateNotifier<T> extends StateNotifier<GenericState<T>> {
     } catch (e) {
       // TODO(anyone): handle error later
       state = GenericState<T>.error('There is an error');
-      print(e);
     }
     return state;
   }

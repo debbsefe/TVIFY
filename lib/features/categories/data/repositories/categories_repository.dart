@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/network/network_info.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
@@ -11,7 +10,6 @@ final categoriesRepositoryProvider = Provider<CategoriesRepository>((ref) {
     localDataSource: ref.watch(categoriesLocalDataSourceProvider),
     sharedPreferencesRepository: ref.watch(sharedPreferencesRepositoryProvider),
     remoteDataSource: ref.watch(categoriesRemoteDataSourceProvider),
-    networkInfo: ref.watch(networkInfoProvider),
   );
 });
 
@@ -20,11 +18,9 @@ class CategoriesRepository {
     required this.sharedPreferencesRepository,
     required this.remoteDataSource,
     required this.localDataSource,
-    required this.networkInfo,
   });
   final CategoriesRemoteDataSource remoteDataSource;
   final CategoriesLocalDataSource localDataSource;
-  final NetworkInfo networkInfo;
   final SharedPreferencesRepository sharedPreferencesRepository;
 
   Future<List<Categories>> getCategories() async {
@@ -48,15 +44,9 @@ class CategoriesRepository {
   }
 
   Future<List<Categories>> remoteData() async {
-    final bool isConnected = networkInfo.isConnected;
-    if (isConnected) {
-      final remote = await remoteDataSource.getRemoteCategories();
-      await localDataSource.cacheLastCategory(remote);
-      return remote;
-    } else {
-      final local = await localDataSource.getCachedCategory();
-      return local;
-    }
+    final remote = await remoteDataSource.getRemoteCategories();
+    await localDataSource.cacheLastCategory(remote);
+    return remote;
   }
 
   Future<List<Categories>> localData() async {

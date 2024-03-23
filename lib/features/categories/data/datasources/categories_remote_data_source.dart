@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/config.dart';
-import 'package:movie_colony/core/error/exception.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/core/utils/strings.dart';
+import 'package:movie_colony/features/categories/data/datasources/categories_local_data_source.dart';
 import 'package:movie_colony/features/categories/data/models/categories_model.dart';
 import 'package:movie_colony/providers.dart';
 
@@ -14,14 +14,20 @@ final categoriesRemoteDataSourceProvider =
   return CategoriesRemoteDataSource(
     client: ref.watch(httpClientProvider),
     config: ref.watch(configProvider),
+    localDataSource: ref.watch(categoriesLocalDataSourceProvider),
   );
 });
 
 class CategoriesRemoteDataSource {
-  CategoriesRemoteDataSource({required this.client, required this.config});
+  CategoriesRemoteDataSource({
+    required this.client,
+    required this.config,
+    required this.localDataSource,
+  });
 
   final http.Client client;
   final Config config;
+  final CategoriesLocalDataSource localDataSource;
 
   Future<List<CategoriesModel>> getRemoteCategories() async {
     final String token = await config.fetchToken(Strings.apiKeyTmdb);
@@ -38,7 +44,7 @@ class CategoriesRemoteDataSource {
           )
           .toList();
     } else {
-      throw ServerException();
+      return localDataSource.getCachedCategory();
     }
   }
 }

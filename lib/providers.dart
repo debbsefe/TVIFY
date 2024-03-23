@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -23,3 +24,8 @@ final googleSignInProvider = Provider<GoogleSignIn>(
 final googleAuthProvider = Provider<GoogleAuthProvider>(
   (ref) => GoogleAuthProvider(),
 );
+
+final connectivityResultProvider = StreamProvider<ConnectivityResult>((ref) {
+  final connectivity = Connectivity();
+  return connectivity.onConnectivityChanged;
+});
