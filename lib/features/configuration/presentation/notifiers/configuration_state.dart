@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
-
-import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
+import 'package:movie_colony/core/core.dart';
 
 abstract class ConfigurationState extends Equatable {}
 
@@ -17,7 +16,7 @@ class ConfigurationLoading extends ConfigurationState {
 class ConfigurationLoaded extends ConfigurationState {
   ConfigurationLoaded(this.configuration);
 
-  final Configuration configuration;
+  final ConfigurationModel configuration;
 
   @override
   List<Object> get props => [configuration];

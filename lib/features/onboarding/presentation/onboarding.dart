@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
@@ -91,6 +92,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                 ref
                     .watch(sharedPreferencesRepositoryProvider)
                     .saveBool(Strings.firstTimeUser, false);
+                context.router.replace(SignUpRoute(onResult: (value) {}));
               },
             ),
           ),

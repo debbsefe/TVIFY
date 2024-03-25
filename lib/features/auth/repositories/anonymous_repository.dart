@@ -1,19 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/features/auth/data/datasources/anonymous_sign_in_remote_data_source.dart';
+import 'package:movie_colony/core/data/firebase_methods.dart';
 
 final anonymousSignInRepositoryrovider =
     Provider<AnonymousSignInRepository>((ref) {
   return AnonymousSignInRepository(
-    remoteDataSource: ref.watch(anonymousSignInRemoteDataSourceProvider),
+    remoteDataSource: ref.watch(firebaseMethodsProvider),
   );
 });
 
 class AnonymousSignInRepository {
   AnonymousSignInRepository({
-    required AnonymousSignInRemoteDataSource remoteDataSource,
+    required FirebaseMethods remoteDataSource,
   }) : _remoteDataSource = remoteDataSource;
 
-  final AnonymousSignInRemoteDataSource _remoteDataSource;
+  final FirebaseMethods _remoteDataSource;
 
   Future<void> anonymousSignInAuth() async {
     await _remoteDataSource.signInAnonymous();

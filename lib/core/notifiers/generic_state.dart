@@ -8,7 +8,7 @@ class GenericState<T> with _$GenericState<T> {
 
   const factory GenericState.loading() = Loading<T>;
 
-  const factory GenericState.loaded(T? value) = Loaded<T>;
+  const factory GenericState.loaded([T? value]) = Loaded<T>;
 
-  const factory GenericState.error(String message) = Error<T>;
+  const factory GenericState.error([Object? message]) = Error<T>;
 }

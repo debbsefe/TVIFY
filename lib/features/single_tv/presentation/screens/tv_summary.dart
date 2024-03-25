@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/model/notification_list_model.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
-import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
 import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
 import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
@@ -17,10 +17,17 @@ class TvSummary extends ConsumerWidget {
     return tvDetail.when(
       initial: Container.new,
       loading: Container.new,
-      error: Text.new,
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
       loaded: (detail) {
         final String overview = detail!.overview ?? '';
-        final categories = detail.categories ?? [];
+        final categories = detail.genres ?? [];
         return Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -84,9 +91,9 @@ class TvSummary extends ConsumerWidget {
                           NotificationListModel(
                             id: detail.id,
                             name: detail.name,
-                            rating: detail.rating,
-                            date: detail.startDate,
-                            posterImage: detail.posterImage,
+                            rating: detail.voteAverage,
+                            date: detail.firstAirDate,
+                            posterImage: detail.posterPath,
                           ),
                         );
                   },

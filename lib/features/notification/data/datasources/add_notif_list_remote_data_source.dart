@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/error/exception.dart';
-import 'package:movie_colony/core/firebase_methods.dart';
+import 'package:movie_colony/core/data/firebase_methods.dart';
+import 'package:movie_colony/core/model/notification_list_model.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
 
 final addNotifListRemoteDataSourceProvider =
     Provider<AddNotifListRemoteDataSource>((ref) {
@@ -23,7 +22,7 @@ class AddNotifListRemoteDataSource {
       );
       await ref.set(model);
     } catch (e) {
-      throw ServerException();
+      print(e);
     }
   }
 }

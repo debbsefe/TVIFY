@@ -17,7 +17,14 @@ class TvShowOfTheWeek extends ConsumerWidget {
     return trending.when(
       initial: Container.new,
       loading: Container.new,
-      error: Text.new,
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
       loaded: (trends) {
         final trend = trends?.results?.first;
         final String posterImage = trend?.posterPath ?? '';

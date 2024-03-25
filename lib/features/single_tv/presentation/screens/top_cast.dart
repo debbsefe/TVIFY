@@ -18,9 +18,16 @@ class TopCast extends ConsumerWidget {
     return tvCast.when(
       initial: Container.new,
       loading: Container.new,
-      error: Text.new,
-      loaded: (castLoaded) {
-        final cast = castLoaded ?? [];
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
+      loaded: (value) {
+        final cast = value?.cast ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),
@@ -28,11 +35,11 @@ class TopCast extends ConsumerWidget {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final imageUrl = (() {
-              switch (cast[index].profileImage) {
+              switch (cast[index].profilePath) {
                 case null:
                   return Strings.noImageAvailable;
                 default:
-                  return url + cast[index].profileImage!;
+                  return url + cast[index].profilePath!;
               }
             })();
             return Container(

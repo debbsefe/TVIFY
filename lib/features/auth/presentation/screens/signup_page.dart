@@ -29,7 +29,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
             widget.onResult(true);
           },
           error: (value) {
-            showErrorSnackBar(context, value.message);
+            showErrorSnackBar(context, value.message.toString());
           },
         );
       })
@@ -39,7 +39,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
             widget.onResult(true);
           },
           error: (value) {
-            showErrorSnackBar(context, value.message);
+            showErrorSnackBar(context, value.message.toString());
           },
         );
       });
@@ -127,7 +127,7 @@ class _GoogleSignInButtonState extends ConsumerState<GoogleSignInButton> {
                   isSigningIn = true;
                 });
 
-                ref
+                await ref
                     .read(googleSignInNotifierProvider.notifier)
                     .signInWithGoogle();
               },

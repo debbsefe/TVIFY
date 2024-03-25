@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/model/notification_list_model.dart';
 import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
 import 'package:movie_colony/features/notification/data/repositories/add_notif_list_repository.dart';
 
 final addNotificationListNotifierProvider =

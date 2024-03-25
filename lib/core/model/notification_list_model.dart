@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'notification_list_model.g.dart';
 
 @JsonSerializable()

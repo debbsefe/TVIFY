@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
 import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/theme/theme.dart';
@@ -19,6 +20,8 @@ void main() async {
       sharedPreferencesProvider.overrideWithValue(sharedPreferences),
     ],
   );
+
+  initLogger();
 
   runApp(
     UncontrolledProviderScope(
@@ -48,4 +51,17 @@ class MovieColony extends ConsumerWidget {
       ),
     );
   }
+}
+
+void initLogger() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen(
+    (record) {
+      final log = '[${record.loggerName}] ${record.level.name}: '
+          '${record.time}: ${record.message}'
+          '${record.stackTrace != null ? '\n${record.stackTrace}' : ''}';
+
+      print(log);
+    },
+  );
 }

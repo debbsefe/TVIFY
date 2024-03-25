@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
-import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
 
 final configurationRepositoryProvider =
     Provider<ConfigurationRepository>((ref) {
@@ -24,14 +24,14 @@ class ConfigurationRepository {
   final ConfigurationLocalDataSource localDataSource;
   final SharedPreferencesRepository sharedPreferencesRepository;
 
-  Future<Configuration> getConfiguration() async {
+  Future<ConfigurationModel?> getConfiguration() async {
     final bool hasExpired =
         sharedPreferencesRepository.isExpired(Strings.cachedConfiguration);
 
     return getConfigurationSwitchCase(hasExpired);
   }
 
-  Future<Configuration> getConfigurationSwitchCase(
+  Future<ConfigurationModel?> getConfigurationSwitchCase(
     bool hasExpired,
   ) async {
     switch (hasExpired) {
@@ -44,14 +44,14 @@ class ConfigurationRepository {
     }
   }
 
-  Future<Configuration> remoteData() async {
+  Future<ConfigurationModel?> remoteData() async {
     final remote = await remoteDataSource.getRemoteConfiguration();
     await localDataSource.cacheLastConfiguration(remote);
     return remote;
   }
 
-  Future<Configuration> localData() async {
-    final local = await localDataSource.getCachedConfiguration();
+  Future<ConfigurationModel?> localData() async {
+    final local = localDataSource.getCachedConfiguration();
     return local;
   }
 }

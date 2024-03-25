@@ -21,7 +21,7 @@ mixin _$GenericState<T> {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(T? value) loaded,
-    required TResult Function(String message) error,
+    required TResult Function(Object? message) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$GenericState<T> {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(T? value)? loaded,
-    TResult? Function(String message)? error,
+    TResult? Function(Object? message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$GenericState<T> {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(T? value)? loaded,
-    TResult Function(String message)? error,
+    TResult Function(Object? message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$InitialImpl<T> implements Initial<T> {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(T? value) loaded,
-    required TResult Function(String message) error,
+    required TResult Function(Object? message) error,
   }) {
     return initial();
   }
@@ -138,7 +138,7 @@ class _$InitialImpl<T> implements Initial<T> {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(T? value)? loaded,
-    TResult? Function(String message)? error,
+    TResult? Function(Object? message)? error,
   }) {
     return initial?.call();
   }
@@ -149,7 +149,7 @@ class _$InitialImpl<T> implements Initial<T> {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(T? value)? loaded,
-    TResult Function(String message)? error,
+    TResult Function(Object? message)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,7 +241,7 @@ class _$LoadingImpl<T> implements Loading<T> {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(T? value) loaded,
-    required TResult Function(String message) error,
+    required TResult Function(Object? message) error,
   }) {
     return loading();
   }
@@ -252,7 +252,7 @@ class _$LoadingImpl<T> implements Loading<T> {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(T? value)? loaded,
-    TResult? Function(String message)? error,
+    TResult? Function(Object? message)? error,
   }) {
     return loading?.call();
   }
@@ -263,7 +263,7 @@ class _$LoadingImpl<T> implements Loading<T> {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(T? value)? loaded,
-    TResult Function(String message)? error,
+    TResult Function(Object? message)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -348,7 +348,7 @@ class __$$LoadedImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$LoadedImpl<T> implements Loaded<T> {
-  const _$LoadedImpl(this.value);
+  const _$LoadedImpl([this.value]);
 
   @override
   final T? value;
@@ -382,7 +382,7 @@ class _$LoadedImpl<T> implements Loaded<T> {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(T? value) loaded,
-    required TResult Function(String message) error,
+    required TResult Function(Object? message) error,
   }) {
     return loaded(value);
   }
@@ -393,7 +393,7 @@ class _$LoadedImpl<T> implements Loaded<T> {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(T? value)? loaded,
-    TResult? Function(String message)? error,
+    TResult? Function(Object? message)? error,
   }) {
     return loaded?.call(value);
   }
@@ -404,7 +404,7 @@ class _$LoadedImpl<T> implements Loaded<T> {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(T? value)? loaded,
-    TResult Function(String message)? error,
+    TResult Function(Object? message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -452,7 +452,7 @@ class _$LoadedImpl<T> implements Loaded<T> {
 }
 
 abstract class Loaded<T> implements GenericState<T> {
-  const factory Loaded(final T? value) = _$LoadedImpl<T>;
+  const factory Loaded([final T? value]) = _$LoadedImpl<T>;
 
   T? get value;
   @JsonKey(ignore: true)
@@ -466,7 +466,7 @@ abstract class _$$ErrorImplCopyWith<T, $Res> {
           _$ErrorImpl<T> value, $Res Function(_$ErrorImpl<T>) then) =
       __$$ErrorImplCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({String message});
+  $Res call({Object? message});
 }
 
 /// @nodoc
@@ -480,13 +480,10 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? message = null,
+    Object? message = freezed,
   }) {
     return _then(_$ErrorImpl<T>(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
+      freezed == message ? _value.message : message,
     ));
   }
 }
@@ -494,10 +491,10 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$ErrorImpl<T> implements Error<T> {
-  const _$ErrorImpl(this.message);
+  const _$ErrorImpl([this.message]);
 
   @override
-  final String message;
+  final Object? message;
 
   @override
   String toString() {
@@ -509,11 +506,12 @@ class _$ErrorImpl<T> implements Error<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl<T> &&
-            (identical(other.message, message) || other.message == message));
+            const DeepCollectionEquality().equals(other.message, message));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, message);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(message));
 
   @JsonKey(ignore: true)
   @override
@@ -527,7 +525,7 @@ class _$ErrorImpl<T> implements Error<T> {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(T? value) loaded,
-    required TResult Function(String message) error,
+    required TResult Function(Object? message) error,
   }) {
     return error(message);
   }
@@ -538,7 +536,7 @@ class _$ErrorImpl<T> implements Error<T> {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(T? value)? loaded,
-    TResult? Function(String message)? error,
+    TResult? Function(Object? message)? error,
   }) {
     return error?.call(message);
   }
@@ -549,7 +547,7 @@ class _$ErrorImpl<T> implements Error<T> {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(T? value)? loaded,
-    TResult Function(String message)? error,
+    TResult Function(Object? message)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -597,9 +595,9 @@ class _$ErrorImpl<T> implements Error<T> {
 }
 
 abstract class Error<T> implements GenericState<T> {
-  const factory Error(final String message) = _$ErrorImpl<T>;
+  const factory Error([final Object? message]) = _$ErrorImpl<T>;
 
-  String get message;
+  Object? get message;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;

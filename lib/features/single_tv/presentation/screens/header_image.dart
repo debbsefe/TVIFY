@@ -19,10 +19,17 @@ class HeaderImage extends ConsumerWidget {
     return tvDetail.when(
       initial: () => Height(MediaQuery.of(context).size.height * 0.55),
       loading: () => Height(MediaQuery.of(context).size.height * 0.55),
-      error: Text.new,
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
       loaded: (detail) {
-        final String posterImage = detail!.posterImage ?? '';
-        final String name = detail.name ?? '';
+        final String posterImage = detail?.posterPath ?? '';
+        final String name = detail?.name ?? '';
 
         return Column(
           children: [
@@ -54,7 +61,7 @@ class HeaderImage extends ConsumerWidget {
                         children: [
                           Text(
                             yearFromDateString(
-                              DateTime.parse(detail.startDate!),
+                              detail?.firstAirDate ?? '',
                             ),
                             style: Theme.of(context)
                                 .textTheme
@@ -64,7 +71,7 @@ class HeaderImage extends ConsumerWidget {
                           const Width(10),
                           Text(
                             fetchSeason(
-                              detail.seasons,
+                              detail?.numberOfSeasons,
                             ),
                             style: Theme.of(context)
                                 .textTheme
@@ -86,7 +93,7 @@ class HeaderImage extends ConsumerWidget {
                           ),
                           const Width(5),
                           Text(
-                            detail.rating.toString(),
+                            detail?.voteAverage.toString() ?? '',
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ],

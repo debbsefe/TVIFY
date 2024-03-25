@@ -247,12 +247,12 @@ mixin _$Result {
   @JsonKey(name: 'poster_path')
   String? get posterPath => throw _privateConstructorUsedError;
   @JsonKey(name: 'media_type')
-  MediaType? get mediaType => throw _privateConstructorUsedError;
+  String? get mediaType => throw _privateConstructorUsedError;
   @JsonKey(name: 'genre_ids')
   List<int>? get genreIds => throw _privateConstructorUsedError;
   double? get popularity => throw _privateConstructorUsedError;
   @JsonKey(name: 'first_air_date')
-  DateTime? get firstAirDate => throw _privateConstructorUsedError;
+  String? get firstAirDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'vote_average')
   double? get voteAverage => throw _privateConstructorUsedError;
   @JsonKey(name: 'vote_count')
@@ -279,10 +279,10 @@ abstract class $ResultCopyWith<$Res> {
       @JsonKey(name: 'original_name') String? originalName,
       String? overview,
       @JsonKey(name: 'poster_path') String? posterPath,
-      @JsonKey(name: 'media_type') MediaType? mediaType,
+      @JsonKey(name: 'media_type') String? mediaType,
       @JsonKey(name: 'genre_ids') List<int>? genreIds,
       double? popularity,
-      @JsonKey(name: 'first_air_date') DateTime? firstAirDate,
+      @JsonKey(name: 'first_air_date') String? firstAirDate,
       @JsonKey(name: 'vote_average') double? voteAverage,
       @JsonKey(name: 'vote_count') int? voteCount,
       @JsonKey(name: 'origin_country') List<String>? originCountry});
@@ -353,7 +353,7 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
       mediaType: freezed == mediaType
           ? _value.mediaType
           : mediaType // ignore: cast_nullable_to_non_nullable
-              as MediaType?,
+              as String?,
       genreIds: freezed == genreIds
           ? _value.genreIds
           : genreIds // ignore: cast_nullable_to_non_nullable
@@ -365,7 +365,7 @@ class _$ResultCopyWithImpl<$Res, $Val extends Result>
       firstAirDate: freezed == firstAirDate
           ? _value.firstAirDate
           : firstAirDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       voteAverage: freezed == voteAverage
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
@@ -398,10 +398,10 @@ abstract class _$$ResultImplCopyWith<$Res> implements $ResultCopyWith<$Res> {
       @JsonKey(name: 'original_name') String? originalName,
       String? overview,
       @JsonKey(name: 'poster_path') String? posterPath,
-      @JsonKey(name: 'media_type') MediaType? mediaType,
+      @JsonKey(name: 'media_type') String? mediaType,
       @JsonKey(name: 'genre_ids') List<int>? genreIds,
       double? popularity,
-      @JsonKey(name: 'first_air_date') DateTime? firstAirDate,
+      @JsonKey(name: 'first_air_date') String? firstAirDate,
       @JsonKey(name: 'vote_average') double? voteAverage,
       @JsonKey(name: 'vote_count') int? voteCount,
       @JsonKey(name: 'origin_country') List<String>? originCountry});
@@ -470,7 +470,7 @@ class __$$ResultImplCopyWithImpl<$Res>
       mediaType: freezed == mediaType
           ? _value.mediaType
           : mediaType // ignore: cast_nullable_to_non_nullable
-              as MediaType?,
+              as String?,
       genreIds: freezed == genreIds
           ? _value._genreIds
           : genreIds // ignore: cast_nullable_to_non_nullable
@@ -482,7 +482,7 @@ class __$$ResultImplCopyWithImpl<$Res>
       firstAirDate: freezed == firstAirDate
           ? _value.firstAirDate
           : firstAirDate // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+              as String?,
       voteAverage: freezed == voteAverage
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
@@ -546,7 +546,7 @@ class _$ResultImpl implements _Result {
   final String? posterPath;
   @override
   @JsonKey(name: 'media_type')
-  final MediaType? mediaType;
+  final String? mediaType;
   final List<int>? _genreIds;
   @override
   @JsonKey(name: 'genre_ids')
@@ -562,7 +562,7 @@ class _$ResultImpl implements _Result {
   final double? popularity;
   @override
   @JsonKey(name: 'first_air_date')
-  final DateTime? firstAirDate;
+  final String? firstAirDate;
   @override
   @JsonKey(name: 'vote_average')
   final double? voteAverage;
@@ -662,10 +662,10 @@ abstract class _Result implements Result {
           @JsonKey(name: 'original_name') final String? originalName,
           final String? overview,
           @JsonKey(name: 'poster_path') final String? posterPath,
-          @JsonKey(name: 'media_type') final MediaType? mediaType,
+          @JsonKey(name: 'media_type') final String? mediaType,
           @JsonKey(name: 'genre_ids') final List<int>? genreIds,
           final double? popularity,
-          @JsonKey(name: 'first_air_date') final DateTime? firstAirDate,
+          @JsonKey(name: 'first_air_date') final String? firstAirDate,
           @JsonKey(name: 'vote_average') final double? voteAverage,
           @JsonKey(name: 'vote_count') final int? voteCount,
           @JsonKey(name: 'origin_country') final List<String>? originCountry}) =
@@ -695,7 +695,7 @@ abstract class _Result implements Result {
   String? get posterPath;
   @override
   @JsonKey(name: 'media_type')
-  MediaType? get mediaType;
+  String? get mediaType;
   @override
   @JsonKey(name: 'genre_ids')
   List<int>? get genreIds;
@@ -703,7 +703,7 @@ abstract class _Result implements Result {
   double? get popularity;
   @override
   @JsonKey(name: 'first_air_date')
-  DateTime? get firstAirDate;
+  String? get firstAirDate;
   @override
   @JsonKey(name: 'vote_average')
   double? get voteAverage;

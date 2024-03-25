@@ -11,12 +11,20 @@ class CategoriesWidget extends ConsumerWidget {
     return categories.when(
       initial: Container.new,
       loading: Container.new,
-      error: Text.new,
-      loaded: (category) {
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
+      loaded: (value) {
+        final category = value?.genres ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),
-          itemCount: category!.length,
+          itemCount: category.length,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return Container(

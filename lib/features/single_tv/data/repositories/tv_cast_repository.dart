@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/single_tv/data/datasources/tv_cast_remote_data_source.dart';
-import 'package:movie_colony/features/single_tv/domain/entities/tv_cast.dart';
 
 final tvCastRepositoryProvider = Provider<TvCastRepository>((ref) {
   return TvCastRepository(
@@ -14,8 +14,7 @@ class TvCastRepository {
   });
   final TvCastRemoteDataSource remoteDataSource;
 
-  Future<List<TvCast>> getTvCast(String id) async {
-    final remote = await remoteDataSource.getRemoteTvCast(id);
-    return remote;
+  Future<TvCastModel> getTvCast(String id) async {
+    return remoteDataSource.getRemoteTvCast(id);
   }
 }

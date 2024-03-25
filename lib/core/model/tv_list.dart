@@ -28,10 +28,10 @@ class Result with _$Result {
     @JsonKey(name: 'original_name') String? originalName,
     String? overview,
     @JsonKey(name: 'poster_path') String? posterPath,
-    @JsonKey(name: 'media_type') MediaType? mediaType,
+    @JsonKey(name: 'media_type') String? mediaType,
     @JsonKey(name: 'genre_ids') List<int>? genreIds,
     double? popularity,
-    @JsonKey(name: 'first_air_date') DateTime? firstAirDate,
+    @JsonKey(name: 'first_air_date') String? firstAirDate,
     @JsonKey(name: 'vote_average') double? voteAverage,
     @JsonKey(name: 'vote_count') int? voteCount,
     @JsonKey(name: 'origin_country') List<String>? originCountry,
@@ -39,5 +39,3 @@ class Result with _$Result {
 
   factory Result.fromJson(Map<String, dynamic> json) => _$ResultFromJson(json);
 }
-
-enum MediaType { tv }

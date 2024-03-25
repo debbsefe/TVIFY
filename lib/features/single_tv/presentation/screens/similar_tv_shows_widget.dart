@@ -18,7 +18,14 @@ class SimilarTvShowsWidget extends ConsumerWidget {
     return similarTV.when(
       initial: Container.new,
       loading: Container.new,
-      error: Text.new,
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
       loaded: (similar) {
         final tv = similar?.results ?? [];
         return ListView.builder(

@@ -20,7 +20,14 @@ class TrendingWidget extends ConsumerWidget {
     return trending.when(
       initial: Container.new,
       loading: Container.new,
-      error: Text.new,
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
       loaded: (trends) {
         final trend = trends?.results ?? [];
 
@@ -59,7 +66,7 @@ class TrendingWidget extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
-                    yearFromDateString(singleTrend.firstAirDate),
+                    yearFromDateString(singleTrend.firstAirDate ?? ''),
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall!

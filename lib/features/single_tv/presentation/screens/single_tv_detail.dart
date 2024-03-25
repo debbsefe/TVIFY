@@ -46,7 +46,7 @@ class _SingleTvDetailPageState extends ConsumerState<SingleTvDetailPage> {
           onPressed: () {
             context.router.root.maybePop();
           },
-          content: next.message,
+          content: next.message.toString(),
         );
       } else if (next is Loaded<void>) {
         messageDialog(
