@@ -1,39 +1,48 @@
-import 'package:movie_colony/core/notifiers/generic_state.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/features/configuration/domain/entities/configuration.dart';
-import 'package:movie_colony/features/configuration/domain/usecases/get_configuration.dart';
+import 'package:movie_colony/core/core.dart';
+import 'package:movie_colony/features/configuration/data/repositories/configuration_repository.dart';
 
-class ConfigurationNotifier extends GenericStateNotifier<Configuration> {
-  ConfigurationNotifier(this.allConfiguration);
+final configurationNotifierProvider =
+    StateNotifierProvider<ConfigurationNotifier, LoadingState>((ref) {
+  return ConfigurationNotifier(
+    configurationRepository: ref.watch(configurationRepositoryProvider),
+  );
+});
 
-  final GetAllConfiguration allConfiguration;
+class ConfigurationNotifier extends StateNotifier<LoadingState> {
+  ConfigurationNotifier({required this.configurationRepository})
+      : super(const LoadingState.idle());
 
-  void fetchConfiguration() {
-    sendRequest(() async {
-      return await allConfiguration(NoParams());
-    });
-  }
+  final ConfigurationRepository configurationRepository;
+  final logger = Logger('ConfigurationNotifier');
 
-  GenericState<Configuration> currentState() {
-    return state;
+  Future<void> fetchConfiguration() async {
+    try {
+      state = const LoadingState.loading();
+      final result = await configurationRepository.getConfiguration();
+      state = LoadingState.success(result);
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 
   String fetchPosterSizeUrl() {
-    final current = currentState();
-    if (current is Loaded<Configuration>) {
-      return '${current.value!.secureBaseUrl}${current.value!.posterSizes[4]}/';
-    } else {
-      return 'https://image.tmdb.org/t/p/w500/';
-    }
+    return state.maybeMap(
+      success: (success) {
+        final value = success.obj! as ConfigurationModel;
+        return '${value.images?.secureBaseUrl}${value.images?.posterSizes![4]}/';
+      },
+      orElse: () => 'https://image.tmdb.org/t/p/w500/',
+    );
   }
 
   String fetchProfileSizeUrl() {
-    final current = currentState();
-    if (current is Loaded<Configuration>) {
-      return '${current.value!.secureBaseUrl}${current.value!.profileSizes[3]}/';
-    } else {
-      return 'https://image.tmdb.org/t/p/original/';
-    }
+    return state.maybeMap(
+      success: (success) {
+        final value = success.obj! as ConfigurationModel;
+        return '${value.images?.secureBaseUrl}${value.images?.profileSizes![3]}/';
+      },
+      orElse: () => 'https://image.tmdb.org/t/p/original/',
+    );
   }
 }

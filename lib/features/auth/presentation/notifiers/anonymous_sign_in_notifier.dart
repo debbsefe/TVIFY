@@ -1,15 +1,27 @@
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/features/auth/domain/usecases/sign_in_anonymous.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
+import 'package:movie_colony/core/model/loading_state.dart';
+import 'package:movie_colony/features/auth/repositories/anonymous_repository.dart';
 
-class AnonymousSignInNotifier extends GenericStateNotifier<void> {
-  AnonymousSignInNotifier(this.usecase);
+final anonymousSignInNotifierProvider =
+    StateNotifierProvider<AnonymousSignInNotifier, LoadingState>((ref) {
+  return AnonymousSignInNotifier(ref.watch(anonymousSignInRepositoryrovider));
+});
 
-  final SignInAnonymous usecase;
+class AnonymousSignInNotifier extends StateNotifier<LoadingState> {
+  AnonymousSignInNotifier(this.repository) : super(const LoadingState.idle());
 
-  void signInAnonymous() {
-    sendRequest(() async {
-      return await usecase(NoParams());
-    });
+  final AnonymousSignInRepository repository;
+  final logger = Logger('AnonymousSignInNotifier');
+
+  Future<void> signInAnonymous() async {
+    try {
+      state = const LoadingState.loading();
+      await repository.anonymousSignInAuth();
+      state = const LoadingState.success();
+    } catch (e) {
+      state = LoadingState.error(e.toString());
+      logger.fine(e.toString());
+    }
   }
 }

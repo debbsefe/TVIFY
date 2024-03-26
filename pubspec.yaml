@@ -9,12 +9,11 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
-  auto_route: 7.8.4
+  auto_route: ^7.9.0
   cached_network_image: ^3.1.0
   cloud_firestore: ^4.14.0
   connectivity_plus: ^5.0.2
   cupertino_icons: ^1.0.3
-  dartz: ^0.10.1
   equatable: ^2.0.0
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
@@ -22,12 +21,12 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^2.4.10
   freezed_annotation: ^2.4.1
-  get_it: ^7.2.0
   google_sign_in: ^6.1.6
-  hooks_riverpod: ^2.4.10
   http: ^1.1.0
+  http_interceptor: ^2.0.0-beta.8
   intl: ^0.19.0
   json_annotation: ^4.0.1
+  logging: ^1.2.0
   mockito: ^5.0.7
   shared_preferences: ^2.0.7
 
@@ -39,7 +38,7 @@ dev_dependencies:
   freezed: ^2.4.7
   json_serializable: ^6.7.1
   very_good_analysis: ^5.1.0
-
+  
 flutter:
   uses-material-design: true
 

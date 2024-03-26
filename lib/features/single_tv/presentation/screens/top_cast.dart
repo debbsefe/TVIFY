@@ -1,25 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
-// import 'package:movie_colony/core/utils/extensions.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_cast/tv_cast_notifier.dart';
 
 class TopCast extends ConsumerWidget {
   const TopCast({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final url = ref.watch(configurationProvider.notifier).fetchProfileSizeUrl();
+    final url =
+        ref.watch(configurationNotifierProvider.notifier).fetchProfileSizeUrl();
 
-    final tvCast = ref.watch(tvCastProvider);
+    final tvCast = ref.watch(tvCastNotifierProvider);
 
     return tvCast.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
-      error: Text.new,
-      loaded: (castLoaded) {
-        final cast = castLoaded ?? [];
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
+      success: (success) {
+        final value = success! as TvCastModel;
+        final cast = value.cast ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),
@@ -27,11 +36,11 @@ class TopCast extends ConsumerWidget {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final imageUrl = (() {
-              switch (cast[index].profileImage) {
+              switch (cast[index].profilePath) {
                 case null:
                   return Strings.noImageAvailable;
                 default:
-                  return url + cast[index].profileImage!;
+                  return url + cast[index].profilePath!;
               }
             })();
             return Container(

@@ -1,13 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/widgets/snackbars.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/auth/presentation/notifiers/anonymous_sign_in_notifier.dart';
+import 'package:movie_colony/features/auth/presentation/notifiers/google_sign_in_notifier.dart';
 
 @RoutePage()
 class SignUpPage extends ConsumerStatefulWidget {
-  const SignUpPage({super.key});
+  const SignUpPage({
+    required this.onResult,
+    super.key,
+  });
+  final ValueSetter<bool> onResult;
 
   @override
   ConsumerState<SignUpPage> createState() => _SignUpPageState();
@@ -18,11 +22,27 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen(googleSignInProvider, (previous, next) {
-      if (next is Error<void>) {
-        showErrorSnackBar(context, next.message);
-      }
-    });
+    ref
+      ..listen(googleSignInNotifierProvider, (previous, next) {
+        next.mapOrNull(
+          success: (error) {
+            widget.onResult(true);
+          },
+          error: (value) {
+            showErrorSnackBar(context, value.error.toString());
+          },
+        );
+      })
+      ..listen(anonymousSignInNotifierProvider, (previous, next) {
+        next.mapOrNull(
+          success: (error) {
+            widget.onResult(true);
+          },
+          error: (value) {
+            showErrorSnackBar(context, value.error.toString());
+          },
+        );
+      });
 
     return Scaffold(
       key: _scaffoldKey,
@@ -59,9 +79,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
               const GoogleSignInButton(),
               TextButton(
                 onPressed: () async {
-                  // await FirebaseAuth.instance.signOut();
-
-                  ref.read(anonymousSignInProvider.notifier).signInAnonymous();
+                  await ref
+                      .read(anonymousSignInNotifierProvider.notifier)
+                      .signInAnonymous();
                 },
                 child: const Text('Skip to app'),
               ),
@@ -74,7 +94,9 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
 }
 
 class GoogleSignInButton extends ConsumerStatefulWidget {
-  const GoogleSignInButton({super.key});
+  const GoogleSignInButton({
+    super.key,
+  });
 
   @override
   ConsumerState<GoogleSignInButton> createState() => _GoogleSignInButtonState();
@@ -89,7 +111,7 @@ class _GoogleSignInButtonState extends ConsumerState<GoogleSignInButton> {
       padding: const EdgeInsets.only(bottom: 16),
       child: isSigningIn
           ? const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
             )
           : OutlinedButton(
               style: ButtonStyle(
@@ -105,7 +127,9 @@ class _GoogleSignInButtonState extends ConsumerState<GoogleSignInButton> {
                   isSigningIn = true;
                 });
 
-                ref.read(googleSignInProvider.notifier).signInWithGoogle();
+                await ref
+                    .read(googleSignInNotifierProvider.notifier)
+                    .signInWithGoogle();
               },
               child: const Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 10),

@@ -1,36 +1,23 @@
-import 'dart:convert';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_colony/core/config.dart';
-import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/data/data.dart';
+import 'package:movie_colony/core/model/model.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/single_tv/data/models/tv_cast_model.dart';
 
-abstract class TvCastRemoteDataSource {
-  Future<List<TvCastModel>> getRemoteTvCast(String id);
-}
+final tvCastRemoteDataSourceProvider = Provider<TvCastRemoteDataSource>((ref) {
+  return TvCastRemoteDataSource(
+    client: ref.watch(httpClientProvider),
+  );
+});
 
-class TvCastRemoteDataSourceImpl implements TvCastRemoteDataSource {
-  TvCastRemoteDataSourceImpl({required this.client, required this.config});
+class TvCastRemoteDataSource {
+  TvCastRemoteDataSource({required this.client});
   final http.Client client;
-  final Config config;
 
-  @override
-  Future<List<TvCastModel>> getRemoteTvCast(String id) async {
-    final String token = await config.fetchToken(Strings.apiKeyTmdb);
-    final String url = 'tv/$id/credits?api_key=$token'.baseurl;
+  Future<TvCastModel> getRemoteTvCast(String id) async {
+    final String url = 'tv/$id/credits'.baseurl;
     final response = await client.get(Uri.parse(url));
 
-    if (response.statusCode == 200) {
-      final parsed = json.decode(response.body);
-
-      return (parsed['cast'] as List)
-          .whereType<Map<String, dynamic>>()
-          .map<TvCastModel>(TvCastModel.fromJson)
-          .toList();
-    } else {
-      throw ServerException();
-    }
+    return tvCastModelFromJson(response.body);
   }
 }

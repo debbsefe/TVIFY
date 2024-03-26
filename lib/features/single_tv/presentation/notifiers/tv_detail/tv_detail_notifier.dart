@@ -1,15 +1,25 @@
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/features/single_tv/domain/entities/tv_detail.dart';
-import 'package:movie_colony/features/single_tv/domain/usecases/get_tv_detail.dart';
+import 'package:movie_colony/core/core.dart';
+import 'package:movie_colony/features/single_tv/data/repositories/tv_detail_repository.dart';
 
-class TvDetailNotifier extends GenericStateNotifier<TvDetail> {
-  TvDetailNotifier(this.tvDetail);
+final tvDetailNotifierProvider =
+    StateNotifierProvider<TvDetailNotifier, LoadingState>((ref) {
+  return TvDetailNotifier(ref.watch(tvDetailRepositoryProvider));
+});
 
-  final GetTvDetail tvDetail;
+class TvDetailNotifier extends StateNotifier<LoadingState> {
+  TvDetailNotifier(this.tvDetailRepository) : super(const LoadingState.idle());
 
-  void fetchTvDetail(String id) {
-    sendRequest(() async {
-      return await tvDetail(Params(id: id));
-    });
+  final TvDetailRepository tvDetailRepository;
+  final logger = Logger('TvCastNotifier');
+
+  Future<void> fetchTvDetail(String id) async {
+    try {
+      state = const LoadingState.loading();
+      final result = await tvDetailRepository.getTvDetail(id);
+      state = LoadingState.success(result);
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 }

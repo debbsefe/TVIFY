@@ -1,22 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/providers.dart';
+
+final configProvider = Provider<Config>((ref) {
+  return Config(
+    ref.watch(firebaseFirestoreProvider),
+  );
+});
 
 class Config {
-  Config(this.store);
+  Config(FirebaseFirestore store) : _store = store;
 
-  ///fetch token from store
-  final FirebaseFirestore store;
-  String? _token;
-  String? get token => _token;
+  final FirebaseFirestore _store;
 
   Future<String> fetchToken(String value) async {
-    if (token == null) {
-      final DocumentSnapshot snapshot =
-          await store.collection('token').doc(value).get();
-      final Map<String, dynamic> snap = snapshot.data()! as Map<String, String>;
-      _token = snap['key'] as String;
-      return snap['key'] as String;
-    }
-
-    return token!;
+    final snapshot = await _store.collection('token').doc(value).get();
+    return snapshot.data()?['key'] as String;
   }
 }

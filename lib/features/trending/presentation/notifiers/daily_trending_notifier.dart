@@ -1,16 +1,26 @@
-import 'package:movie_colony/core/models/tv_list/tv_list.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/features/trending/domain/usecases/get_trending_daily.dart';
+import 'package:movie_colony/core/core.dart';
+import 'package:movie_colony/features/trending/data/repositories/trending_repository.dart';
 
-class DailyTrendingNotifier extends GenericStateNotifier<List<TvList>> {
-  DailyTrendingNotifier(this.dailyTrending);
+final dailyTrendingNotifierProvider =
+    StateNotifierProvider<DailyTrendingNotifier, LoadingState>((ref) {
+  return DailyTrendingNotifier(ref.watch(trendingRepositoryProvider));
+});
 
-  final GetDailyTrending dailyTrending;
+class DailyTrendingNotifier extends StateNotifier<LoadingState> {
+  DailyTrendingNotifier(this.trendingRepository)
+      : super(const LoadingState.idle());
 
-  void fetchTrending() {
-    sendRequest(() async {
-      return await dailyTrending(NoParams());
-    });
+  final TrendingRepository trendingRepository;
+  final logger = Logger('DailyTrendingNotifier');
+
+  Future<void> fetchTrending() async {
+    try {
+      state = const LoadingState.loading();
+      final result = await trendingRepository.getTrendingDaily();
+      state = LoadingState.success(result);
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 }

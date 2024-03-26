@@ -1,16 +1,26 @@
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/features/categories/domain/entities/categories.dart';
-import 'package:movie_colony/features/categories/domain/usecases/get_categories.dart';
+import 'package:movie_colony/core/core.dart';
+import 'package:movie_colony/features/categories/data/repositories/categories_repository.dart';
 
-class CategoriesNotifier extends GenericStateNotifier<List<Categories>> {
-  CategoriesNotifier(this.allCategories);
+final categoriesNotiferProvider =
+    StateNotifierProvider<CategoriesNotifier, LoadingState>((ref) {
+  return CategoriesNotifier(ref.watch(categoriesRepositoryProvider));
+});
 
-  final GetAllCategories allCategories;
+class CategoriesNotifier extends StateNotifier<LoadingState> {
+  CategoriesNotifier(this.categoriesRepository)
+      : super(const LoadingState.idle());
 
-  void fetchCategory() {
-    sendRequest(() async {
-      return await allCategories(NoParams());
-    });
+  final CategoriesRepository categoriesRepository;
+  final logger = Logger('CategoriesNotifier');
+
+  Future<void> fetchCategory() async {
+    try {
+      state = const LoadingState.loading();
+      final category = await categoriesRepository.getCategories();
+      state = LoadingState.success(category);
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 }

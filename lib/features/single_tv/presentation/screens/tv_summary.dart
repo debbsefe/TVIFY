@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
-import 'package:movie_colony/features/notification/data/models/notification_list_model.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class TvSummary extends ConsumerWidget {
   const TvSummary({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tvDetail = ref.watch(tvDetailProvider);
+    final tvDetail = ref.watch(tvDetailNotifierProvider);
 
     return tvDetail.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
-      error: Text.new,
-      loaded: (detail) {
-        final String overview = detail!.overview ?? '';
-        final categories = detail.categories ?? [];
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
+      success: (success) {
+        final detail = success! as TvDetailModel;
+        final String overview = detail.overview ?? '';
+        final categories = detail.genres ?? [];
         return Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -78,14 +86,14 @@ class TvSummary extends ConsumerWidget {
                 child: CustomButton(
                   onPressed: () {
                     ref
-                        .read(addNotificationListProvider.notifier)
+                        .read(addNotificationListNotifierProvider.notifier)
                         .addNotification(
                           NotificationListModel(
                             id: detail.id,
                             name: detail.name,
-                            rating: detail.rating,
-                            date: detail.startDate,
-                            posterImage: detail.posterImage,
+                            rating: detail.voteAverage,
+                            date: detail.firstAirDate,
+                            posterImage: detail.posterPath,
                           ),
                         );
                   },

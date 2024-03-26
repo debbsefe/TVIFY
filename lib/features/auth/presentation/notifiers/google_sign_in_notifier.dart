@@ -1,15 +1,28 @@
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
-import 'package:movie_colony/core/usecases/usecase.dart';
-import 'package:movie_colony/features/auth/domain/usecases/sign_in_google.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logging/logging.dart';
+import 'package:movie_colony/core/model/loading_state.dart';
+import 'package:movie_colony/features/auth/repositories/google_sign_in_repository.dart';
 
-class GoogleSignInNotifier extends GenericStateNotifier<void> {
-  GoogleSignInNotifier(this.usecase);
+final googleSignInNotifierProvider =
+    StateNotifierProvider<GoogleSignInNotifier, LoadingState>((ref) {
+  return GoogleSignInNotifier(ref.watch(googleSignInRepositoryProvider));
+});
 
-  final SignInGoogle usecase;
+class GoogleSignInNotifier extends StateNotifier<LoadingState> {
+  GoogleSignInNotifier(this.googleSignInRepository)
+      : super(const LoadingState.idle());
 
-  void signInWithGoogle() {
-    sendRequest(() async {
-      return await usecase(NoParams());
-    });
+  final GoogleSignInRepository googleSignInRepository;
+  final logger = Logger('GoogleSignInNotifier');
+
+  Future<void> signInWithGoogle() async {
+    try {
+      state = const LoadingState.loading();
+      await googleSignInRepository.googleSignInAuth();
+      state = const LoadingState.success();
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 }

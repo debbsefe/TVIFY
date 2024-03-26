@@ -1,48 +1,41 @@
 import 'dart:convert';
 
-import 'package:movie_colony/core/error/exception.dart';
+import 'package:movie_colony/core/core.dart';
+import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/configuration/data/models/configuration_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class ConfigurationLocalDataSource {
-  ///method to fetch the last cache that was fetched,
-  ///throws an exception if no cache data is present
-  Future<ConfigurationModel> getCachedConfiguration();
+final configurationLocalDataSourceProvider =
+    Provider<ConfigurationLocalDataSource>((ref) {
+  return ConfigurationLocalDataSource(
+    ref.watch(sharedPreferencesRepositoryProvider),
+  );
+});
 
-  //method to cache the last cache that was fetched
-  Future<void> cacheLastConfiguration(ConfigurationModel configurationModel);
-}
+class ConfigurationLocalDataSource {
+  ConfigurationLocalDataSource(this.sharedPreferencesRepository);
 
-class ConfigurationLocalDataSourceImpl implements ConfigurationLocalDataSource {
-  ConfigurationLocalDataSourceImpl(this.sharedPreferences);
+  final SharedPreferencesRepository sharedPreferencesRepository;
 
-  final SharedPreferences sharedPreferences;
-
-  @override
-  Future<ConfigurationModel> getCachedConfiguration() {
-    final jsonString = sharedPreferences.getString(Strings.cachedConfiguration);
+  ConfigurationModel? getCachedConfiguration() {
+    final jsonString =
+        sharedPreferencesRepository.retrieveString(Strings.cachedConfiguration);
     if (jsonString != null) {
-      return Future.value(
-        ConfigurationModel.fromJson(
-          json.decode(jsonString) as Map<String, dynamic>,
-        ),
+      return ConfigurationModel.fromJson(
+        json.decode(jsonString) as Map<String, dynamic>,
       );
-    } else {
-      throw CacheException();
     }
+    return null;
   }
 
-  @override
-  Future<void> cacheLastConfiguration(ConfigurationModel configurationModel) {
-    sharedPreferences.setString(
+  Future<void> cacheLastConfiguration(ConfigurationModel? configurationModel) {
+    sharedPreferencesRepository.saveString(
       expiryDate(Strings.cachedConfiguration),
       sevenDaysLater,
     );
 
-    return sharedPreferences.setString(
+    return sharedPreferencesRepository.saveString(
       Strings.cachedConfiguration,
-      json.encode(configurationModel.toJson()),
+      json.encode(configurationModel?.toJson()),
     );
   }
 }

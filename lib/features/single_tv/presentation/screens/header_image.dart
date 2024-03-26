@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class HeaderImage extends ConsumerWidget {
   const HeaderImage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tvDetail = ref.watch(tvDetailProvider);
-    final url = ref.watch(configurationProvider.notifier).fetchPosterSizeUrl();
+    final tvDetail = ref.watch(tvDetailNotifierProvider);
+    final url =
+        ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return tvDetail.when(
-      initial: () => Height(MediaQuery.of(context).size.height * 0.55),
+      idle: () => Height(MediaQuery.of(context).size.height * 0.55),
       loading: () => Height(MediaQuery.of(context).size.height * 0.55),
-      error: Text.new,
-      loaded: (detail) {
-        final String posterImage = detail!.posterImage ?? '';
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
+      success: (success) {
+        final detail = success! as TvDetailModel;
+        final String posterImage = detail.posterPath ?? '';
         final String name = detail.name ?? '';
 
         return Column(
@@ -51,7 +61,9 @@ class HeaderImage extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            yearFromDateString(detail.startDate),
+                            yearFromDateString(
+                              detail.firstAirDate ?? '',
+                            ),
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyLarge
@@ -60,7 +72,7 @@ class HeaderImage extends ConsumerWidget {
                           const Width(10),
                           Text(
                             fetchSeason(
-                              detail.seasons,
+                              detail.numberOfSeasons,
                             ),
                             style: Theme.of(context)
                                 .textTheme
@@ -82,7 +94,7 @@ class HeaderImage extends ConsumerWidget {
                           ),
                           const Width(5),
                           Text(
-                            detail.rating.toString(),
+                            detail.voteAverage.toString(),
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ],

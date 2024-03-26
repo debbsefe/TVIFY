@@ -1,7 +1,5 @@
 import 'package:intl/intl.dart';
 
-import 'package:movie_colony/core/error/failure.dart';
-
 class Strings {
   static String get theme => 'theme';
 
@@ -33,19 +31,3 @@ DateTime now = DateTime.now();
 
 final String sevenDaysLater =
     dateFormat.format(now.add(const Duration(days: 7)));
-
-String mapFailureToMessage(Failure failure) {
-  switch (failure.runtimeType) {
-    case ServerFailure:
-      return 'Something went wrong, please try again';
-    case CacheFailure:
-      return 'No internet connection';
-    case InvalidFailure:
-      return 'Invalid request';
-    case ConflictFailure:
-      return 'Request failed or not found';
-
-    default:
-      return 'Unexpected error';
-  }
-}

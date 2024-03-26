@@ -2,29 +2,28 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/cache/app_cache.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/app_router.dart';
+import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
 import 'package:movie_colony/features/onboarding/presentation/widgets/slide_dots.dart';
 import 'package:movie_colony/features/onboarding/presentation/widgets/slide_item.dart';
-import 'package:movie_colony/service_locator.dart' as di;
 
 @RoutePage()
-class OnboardingPage extends StatefulWidget {
+class OnboardingPage extends ConsumerStatefulWidget {
   const OnboardingPage({super.key});
 
   @override
-  State<OnboardingPage> createState() => _OnboardingPageState();
+  ConsumerState<OnboardingPage> createState() => _OnboardingPageState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class _OnboardingPageState extends ConsumerState<OnboardingPage> {
   int _currentPage = 0;
 
   final PageController _pageController = PageController();
 
   late Timer timer;
-
-  AppCache prefs = di.sl<AppCache>();
 
   @override
   void initState() {
@@ -90,7 +89,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
             child: CustomButton(
               name: 'Get Started',
               onPressed: () {
-                prefs.saveBool(Strings.firstTimeUser, false);
+                ref
+                    .watch(sharedPreferencesRepositoryProvider)
+                    .saveBool(Strings.firstTimeUser, false);
+                context.router.replace(SignUpRoute(onResult: (value) {}));
               },
             ),
           ),

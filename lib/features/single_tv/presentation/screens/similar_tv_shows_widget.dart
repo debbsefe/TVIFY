@@ -1,24 +1,34 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/app_router.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:movie_colony/features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
 
 class SimilarTvShowsWidget extends ConsumerWidget {
   const SimilarTvShowsWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final similarTV = ref.watch(similarTvProvider);
-    final url = ref.watch(configurationProvider.notifier).fetchPosterSizeUrl();
+    final similarTV = ref.watch(similarTvNotifierProvider);
+    final url =
+        ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return similarTV.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
-      error: Text.new,
-      loaded: (similar) {
-        final tv = similar ?? [];
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
+      success: (success) {
+        final similar = success! as TvList;
+        final tv = similar.results ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),
@@ -26,7 +36,7 @@ class SimilarTvShowsWidget extends ConsumerWidget {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final singleTv = tv[index];
-            final String posterImage = singleTv.posterImage ?? '';
+            final String posterImage = singleTv.posterPath ?? '';
 
             return Container(
               margin: const EdgeInsets.only(left: 16),

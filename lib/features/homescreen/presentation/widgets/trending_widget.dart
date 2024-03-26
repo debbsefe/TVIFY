@@ -1,28 +1,37 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/app_router.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_notifier.dart';
 
 class TrendingWidget extends ConsumerWidget {
   const TrendingWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final trending = ref.watch(dailyTrendingProvider);
-    final url = ref.watch(configurationProvider.notifier).fetchPosterSizeUrl();
+    final trending = ref.watch(dailyTrendingNotifierProvider);
+    final url =
+        ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return trending.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
-      error: Text.new,
-      loaded: (trends) {
-        final trend = trends ?? [];
-        // ignore: cascade_invocations
-        trend.shuffle();
+      error: (message) {
+        return Center(
+          child: Text(
+            message.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        );
+      },
+      success: (success) {
+        final trends = success! as TvList;
+        final trend = trends.results ?? [];
+
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),
@@ -30,7 +39,7 @@ class TrendingWidget extends ConsumerWidget {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             final singleTrend = trend[index];
-            final String posterImage = singleTrend.posterImage ?? '';
+            final String posterImage = singleTrend.posterPath ?? '';
             return Container(
               margin: const EdgeInsets.only(right: 10),
               child: Column(
@@ -58,7 +67,7 @@ class TrendingWidget extends ConsumerWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
-                    yearFromDateString(singleTrend.date),
+                    yearFromDateString(singleTrend.firstAirDate ?? ''),
                     style: Theme.of(context)
                         .textTheme
                         .bodySmall!
@@ -72,7 +81,7 @@ class TrendingWidget extends ConsumerWidget {
                         color: CustomTheme.yellowStar,
                       ),
                       Text(
-                        singleTrend.rating.toString(),
+                        singleTrend.voteAverage.toString(),
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall!
