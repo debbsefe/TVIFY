@@ -1,22 +1,26 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/model/notification_list_model.dart';
-import 'package:movie_colony/core/notifiers/generic_state.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/notification/data/repositories/add_notif_list_repository.dart';
 
 final addNotificationListNotifierProvider =
-    StateNotifierProvider<AddNotifListNotifier, GenericState<void>>((ref) {
+    StateNotifierProvider<AddNotifListNotifier, LoadingState>((ref) {
   return AddNotifListNotifier(ref.watch(addNotifListRepositoryProvider));
 });
 
-class AddNotifListNotifier extends GenericStateNotifier<void> {
-  AddNotifListNotifier(this.addNotifListRepository);
+class AddNotifListNotifier extends StateNotifier<LoadingState> {
+  AddNotifListNotifier(this.addNotifListRepository)
+      : super(const LoadingState.idle());
 
   final AddNotifListRepository addNotifListRepository;
+  final logger = Logger('AddNotifListNotifier');
 
-  void addNotification(NotificationListModel model) {
-    sendRequest(() async {
-      return addNotifListRepository.addNotificationList(model);
-    });
+  Future<void> addNotification(NotificationListModel model) async {
+    try {
+      state = const LoadingState.loading();
+      await addNotifListRepository.addNotificationList(model);
+      state = const LoadingState.success();
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 }

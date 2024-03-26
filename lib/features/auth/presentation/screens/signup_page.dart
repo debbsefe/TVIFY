@@ -25,21 +25,21 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
     ref
       ..listen(googleSignInNotifierProvider, (previous, next) {
         next.mapOrNull(
-          loaded: (error) {
+          success: (error) {
             widget.onResult(true);
           },
           error: (value) {
-            showErrorSnackBar(context, value.message.toString());
+            showErrorSnackBar(context, value.error.toString());
           },
         );
       })
       ..listen(anonymousSignInNotifierProvider, (previous, next) {
         next.mapOrNull(
-          loaded: (error) {
+          success: (error) {
             widget.onResult(true);
           },
           error: (value) {
-            showErrorSnackBar(context, value.message.toString());
+            showErrorSnackBar(context, value.error.toString());
           },
         );
       });
@@ -79,7 +79,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
               const GoogleSignInButton(),
               TextButton(
                 onPressed: () async {
-                  ref
+                  await ref
                       .read(anonymousSignInNotifierProvider.notifier)
                       .signInAnonymous();
                 },

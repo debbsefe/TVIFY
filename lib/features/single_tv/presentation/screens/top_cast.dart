@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
@@ -16,7 +16,7 @@ class TopCast extends ConsumerWidget {
     final tvCast = ref.watch(tvCastNotifierProvider);
 
     return tvCast.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
       error: (message) {
         return Center(
@@ -26,8 +26,9 @@ class TopCast extends ConsumerWidget {
           ),
         );
       },
-      loaded: (value) {
-        final cast = value?.cast ?? [];
+      success: (success) {
+        final value = success! as TvCastModel;
+        final cast = value.cast ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
@@ -17,7 +17,7 @@ class HeaderImage extends ConsumerWidget {
         ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return tvDetail.when(
-      initial: () => Height(MediaQuery.of(context).size.height * 0.55),
+      idle: () => Height(MediaQuery.of(context).size.height * 0.55),
       loading: () => Height(MediaQuery.of(context).size.height * 0.55),
       error: (message) {
         return Center(
@@ -27,9 +27,10 @@ class HeaderImage extends ConsumerWidget {
           ),
         );
       },
-      loaded: (detail) {
-        final String posterImage = detail?.posterPath ?? '';
-        final String name = detail?.name ?? '';
+      success: (success) {
+        final detail = success! as TvDetailModel;
+        final String posterImage = detail.posterPath ?? '';
+        final String name = detail.name ?? '';
 
         return Column(
           children: [
@@ -61,7 +62,7 @@ class HeaderImage extends ConsumerWidget {
                         children: [
                           Text(
                             yearFromDateString(
-                              detail?.firstAirDate ?? '',
+                              detail.firstAirDate ?? '',
                             ),
                             style: Theme.of(context)
                                 .textTheme
@@ -71,7 +72,7 @@ class HeaderImage extends ConsumerWidget {
                           const Width(10),
                           Text(
                             fetchSeason(
-                              detail?.numberOfSeasons,
+                              detail.numberOfSeasons,
                             ),
                             style: Theme.of(context)
                                 .textTheme
@@ -93,7 +94,7 @@ class HeaderImage extends ConsumerWidget {
                           ),
                           const Width(5),
                           Text(
-                            detail?.voteAverage.toString() ?? '',
+                            detail.voteAverage.toString(),
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ],

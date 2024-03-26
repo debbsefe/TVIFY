@@ -1,21 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/notifiers/generic_state.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
+import 'package:logging/logging.dart';
+import 'package:movie_colony/core/model/loading_state.dart';
 import 'package:movie_colony/features/auth/repositories/anonymous_repository.dart';
 
 final anonymousSignInNotifierProvider =
-    StateNotifierProvider<AnonymousSignInNotifier, GenericState<void>>((ref) {
+    StateNotifierProvider<AnonymousSignInNotifier, LoadingState>((ref) {
   return AnonymousSignInNotifier(ref.watch(anonymousSignInRepositoryrovider));
 });
 
-class AnonymousSignInNotifier extends GenericStateNotifier<void> {
-  AnonymousSignInNotifier(this.repository);
+class AnonymousSignInNotifier extends StateNotifier<LoadingState> {
+  AnonymousSignInNotifier(this.repository) : super(const LoadingState.idle());
 
   final AnonymousSignInRepository repository;
+  final logger = Logger('AnonymousSignInNotifier');
 
-  void signInAnonymous() {
-    sendRequest(() async {
-      return repository.anonymousSignInAuth();
-    });
+  Future<void> signInAnonymous() async {
+    try {
+      state = const LoadingState.loading();
+      await repository.anonymousSignInAuth();
+      state = const LoadingState.success();
+    } catch (e) {
+      state = LoadingState.error(e.toString());
+      logger.fine(e.toString());
+    }
   }
 }

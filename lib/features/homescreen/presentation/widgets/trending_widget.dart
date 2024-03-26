@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/app_router.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
@@ -18,7 +18,7 @@ class TrendingWidget extends ConsumerWidget {
         ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return trending.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
       error: (message) {
         return Center(
@@ -28,8 +28,9 @@ class TrendingWidget extends ConsumerWidget {
           ),
         );
       },
-      loaded: (trends) {
-        final trend = trends?.results ?? [];
+      success: (success) {
+        final trends = success! as TvList;
+        final trend = trends.results ?? [];
 
         return ListView.builder(
           scrollDirection: Axis.horizontal,

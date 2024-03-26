@@ -1,22 +1,26 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/model/tv_list.dart';
-import 'package:movie_colony/core/notifiers/generic_state.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/trending/data/repositories/trending_repository.dart';
 
 final weeklyTrendingNotifierProvider =
-    StateNotifierProvider<WeeklyTrendingNotifier, GenericState<TvList?>>((ref) {
+    StateNotifierProvider<WeeklyTrendingNotifier, LoadingState>((ref) {
   return WeeklyTrendingNotifier(ref.watch(trendingRepositoryProvider));
 });
 
-class WeeklyTrendingNotifier extends GenericStateNotifier<TvList?> {
-  WeeklyTrendingNotifier(this.trendingRepository);
+class WeeklyTrendingNotifier extends StateNotifier<LoadingState> {
+  WeeklyTrendingNotifier(this.trendingRepository)
+      : super(const LoadingState.idle());
 
   final TrendingRepository trendingRepository;
+  final logger = Logger('DailyTrendingNotifier');
 
-  void fetchTrending() {
-    sendRequest(() async {
-      return trendingRepository.getTrendingWeekly();
-    });
+  Future<void> fetchTrending() async {
+    try {
+      state = const LoadingState.loading();
+      final result = await trendingRepository.getTrendingWeekly();
+      state = LoadingState.success(result);
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 }

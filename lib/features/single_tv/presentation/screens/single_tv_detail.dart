@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/notifiers/generic_state.dart';
 import 'package:movie_colony/core/widgets/dialogs.dart';
 import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
 import 'package:movie_colony/features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
@@ -40,23 +39,26 @@ class _SingleTvDetailPageState extends ConsumerState<SingleTvDetailPage> {
   @override
   Widget build(BuildContext context) {
     ref.listen(addNotificationListNotifierProvider, (previous, next) {
-      if (next is Error<void>) {
-        messageDialog(
-          context: context,
-          onPressed: () {
-            context.router.root.maybePop();
-          },
-          content: next.message.toString(),
-        );
-      } else if (next is Loaded<void>) {
-        messageDialog(
-          context: context,
-          onPressed: () {
-            context.router.root.maybePop();
-          },
-          content: 'Notification added',
-        );
-      }
+      next.mapOrNull(
+        error: (error) {
+          messageDialog(
+            context: context,
+            onPressed: () {
+              context.router.root.maybePop();
+            },
+            content: error.error.toString(),
+          );
+        },
+        success: (success) {
+          messageDialog(
+            context: context,
+            onPressed: () {
+              context.router.root.maybePop();
+            },
+            content: 'Notification added',
+          );
+        },
+      );
     });
     return Scaffold(
       appBar: AppBar(

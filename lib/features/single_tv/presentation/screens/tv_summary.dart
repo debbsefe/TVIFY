@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/model/notification_list_model.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
@@ -15,7 +14,7 @@ class TvSummary extends ConsumerWidget {
     final tvDetail = ref.watch(tvDetailNotifierProvider);
 
     return tvDetail.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
       error: (message) {
         return Center(
@@ -25,8 +24,9 @@ class TvSummary extends ConsumerWidget {
           ),
         );
       },
-      loaded: (detail) {
-        final String overview = detail!.overview ?? '';
+      success: (success) {
+        final detail = success! as TvDetailModel;
+        final String overview = detail.overview ?? '';
         final categories = detail.genres ?? [];
         return Container(
           margin: const EdgeInsets.symmetric(

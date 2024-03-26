@@ -1,22 +1,25 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/notifiers/generic_state.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
 import 'package:movie_colony/features/single_tv/data/repositories/tv_detail_repository.dart';
 
 final tvDetailNotifierProvider =
-    StateNotifierProvider<TvDetailNotifier, GenericState<TvDetailModel>>((ref) {
+    StateNotifierProvider<TvDetailNotifier, LoadingState>((ref) {
   return TvDetailNotifier(ref.watch(tvDetailRepositoryProvider));
 });
 
-class TvDetailNotifier extends GenericStateNotifier<TvDetailModel> {
-  TvDetailNotifier(this.tvDetailRepository);
+class TvDetailNotifier extends StateNotifier<LoadingState> {
+  TvDetailNotifier(this.tvDetailRepository) : super(const LoadingState.idle());
 
   final TvDetailRepository tvDetailRepository;
+  final logger = Logger('TvCastNotifier');
 
-  void fetchTvDetail(String id) {
-    sendRequest(() async {
-      return tvDetailRepository.getTvDetail(id);
-    });
+  Future<void> fetchTvDetail(String id) async {
+    try {
+      state = const LoadingState.loading();
+      final result = await tvDetailRepository.getTvDetail(id);
+      state = LoadingState.success(result);
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 }

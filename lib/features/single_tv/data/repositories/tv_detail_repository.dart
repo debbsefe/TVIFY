@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/single_tv/data/datasources/tv_detail_remote_data_source.dart';
 

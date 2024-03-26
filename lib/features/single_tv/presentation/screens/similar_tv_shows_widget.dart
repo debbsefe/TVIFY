@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/app_router.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 import 'package:movie_colony/features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
@@ -16,7 +16,7 @@ class SimilarTvShowsWidget extends ConsumerWidget {
         ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
     return similarTV.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
       error: (message) {
         return Center(
@@ -26,8 +26,9 @@ class SimilarTvShowsWidget extends ConsumerWidget {
           ),
         );
       },
-      loaded: (similar) {
-        final tv = similar?.results ?? [];
+      success: (success) {
+        final similar = success! as TvList;
+        final tv = similar.results ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),

@@ -1,7 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/data/data.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 
 final tvDetailRemoteDataSourceProvider =

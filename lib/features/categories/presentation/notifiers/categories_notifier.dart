@@ -1,23 +1,26 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/model/categories_model.dart';
-import 'package:movie_colony/core/notifiers/generic_state.dart';
-import 'package:movie_colony/core/notifiers/generic_state_notifier.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/categories/data/repositories/categories_repository.dart';
 
 final categoriesNotiferProvider =
-    StateNotifierProvider<CategoriesNotifier, GenericState<CategoriesModel?>>(
-        (ref) {
+    StateNotifierProvider<CategoriesNotifier, LoadingState>((ref) {
   return CategoriesNotifier(ref.watch(categoriesRepositoryProvider));
 });
 
-class CategoriesNotifier extends GenericStateNotifier<CategoriesModel?> {
-  CategoriesNotifier(this.categoriesRepository);
+class CategoriesNotifier extends StateNotifier<LoadingState> {
+  CategoriesNotifier(this.categoriesRepository)
+      : super(const LoadingState.idle());
 
   final CategoriesRepository categoriesRepository;
+  final logger = Logger('CategoriesNotifier');
 
-  void fetchCategory() {
-    sendRequest(() async {
-      return categoriesRepository.getCategories();
-    });
+  Future<void> fetchCategory() async {
+    try {
+      state = const LoadingState.loading();
+      final category = await categoriesRepository.getCategories();
+      state = LoadingState.success(category);
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
   }
 }

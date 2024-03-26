@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/categories/presentation/notifiers/categories_notifier.dart';
 
 class CategoriesWidget extends ConsumerWidget {
@@ -9,7 +9,7 @@ class CategoriesWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final categories = ref.watch(categoriesNotiferProvider);
     return categories.when(
-      initial: Container.new,
+      idle: Container.new,
       loading: Container.new,
       error: (message) {
         return Center(
@@ -19,8 +19,9 @@ class CategoriesWidget extends ConsumerWidget {
           ),
         );
       },
-      loaded: (value) {
-        final category = value?.genres ?? [];
+      success: (success) {
+        final value = success! as CategoriesModel;
+        final category = value.genres ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.only(top: 10),

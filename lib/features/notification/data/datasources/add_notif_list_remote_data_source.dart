@@ -15,14 +15,11 @@ class AddNotifListRemoteDataSource {
   final FirebaseMethods methods;
 
   Future<void> addNotifListRemote(NotificationListModel model) async {
-    try {
-      final ref = methods.readWriteNotificationList(
-        collection: Strings.notificationList,
-        docName: model.id.toString(),
-      );
-      await ref.set(model);
-    } catch (e) {
-      print(e);
-    }
+    return methods
+        .readWriteNotificationList(
+          collection: Strings.notificationList,
+          docName: model.id.toString(),
+        )
+        .set(model);
   }
 }

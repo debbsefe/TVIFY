@@ -1,7 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/data/auth_interceptor.dart';
 import 'package:movie_colony/core/utils/extensions.dart';
 import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
 

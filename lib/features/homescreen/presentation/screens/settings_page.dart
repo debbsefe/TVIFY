@@ -44,19 +44,16 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
           children: [
             CupertinoSwitch(
               value: notifications,
-              // ignore: unnecessary_lambdas
-              onChanged: (value) => handleSwitch(value),
+              onChanged: handleSwitch,
             ),
             CupertinoSwitch(
               value: notifications2,
-              // ignore: unnecessary_lambdas
-              onChanged: (value) => handleSwitch2(value),
+              onChanged: handleSwitch2,
             ),
             const SizedBox(height: 20),
             TextButton(
               onPressed: () {
                 ref.watch(firebaseAuthProvider).signOut();
-                // context.router.replace(SignUpRoute(onResult: (bool value) {}));
               },
               child: const Text(
                 'Sign Out',

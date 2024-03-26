@@ -17,7 +17,6 @@ class AddNotifListRepository {
   Future<void> addNotificationList(
     NotificationListModel model,
   ) async {
-    final remote = await remoteDataSource.addNotifListRemote(model);
-    return remote;
+    return remoteDataSource.addNotifListRemote(model);
   }
 }
