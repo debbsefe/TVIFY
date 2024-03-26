@@ -9,20 +9,12 @@ final configProvider = Provider<Config>((ref) {
 });
 
 class Config {
-  Config(this.store);
+  Config(FirebaseFirestore store) : _store = store;
 
-  ///fetch token from store
-  final FirebaseFirestore store;
-  String? _token;
-  String? get token => _token;
+  final FirebaseFirestore _store;
 
   Future<String> fetchToken(String value) async {
-    if (token == null) {
-      final snapshot = await store.collection('token').doc(value).get();
-      _token = snapshot.data()?['key'] as String;
-      return snapshot.data()?['key'] as String;
-    }
-
-    return token!;
+    final snapshot = await _store.collection('token').doc(value).get();
+    return snapshot.data()?['key'] as String;
   }
 }

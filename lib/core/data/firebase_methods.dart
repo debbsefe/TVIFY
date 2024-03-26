@@ -17,27 +17,30 @@ final firebaseMethodsProvider = Provider<FirebaseMethods>((ref) {
 
 class FirebaseMethods {
   FirebaseMethods({
-    required this.store,
-    required this.auth,
-    required this.googleAuthProvider,
-    required this.googleSignIn,
-  });
+    required FirebaseFirestore store,
+    required FirebaseAuth auth,
+    required GoogleAuthProvider googleAuthProvider,
+    required GoogleSignIn googleSignIn,
+  })  : _store = store,
+        _auth = auth,
+        _googleAuthProvider = googleAuthProvider,
+        _googleSignIn = googleSignIn;
 
-  final FirebaseFirestore store;
-  final FirebaseAuth auth;
-  final GoogleAuthProvider googleAuthProvider;
-  final GoogleSignIn googleSignIn;
+  final FirebaseFirestore _store;
+  final FirebaseAuth _auth;
+  final GoogleAuthProvider _googleAuthProvider;
+  final GoogleSignIn _googleSignIn;
 
   Future<void> signInAnonymous() async {
-    await auth.signInAnonymously();
+    await _auth.signInAnonymously();
   }
 
   Future<void> signInWithGoogle() async {
     if (kIsWeb) {
-      await auth.signInWithPopup(googleAuthProvider);
+      await _auth.signInWithPopup(_googleAuthProvider);
     } else {
       final GoogleSignInAccount? googleSignInAccount =
-          await googleSignIn.signIn();
+          await _googleSignIn.signIn();
 
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication =
@@ -48,7 +51,7 @@ class FirebaseMethods {
           idToken: googleSignInAuthentication.idToken,
         );
 
-        await auth.signInWithCredential(credential);
+        await _auth.signInWithCredential(credential);
       }
     }
   }
@@ -57,8 +60,8 @@ class FirebaseMethods {
     required String docName,
     required String collection,
   }) {
-    final userId = auth.currentUser?.uid;
-    final reference = FirebaseFirestore.instance
+    final userId = _auth.currentUser?.uid;
+    final reference = _store
         .collection(collection)
         .doc(userId)
         .collection('tv')
