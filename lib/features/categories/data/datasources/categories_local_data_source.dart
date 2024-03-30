@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/model/model.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/utils/strings.dart';
 
 final categoriesLocalDataSourceProvider =
     Provider<CategoriesLocalDataSource>((ref) {
@@ -16,8 +15,7 @@ class CategoriesLocalDataSource {
   final SharedPreferencesRepository sharedPreferencesRepository;
 
   CategoriesModel? getCachedCategory() {
-    final jsonString =
-        sharedPreferencesRepository.retrieveString(Strings.cachedCategory);
+    final jsonString = sharedPreferencesRepository.getCategoryCache();
     if (jsonString != null) {
       return categoriesModelFromJson(jsonString);
     }
@@ -26,14 +24,7 @@ class CategoriesLocalDataSource {
 
   Future<void> cacheLastCategory(CategoriesModel? categoriesModel) async {
     if (categoriesModel != null) {
-      await sharedPreferencesRepository.saveString(
-        expiryDate(Strings.cachedCategory),
-        sevenDaysLater,
-      );
-      await sharedPreferencesRepository.saveString(
-        Strings.cachedCategory,
-        categoriesModelToJson(categoriesModel),
-      );
+      await sharedPreferencesRepository.setCategoryCache(categoriesModel);
     }
   }
 }

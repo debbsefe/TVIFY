@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';

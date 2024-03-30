@@ -1,20 +1,28 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tv_list.freezed.dart';
-part 'tv_list.g.dart';
+part 'tv_list_model.freezed.dart';
+part 'tv_list_model.g.dart';
+
+TvListModel tvListModelFromJson(String str) =>
+    TvListModel.fromJson(json.decode(str) as Map<String, dynamic>);
+
+String tvListModelToJson(TvListModel data) => json.encode(data.toJson());
 
 @freezed
-class TvList with _$TvList {
-  const factory TvList({
+class TvListModel with _$TvListModel {
+  const factory TvListModel({
     int? page,
     List<Result>? results,
     @JsonKey(name: 'total_pages') int? totalPages,
     @JsonKey(name: 'total_results') int? totalResults,
-  }) = _TvList;
+  }) = _TvListModel;
 
-  factory TvList.fromJson(Map<String, dynamic> json) => _$TvListFromJson(json);
+  factory TvListModel.fromJson(Map<String, dynamic> json) =>
+      _$TvListModelFromJson(json);
 }
 
 @freezed

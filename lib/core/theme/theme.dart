@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/utils/strings.dart';
+
+enum ThemeType { light, dark }
 
 final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
   return CustomTheme(
@@ -14,18 +15,16 @@ class CustomTheme extends StateNotifier<ThemeData> {
       : super(
           ///check current theme at app start
           /// and pass to the super-constructor
-          sharedPreferencesRepository.retrieveString(Strings.theme) ==
-                  Strings.darkTheme
+          sharedPreferencesRepository.getThemePreference() == ThemeType.dark
               ? CustomTheme.darkThemeData
               : CustomTheme.lightThemeData,
         );
   final SharedPreferencesRepository sharedPreferencesRepository;
 
-  ///change the theme by passing selected themeData and name of the theme
-  void changeTheme(ThemeData themeData, String name) {
+  void changeTheme(ThemeData themeData, ThemeType type) {
     if (state != themeData) {
       state = themeData;
-      sharedPreferencesRepository.saveString(Strings.theme, name);
+      sharedPreferencesRepository.setThemePreference(type);
     }
   }
 

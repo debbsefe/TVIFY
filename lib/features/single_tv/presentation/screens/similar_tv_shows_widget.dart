@@ -27,7 +27,7 @@ class SimilarTvShowsWidget extends ConsumerWidget {
         );
       },
       success: (success) {
-        final similar = success! as TvList;
+        final similar = success! as TvListModel;
         final tv = similar.results ?? [];
         return ListView.builder(
           scrollDirection: Axis.horizontal,

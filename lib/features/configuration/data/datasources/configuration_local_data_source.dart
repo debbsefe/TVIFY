@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/utils/strings.dart';
 
 final configurationLocalDataSourceProvider =
     Provider<ConfigurationLocalDataSource>((ref) {
@@ -17,25 +14,19 @@ class ConfigurationLocalDataSource {
   final SharedPreferencesRepository sharedPreferencesRepository;
 
   ConfigurationModel? getCachedConfiguration() {
-    final jsonString =
-        sharedPreferencesRepository.retrieveString(Strings.cachedConfiguration);
+    final jsonString = sharedPreferencesRepository.getConfigurationCache();
     if (jsonString != null) {
-      return ConfigurationModel.fromJson(
-        json.decode(jsonString) as Map<String, dynamic>,
-      );
+      configurationModelFromJson(jsonString);
     }
     return null;
   }
 
-  Future<void> cacheLastConfiguration(ConfigurationModel? configurationModel) {
-    sharedPreferencesRepository.saveString(
-      expiryDate(Strings.cachedConfiguration),
-      sevenDaysLater,
-    );
-
-    return sharedPreferencesRepository.saveString(
-      Strings.cachedConfiguration,
-      json.encode(configurationModel?.toJson()),
-    );
+  Future<void> cacheLastConfiguration(
+    ConfigurationModel? configurationModel,
+  ) async {
+    if (configurationModel != null) {
+      await sharedPreferencesRepository
+          .setConfigurationCache(configurationModel);
+    }
   }
 }
