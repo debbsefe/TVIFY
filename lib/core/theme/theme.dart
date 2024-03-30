@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 
 enum ThemeType { light, dark }
@@ -78,7 +79,6 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static ThemeData lightThemeData = ThemeData(
     primarySwatch: Colors.brown,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    fontFamily: 'NotoSansKR-Regular',
     scaffoldBackgroundColor: scaffoldLight,
     brightness: Brightness.light,
     primaryColor: primaryColor,
@@ -89,17 +89,16 @@ class CustomTheme extends StateNotifier<ThemeData> {
       backgroundColor: scaffoldLight,
       iconTheme: IconThemeData(color: greyColor2),
     ),
-    textTheme: lightTextTheme,
+    textTheme: GoogleFonts.dmMonoTextTheme(lightTextTheme),
   );
 
   static ThemeData darkThemeData = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    fontFamily: 'NotoSansKR-Regular',
     primarySwatch: Colors.brown,
     scaffoldBackgroundColor: scaffoldDark,
     brightness: Brightness.dark,
     primaryColor: scaffoldLight,
-    textTheme: darkTextTheme,
+    textTheme: GoogleFonts.dmMonoTextTheme(darkTextTheme),
     cardColor: primaryShade2,
     appBarTheme: const AppBarTheme(
       centerTitle: false,

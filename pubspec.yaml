@@ -21,6 +21,7 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^2.4.10
   freezed_annotation: ^2.4.1
+  google_fonts: ^6.2.1
   google_sign_in: ^6.1.6
   http: ^1.1.0
   http_interceptor: ^2.0.0-beta.8
@@ -38,14 +39,10 @@ dev_dependencies:
   freezed: ^2.4.7
   json_serializable: ^6.7.1
   very_good_analysis: ^5.1.0
-  
+
 flutter:
   uses-material-design: true
 
   assets:
     - assets/images/
-
-  fonts:
-    - family: NotoSansKR-Regular
-      fonts:
-        - asset: assets/fonts/NotoSansKR-Regular.otf
+    - google_fonts/
