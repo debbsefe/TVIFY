@@ -1,9 +1,16 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'tv_list_model.freezed.dart';
 part 'tv_list_model.g.dart';
+
+TvListModel tvListModelFromJson(String str) =>
+    TvListModel.fromJson(json.decode(str) as Map<String, dynamic>);
+
+String tvListModelToJson(TvListModel data) => json.encode(data.toJson());
 
 @freezed
 class TvListModel with _$TvListModel {

@@ -24,23 +24,10 @@ class ConfigurationRepository {
   final SharedPreferencesRepository sharedPreferencesRepository;
 
   Future<ConfigurationModel?> getConfiguration() async {
-    final bool hasExpired =
-        sharedPreferencesRepository.isExpired(Strings.cachedConfiguration);
+    final bool hasExpired = sharedPreferencesRepository
+        .shouldRenewCache(Strings.cachedConfiguration);
 
-    return getConfigurationSwitchCase(hasExpired);
-  }
-
-  Future<ConfigurationModel?> getConfigurationSwitchCase(
-    bool hasExpired,
-  ) async {
-    switch (hasExpired) {
-      case true:
-        return remoteData();
-      case false:
-        return localData();
-      default:
-        return remoteData();
-    }
+    return hasExpired ? await remoteData() : localData();
   }
 
   Future<ConfigurationModel?> remoteData() async {
@@ -49,8 +36,7 @@ class ConfigurationRepository {
     return remote;
   }
 
-  Future<ConfigurationModel?> localData() async {
-    final local = localDataSource.getCachedConfiguration();
-    return local;
+  ConfigurationModel? localData() {
+    return localDataSource.getCachedConfiguration();
   }
 }

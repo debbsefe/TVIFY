@@ -25,22 +25,8 @@ class CategoriesRepository {
 
   Future<CategoriesModel?> getCategories() async {
     final bool hasExpired =
-        sharedPreferencesRepository.isExpired(Strings.cachedCategory);
-
-    return getCategoriesSwitchCase(hasExpired);
-  }
-
-  Future<CategoriesModel?> getCategoriesSwitchCase(
-    bool hasExpired,
-  ) async {
-    switch (hasExpired) {
-      case true:
-        return remoteData();
-      case false:
-        return localData();
-      default:
-        return remoteData();
-    }
+        sharedPreferencesRepository.shouldRenewCache(Strings.cachedCategory);
+    return hasExpired ? await remoteData() : localData();
   }
 
   Future<CategoriesModel?> remoteData() async {
@@ -49,8 +35,7 @@ class CategoriesRepository {
     return remote;
   }
 
-  Future<CategoriesModel?> localData() async {
-    final localCategory = localDataSource.getCachedCategory();
-    return localCategory;
+  CategoriesModel? localData() {
+    return localDataSource.getCachedCategory();
   }
 }

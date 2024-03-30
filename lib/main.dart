@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
@@ -61,7 +62,9 @@ void initLogger() {
           '${record.time}: ${record.message}'
           '${record.stackTrace != null ? '\n${record.stackTrace}' : ''}';
 
-      print(log);
+      if (kDebugMode) {
+        print(log);
+      }
     },
   );
 }

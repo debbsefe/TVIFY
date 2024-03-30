@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/theme/theme.dart';
-import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/providers.dart';
 
 @RoutePage()
@@ -21,7 +20,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   Future<void> handleSwitch(bool value) async {
     ref
         .read(themeProvider.notifier)
-        .changeTheme(CustomTheme.darkThemeData, Strings.darkTheme);
+        .changeTheme(CustomTheme.darkThemeData, ThemeType.dark);
     setState(() {
       notifications = value;
     });
@@ -30,7 +29,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
   Future<void> handleSwitch2(bool value) async {
     ref
         .read(themeProvider.notifier)
-        .changeTheme(CustomTheme.lightThemeData, Strings.lightTheme);
+        .changeTheme(CustomTheme.lightThemeData, ThemeType.light);
     setState(() {
       notifications2 = value;
     });

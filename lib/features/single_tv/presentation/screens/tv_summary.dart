@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/theme/theme.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/core/widgets/buttons.dart';
 import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';

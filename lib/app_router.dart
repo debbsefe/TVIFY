@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/features/auth/presentation/screens/signup_page.dart';
 import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
 import 'package:movie_colony/features/homescreen/presentation/screens/homescreen_tab.dart';
@@ -18,10 +17,8 @@ part 'app_router.gr.dart';
 final appRouterProvider =
     Provider.family<AppRouter, WidgetRef>((ref, widgetRef) {
   final user = ref.watch(userChangesProvider).value;
-  final isFirstTimeUser = ref
-          .watch(sharedPreferencesRepositoryProvider)
-          .retrieveBool(Strings.firstTimeUser) ??
-      true;
+  final isFirstTimeUser =
+      ref.watch(sharedPreferencesRepositoryProvider).getFirstTimeUser();
   final guard = AuthGuard(
     ref: widgetRef,
     user: user,
