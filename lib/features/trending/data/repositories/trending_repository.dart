@@ -1,5 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/model/tv_list.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_local_data_source.dart';
 import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
 
@@ -20,18 +19,18 @@ class TrendingRepository {
   final TrendingRemoteDataSource remoteDataSource;
   final TrendingLocalDataSource localDataSource;
 
-  Future<TvList?> getTrendingWeekly() async {
+  Future<TvListModel?> getTrendingWeekly() async {
     return remoteData(TimeWindow.weekly);
   }
 
-  Future<TvList?> getTrendingDaily() async {
+  Future<TvListModel?> getTrendingDaily() async {
     return remoteData(TimeWindow.daily);
   }
 
-  Future<TvList?> remoteData(
+  Future<TvListModel?> remoteData(
     TimeWindow timeWindow,
   ) async {
-    TvList? remote;
+    TvListModel? remote;
     if (timeWindow == TimeWindow.daily) {
       remote = await remoteDataSource.getRemoteTrendingDaily();
       await localDataSource.cacheLastTrendingDaily(remote);
@@ -42,8 +41,8 @@ class TrendingRepository {
     return remote;
   }
 
-  Future<TvList?> localData(TimeWindow timeWindow) async {
-    TvList? local;
+  Future<TvListModel?> localData(TimeWindow timeWindow) async {
+    TvListModel? local;
     if (timeWindow == TimeWindow.daily) {
       local = localDataSource.getCachedTrendingDaily();
     } else {

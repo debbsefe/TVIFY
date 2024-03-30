@@ -51,7 +51,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
         );
       },
       success: (success) {
-        final trends = success! as TvList;
+        final trends = success! as TvListModel;
         final trend = trends.results?.first;
         final String posterImage = trend?.posterPath ?? '';
 

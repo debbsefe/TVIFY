@@ -29,7 +29,7 @@ class TrendingWidget extends ConsumerWidget {
         );
       },
       success: (success) {
-        final trends = success! as TvList;
+        final trends = success! as TvListModel;
         final trend = trends.results ?? [];
 
         return ListView.builder(
