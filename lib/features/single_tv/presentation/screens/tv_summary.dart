@@ -6,11 +6,12 @@ import 'package:movie_colony/features/notification/presentation/notifiers/add_no
 import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class TvSummary extends ConsumerWidget {
-  const TvSummary({super.key});
+  const TvSummary({required this.tvId, super.key});
+  final String tvId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tvDetail = ref.watch(tvDetailNotifierProvider);
+    final tvDetail = ref.watch(tvDetailNotifierProvider(tvId));
 
     return tvDetail.when(
       idle: Container.new,

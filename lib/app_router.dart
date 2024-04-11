@@ -9,7 +9,7 @@ import 'package:movie_colony/features/homescreen/presentation/screens/homescreen
 import 'package:movie_colony/features/homescreen/presentation/screens/settings_page.dart';
 import 'package:movie_colony/features/notification/presentation/screens/notification_list_screen.dart';
 import 'package:movie_colony/features/onboarding/presentation/onboarding.dart';
-import 'package:movie_colony/features/single_tv/presentation/screens/single_tv_detail.dart';
+import 'package:movie_colony/features/single_tv/presentation/screens/single_tv_detail_page.dart';
 import 'package:movie_colony/providers.dart';
 
 part 'app_router.gr.dart';

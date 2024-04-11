@@ -1,9 +1,9 @@
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/single_tv/data/repositories/tv_cast_repository.dart';
 
-final tvCastNotifierProvider =
-    StateNotifierProvider<TvCastNotifier, LoadingState>((ref) {
-  return TvCastNotifier(ref.watch(tvCastRepositoryProvider));
+final tvCastNotifierProvider = StateNotifierProvider.family
+    .autoDispose<TvCastNotifier, LoadingState, String>((ref, String id) {
+  return TvCastNotifier(ref.watch(tvCastRepositoryProvider))..init(id);
 });
 
 class TvCastNotifier extends StateNotifier<LoadingState> {
@@ -12,7 +12,7 @@ class TvCastNotifier extends StateNotifier<LoadingState> {
   final TvCastRepository tvCastRepository;
   final logger = Logger('TvCastNotifier');
 
-  Future<void> fetchTvCast(String id) async {
+  Future<void> init(String id) async {
     try {
       state = const LoadingState.loading();
       final result = await tvCastRepository.getTvCast(id);
