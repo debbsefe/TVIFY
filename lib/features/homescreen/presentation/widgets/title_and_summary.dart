@@ -6,8 +6,8 @@ import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/widgets/cache_image.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 
-class TitleAndSummary extends ConsumerWidget {
-  const TitleAndSummary({required this.state, super.key});
+class TvCard extends ConsumerWidget {
+  const TvCard({required this.state, super.key});
   final LoadingState state;
 
   @override

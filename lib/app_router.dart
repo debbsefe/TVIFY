@@ -45,8 +45,8 @@ class AppRouter extends _$AppRouter {
           guards: guards,
           children: [
             AutoRoute(page: HomeRoute.page),
-            AutoRoute(page: SearchRoute.page),
-            AutoRoute(page: NotificationListRoute.page),
+            AutoRoute(page: ExploreRoute.page),
+            AutoRoute(page: WatchListRoute.page),
             AutoRoute(page: SettingsRoute.page),
           ],
         ),

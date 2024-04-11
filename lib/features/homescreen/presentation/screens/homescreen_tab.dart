@@ -11,8 +11,8 @@ class HomeScreenTab extends StatelessWidget {
     return AutoTabsScaffold(
       routes: const [
         HomeRoute(),
-        SearchRoute(),
-        NotificationListRoute(),
+        ExploreRoute(),
+        WatchListRoute(),
         SettingsRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
@@ -31,12 +31,12 @@ class HomeScreenTab extends StatelessWidget {
             bottomNavigationBar(
               icon: Icons.search,
               semanticLabel: 'This is the Search Page ',
-              label: 'Search',
+              label: 'Explore',
             ),
             bottomNavigationBar(
               icon: Icons.movie,
               semanticLabel: 'This is the WatchList Page',
-              label: 'WatchList',
+              label: 'List',
             ),
             bottomNavigationBar(
               icon: Icons.settings,
@@ -69,8 +69,8 @@ class HomeScreenTab extends StatelessWidget {
 }
 
 @RoutePage()
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+class ExplorePage extends StatelessWidget {
+  const ExplorePage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/features/homescreen/presentation/widgets/categories_widget.dart';
 import 'package:movie_colony/features/homescreen/presentation/widgets/title_and_summary.dart';
 import 'package:movie_colony/features/homescreen/presentation/widgets/tvshow_week.dart';
 import 'package:movie_colony/features/trending/presentation/notifiers/airing_today_notifier.dart';
@@ -30,18 +29,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Categories',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 100, child: CategoriesWidget()),
                     const SizedBox(height: 20),
                     HomeSection(
                       title: "Explore what's trending",
                       subtitle: 'Popular tv shows around the world',
                       onSeeAllTap: () {},
                     ),
-                    TitleAndSummary(
+                    TvCard(
                       state: ref.watch(dailyTrendingNotifierProvider),
                     ),
                     HomeSection(
@@ -49,7 +43,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       subtitle: 'Find out what is airing today',
                       onSeeAllTap: () {},
                     ),
-                    TitleAndSummary(
+                    TvCard(
                       state: ref.watch(airingTodayNotifierProvider),
                     ),
                   ],

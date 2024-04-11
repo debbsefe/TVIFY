@@ -74,7 +74,7 @@ class SingleTvDetailPage extends ConsumerWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ),
-              TitleAndSummary(
+              TvCard(
                 state: ref.watch(similarTvNotifierProvider(id)),
               ),
             ],

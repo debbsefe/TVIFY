@@ -8,6 +8,10 @@ import 'package:movie_colony/features/configuration/presentation/notifiers/confi
 import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
 import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
+final _aboutProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 class TvShowOfTheWeek extends ConsumerWidget {
   const TvShowOfTheWeek({super.key});
 
@@ -93,20 +97,27 @@ class TvShowOfTheWeek extends ConsumerWidget {
                     '${trend?.name}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  Text(
-                    'About ${trend?.name}',
-                    style: Theme.of(context).textTheme.titleSmall,
+                  InkWell(
+                    onTap: () {
+                      final showAbout = ref.watch(_aboutProvider);
+                      ref.watch(_aboutProvider.notifier).state = !showAbout;
+                    },
+                    child: Text(
+                      'About ${trend?.name}',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                trend?.overview ?? '',
-                style: Theme.of(context).textTheme.titleSmall,
+            if (ref.watch(_aboutProvider))
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  trend?.overview ?? '',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
               ),
-            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
               child: CustomButton(
