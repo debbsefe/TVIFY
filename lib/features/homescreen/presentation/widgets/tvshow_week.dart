@@ -60,18 +60,38 @@ class TvShowOfTheWeek extends ConsumerWidget {
           children: [
             CachedImage(
               url + posterImage,
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.6,
+            ),
+            const SizedBox(height: 12),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'TV Show of the Week',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(color: CustomTheme.nonPhotoBlue),
+                  ),
+                  Text(
+                    'Weekly recommended TV shows for you',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: CustomTheme.nonPhotoBlue),
+                  ),
+                ],
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Tv show of the week',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                    '${trend?.name}',
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Text(
                     'About ${trend?.name}',
@@ -80,12 +100,15 @@ class TvShowOfTheWeek extends ConsumerWidget {
                 ],
               ),
             ),
-            Text(
-              trend?.overview ?? '',
-              style: Theme.of(context).textTheme.titleSmall,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                trend?.overview ?? '',
+                style: Theme.of(context).textTheme.titleSmall,
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 30),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
               child: CustomButton(
                 onPressed: () {
                   ref

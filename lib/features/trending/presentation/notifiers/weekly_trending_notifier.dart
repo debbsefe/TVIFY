@@ -1,22 +1,22 @@
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/trending/data/repositories/trending_repository.dart';
+import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
 
 final weeklyTrendingNotifierProvider =
     StateNotifierProvider<WeeklyTrendingNotifier, LoadingState>((ref) {
-  return WeeklyTrendingNotifier(ref.watch(trendingRepositoryProvider));
+  return WeeklyTrendingNotifier(ref.watch(trendingRemoteDataSourceProvider))
+    ..init();
 });
 
 class WeeklyTrendingNotifier extends StateNotifier<LoadingState> {
-  WeeklyTrendingNotifier(this.trendingRepository)
-      : super(const LoadingState.idle());
+  WeeklyTrendingNotifier(this.dataSource) : super(const LoadingState.idle());
 
-  final TrendingRepository trendingRepository;
-  final logger = Logger('DailyTrendingNotifier');
+  final TrendingRemoteDataSource dataSource;
+  final logger = Logger('WeeklyTrendingNotifier');
 
-  Future<void> fetchTrending() async {
+  Future<void> init() async {
     try {
       state = const LoadingState.loading();
-      final result = await trendingRepository.getTrendingWeekly();
+      final result = await dataSource.getRemoteTrendingWeekly();
       state = LoadingState.success(result);
     } catch (e) {
       state = LoadingState.error(e);

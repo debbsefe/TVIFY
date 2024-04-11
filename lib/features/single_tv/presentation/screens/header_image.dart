@@ -37,8 +37,6 @@ class HeaderImage extends ConsumerWidget {
               tag: 'imageHero-${url + posterImage}',
               child: CachedImage(
                 url + posterImage,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.55,
               ),
             ),
             Container(

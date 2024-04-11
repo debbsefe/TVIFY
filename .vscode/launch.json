@@ -11,12 +11,12 @@
             "program": "./test/"
         },
         {
-            "name": "MovieColony",
+            "name": "TVIFY",
             "request": "launch",
             "type": "dart",
         },
         {
-            "name": "MovieColony (profile mode)",
+            "name": "TVIFY (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"

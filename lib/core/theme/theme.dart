@@ -34,6 +34,9 @@ class CustomTheme extends StateNotifier<ThemeData> {
 
   ///PRIMARY COLORS, TINTS AND SHADES
   static const Color primaryColor = Color(0xFF8C1B2F);
+  static const Color primaryColor300 = Color(0xFFFFDCD2);
+  static const Color primaryColor500 = Color(0xFFFF8663);
+
   static const Color primaryTint1 = Color(0xFFE5798C);
   static const Color primaryTint2 = Color(0xFFED9FAD);
   static const Color primaryTint3 = Color(0xFFF4C5CE);
@@ -59,7 +62,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const Color secondaryShade5 = Color(0xFF146758);
 
   ///tmc grey colors
-  static const Color greyColor1 = Color(0xFF4A1C24);
+  static const Color grey100 = Color(0xFFEEEEEE);
   static const Color greyColor2 = Color(0xFF806066);
   static const Color greyColor3 = Color(0xFFA58E92);
   static const Color greyColor4 = Color(0xFFB7A4A7);
@@ -75,6 +78,8 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const Color yellowColor = Color(0xFFC9A717);
   static const Color buttonColor1 = Color(0xFFFBECEF);
   static const Color yellowStar = Color(0xFFF3CD2A);
+  static const Color nonPhotoBlue = Color(0xFF98d9eb);
+  static const Color mediumChampagne = Color(0xFFEDE6AD);
 
   static ThemeData lightThemeData = ThemeData(
     primarySwatch: Colors.brown,
@@ -130,11 +135,11 @@ class CustomTheme extends StateNotifier<ThemeData> {
   );
 
   static const TextStyle bodyText2 = TextStyle(
-    color: greyColor1,
+    color: grey100,
     fontSize: 12,
   );
   static const TextStyle bodyTextLight = TextStyle(
-    color: greyColor2,
+    color: grey100,
     fontSize: 16,
   );
 
@@ -144,13 +149,13 @@ class CustomTheme extends StateNotifier<ThemeData> {
   );
 
   static const TextStyle headline4Light = TextStyle(
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
     fontSize: 16,
-    color: greyColor1,
+    color: scaffoldLight,
   );
 
   static const TextStyle headline4Dark = TextStyle(
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
     fontSize: 16,
     color: scaffoldLight,
   );
@@ -158,7 +163,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const TextStyle headline6Light = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 12,
-    color: greyColor1,
+    color: grey100,
   );
 
   static const TextStyle headline6Dark = TextStyle(
@@ -169,28 +174,28 @@ class CustomTheme extends StateNotifier<ThemeData> {
 
   static const TextStyle captionLight = TextStyle(
     fontSize: 10,
-    color: greyColor2,
+    color: grey100,
   );
 
   static const TextStyle captionDark = TextStyle(
     fontSize: 10,
-    color: buttonColor1,
+    color: grey100,
   );
   static const TextStyle subtitle = TextStyle(
     // subtitle -> subtitleLight
-    fontSize: 12,
-    color: greyColor4,
+    fontSize: 10,
+    color: mediumChampagne,
   );
 
   static const TextStyle subtitleRegLight = TextStyle(
     // subtitle1 -> subtitleRegular
-    fontSize: 20,
-    color: primaryColor,
+    fontSize: 12,
+    color: primaryColor300,
   );
 
   static const TextStyle subtitleRegDark = TextStyle(
     // subtitle1 -> subtitleRegular
-    fontSize: 20,
-    color: scaffoldLight,
+    fontSize: 12,
+    color: primaryColor300,
   );
 }

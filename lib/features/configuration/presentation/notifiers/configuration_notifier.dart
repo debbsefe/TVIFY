@@ -5,7 +5,7 @@ final configurationNotifierProvider =
     StateNotifierProvider<ConfigurationNotifier, LoadingState>((ref) {
   return ConfigurationNotifier(
     configurationRepository: ref.watch(configurationRepositoryProvider),
-  );
+  )..init();
 });
 
 class ConfigurationNotifier extends StateNotifier<LoadingState> {
@@ -15,7 +15,7 @@ class ConfigurationNotifier extends StateNotifier<LoadingState> {
   final ConfigurationRepository configurationRepository;
   final logger = Logger('ConfigurationNotifier');
 
-  Future<void> fetchConfiguration() async {
+  Future<void> init() async {
     try {
       state = const LoadingState.loading();
       final result = await configurationRepository.getConfiguration();

@@ -41,6 +41,7 @@ class MovieColony extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(themeProvider);
     final appRouter = ref.watch(appRouterProvider(ref));
+    // ignore: deprecated_member_use
     final user = ref.watch(userChangesProvider.stream);
 
     return MaterialApp.router(

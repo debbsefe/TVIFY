@@ -49,8 +49,6 @@ class TopCast extends ConsumerWidget {
                 children: [
                   CachedImage(
                     imageUrl,
-                    isRound: true,
-                    radius: 56,
                   ),
                   Text(
                     cast[index].name ?? '',
