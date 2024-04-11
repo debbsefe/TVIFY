@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Height extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   const Height(
-    this.height,
-  );
+    this.height, {
+    super.key,
+  });
 
   final double height;
   @override
@@ -16,10 +16,10 @@ class Height extends StatelessWidget {
 }
 
 class Width extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   const Width(
-    this.width,
-  );
+    this.width, {
+    super.key,
+  });
 
   final double width;
   @override

@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:movie_colony/app_router.dart';
+import 'package:movie_colony/core/core.dart';
 
 @RoutePage()
 class HomeScreenTab extends StatelessWidget {
@@ -11,35 +13,35 @@ class HomeScreenTab extends StatelessWidget {
     return AutoTabsScaffold(
       routes: const [
         HomeRoute(),
-        SearchRoute(),
-        NotificationListRoute(),
+        ExploreRoute(),
+        WatchListRoute(),
         SettingsRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
-          unselectedItemColor: Colors.grey,
-          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: CustomTheme.grey300,
+          selectedItemColor: CustomTheme.primaryColor,
           currentIndex: tabsRouter.activeIndex,
           onTap: tabsRouter.setActiveIndex,
           type: BottomNavigationBarType.fixed,
           items: [
             bottomNavigationBar(
-              icon: Icons.home_outlined,
+              iconPath: CustomIcons.home,
               semanticLabel: 'This is the Home Page',
               label: 'Home',
             ),
             bottomNavigationBar(
-              icon: Icons.search,
+              iconPath: CustomIcons.explore,
               semanticLabel: 'This is the Search Page ',
-              label: 'Search',
+              label: 'Explore',
             ),
             bottomNavigationBar(
-              icon: Icons.movie,
+              iconPath: CustomIcons.watchlist,
               semanticLabel: 'This is the WatchList Page',
-              label: 'WatchList',
+              label: 'List',
             ),
             bottomNavigationBar(
-              icon: Icons.settings,
+              iconPath: CustomIcons.settings,
               semanticLabel: 'This is the Settings Page',
               label: 'Settings',
             ),
@@ -50,18 +52,20 @@ class HomeScreenTab extends StatelessWidget {
   }
 
   BottomNavigationBarItem bottomNavigationBar({
-    required IconData icon,
+    required String iconPath,
     required String semanticLabel,
     required String label,
   }) {
     return BottomNavigationBarItem(
-      icon: Icon(
-        icon,
-        semanticLabel: semanticLabel,
+      icon: SvgPicture.asset(
+        iconPath,
+        semanticsLabel: semanticLabel,
       ),
-      activeIcon: Icon(
-        icon,
-        semanticLabel: semanticLabel,
+      activeIcon: SvgPicture.asset(
+        iconPath,
+        semanticsLabel: semanticLabel,
+        colorFilter:
+            const ColorFilter.mode(CustomTheme.primaryColor, BlendMode.srcIn),
       ),
       label: label,
     );
@@ -69,8 +73,8 @@ class HomeScreenTab extends StatelessWidget {
 }
 
 @RoutePage()
-class SearchPage extends StatelessWidget {
-  const SearchPage({super.key});
+class ExplorePage extends StatelessWidget {
+  const ExplorePage({super.key});
 
   @override
   Widget build(BuildContext context) {

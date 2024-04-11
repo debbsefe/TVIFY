@@ -7,11 +7,12 @@ import 'package:movie_colony/features/configuration/presentation/notifiers/confi
 import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class HeaderImage extends ConsumerWidget {
-  const HeaderImage({super.key});
+  const HeaderImage({required this.tvId, super.key});
+  final String tvId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tvDetail = ref.watch(tvDetailNotifierProvider);
+    final tvDetail = ref.watch(tvDetailNotifierProvider(tvId));
     final url =
         ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
@@ -37,8 +38,6 @@ class HeaderImage extends ConsumerWidget {
               tag: 'imageHero-${url + posterImage}',
               child: CachedImage(
                 url + posterImage,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.55,
               ),
             ),
             Container(
@@ -49,56 +48,60 @@ class HeaderImage extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        name,
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            yearFromDateString(
-                              detail.firstAirDate ?? '',
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              yearFromDateString(
+                                detail.firstAirDate ?? '',
+                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(color: CustomTheme.greyColor3),
                             ),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: CustomTheme.greyColor3),
-                          ),
-                          const Width(10),
-                          Text(
-                            fetchSeason(
-                              detail.numberOfSeasons,
+                            const Width(10),
+                            Text(
+                              fetchSeason(
+                                detail.numberOfSeasons,
+                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(color: CustomTheme.greyColor3),
                             ),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(color: CustomTheme.greyColor3),
-                          ),
-                        ],
-                      ),
-                    ],
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            size: 16,
-                            color: CustomTheme.yellowStar,
-                          ),
-                          const Width(5),
-                          Text(
-                            detail.voteAverage.toString(),
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                        ],
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              size: 16,
+                              color: CustomTheme.yellowStar,
+                            ),
+                            const Width(5),
+                            Text(
+                              detail.voteAverage?.toStringAsFixed(1) ?? '',
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

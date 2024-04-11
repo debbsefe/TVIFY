@@ -1,9 +1,9 @@
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/single_tv/data/repositories/similar_tv_repository.dart';
 
-final similarTvNotifierProvider =
-    StateNotifierProvider<SimilarTvNotifier, LoadingState>((ref) {
-  return SimilarTvNotifier(ref.watch(similarTvRepositoryProvider));
+final similarTvNotifierProvider = StateNotifierProvider.family
+    .autoDispose<SimilarTvNotifier, LoadingState, String>((ref, String id) {
+  return SimilarTvNotifier(ref.watch(similarTvRepositoryProvider))..init(id);
 });
 
 class SimilarTvNotifier extends StateNotifier<LoadingState> {
@@ -13,7 +13,7 @@ class SimilarTvNotifier extends StateNotifier<LoadingState> {
   final SimilarTvRepository similarTvRepository;
   final logger = Logger('SimilarTvNotifier');
 
-  Future<void> fetchSimilarTv(String id) async {
+  Future<void> init(String id) async {
     try {
       state = const LoadingState.loading();
       final result = await similarTvRepository.getSimilarTv(id);

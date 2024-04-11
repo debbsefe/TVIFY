@@ -27,4 +27,10 @@ class TrendingRemoteDataSource {
     final response = await client.get(uri);
     return tvListModelFromJson(response.body);
   }
+
+  Future<TvListModel?> getAiringToday() async {
+    final Uri uri = Uri.parse('tv/airing_today'.baseurl);
+    final response = await client.get(uri);
+    return tvListModelFromJson(response.body);
+  }
 }

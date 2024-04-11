@@ -3,7 +3,7 @@ import 'package:movie_colony/features/categories/data/repositories/categories_re
 
 final categoriesNotiferProvider =
     StateNotifierProvider<CategoriesNotifier, LoadingState>((ref) {
-  return CategoriesNotifier(ref.watch(categoriesRepositoryProvider));
+  return CategoriesNotifier(ref.watch(categoriesRepositoryProvider))..init();
 });
 
 class CategoriesNotifier extends StateNotifier<LoadingState> {
@@ -13,7 +13,7 @@ class CategoriesNotifier extends StateNotifier<LoadingState> {
   final CategoriesRepository categoriesRepository;
   final logger = Logger('CategoriesNotifier');
 
-  Future<void> fetchCategory() async {
+  Future<void> init() async {
     try {
       state = const LoadingState.loading();
       final category = await categoriesRepository.getCategories();

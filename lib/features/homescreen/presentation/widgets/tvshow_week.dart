@@ -8,6 +8,10 @@ import 'package:movie_colony/features/configuration/presentation/notifiers/confi
 import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
 import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
+final _aboutProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 class TvShowOfTheWeek extends ConsumerWidget {
   const TvShowOfTheWeek({super.key});
 
@@ -60,32 +64,62 @@ class TvShowOfTheWeek extends ConsumerWidget {
           children: [
             CachedImage(
               url + posterImage,
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.6,
             ),
+            const SizedBox(height: 12),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Tv show of the week',
-                    style: Theme.of(context).textTheme.headlineMedium,
+                    'TV Show of the Week',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineMedium
+                        ?.copyWith(color: CustomTheme.nonPhotoBlue),
                   ),
                   Text(
-                    'About ${trend?.name}',
-                    style: Theme.of(context).textTheme.titleSmall,
+                    'Weekly recommended TV shows for you',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodySmall
+                        ?.copyWith(color: CustomTheme.nonPhotoBlue),
                   ),
                 ],
               ),
             ),
-            Text(
-              trend?.overview ?? '',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 30),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${trend?.name}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      final showAbout = ref.watch(_aboutProvider);
+                      ref.watch(_aboutProvider.notifier).state = !showAbout;
+                    },
+                    child: Text(
+                      'About ${trend?.name}',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (ref.watch(_aboutProvider))
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  trend?.overview ?? '',
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
               child: CustomButton(
                 onPressed: () {
                   ref

@@ -16,7 +16,7 @@ class ConfigurationLocalDataSource {
   ConfigurationModel? getCachedConfiguration() {
     final jsonString = sharedPreferencesRepository.getConfigurationCache();
     if (jsonString != null) {
-      configurationModelFromJson(jsonString);
+      return configurationModelFromJson(jsonString);
     }
     return null;
   }

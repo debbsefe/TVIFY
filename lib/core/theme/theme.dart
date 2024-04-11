@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 
 enum ThemeType { light, dark }
@@ -29,41 +30,24 @@ class CustomTheme extends StateNotifier<ThemeData> {
   }
 
   static const Color scaffoldLight = Color(0xFFFFF9FA);
-  static const Color scaffoldDark = Color(0xFF160105);
+  static const Color scaffoldDark = Colors.black;
 
   ///PRIMARY COLORS, TINTS AND SHADES
-  static const Color primaryColor = Color(0xFF8C1B2F);
-  static const Color primaryTint1 = Color(0xFFE5798C);
+  static const Color primaryColor300 = Color(0xFFFFDCD2);
+  static const Color primaryColor = Color(0xFFFF8663);
   static const Color primaryTint2 = Color(0xFFED9FAD);
-  static const Color primaryTint3 = Color(0xFFF4C5CE);
+
   static const Color primaryTint4 = Color(0xFFF8D9DE);
   static const Color primaryTint5 = Color(0xFFFBECEF);
-  static const Color primaryShade1 = Color(0xFF2F0910);
-  static const Color primaryShade2 = Color(0xFF380B13);
-  static const Color primaryShade3 = Color(0xFF410D16);
-  static const Color primaryShade4 = Color(0xFF54101C);
-  static const Color primaryShade5 = Color(0xFF671422);
 
   ///secondary colors, tints and shades
   static const Color secondaryColor = Color(0xFF1B8C78);
-  static const Color secondaryTint1 = Color(0xFF2CD6B8);
-  static const Color secondaryTint2 = Color(0xFF52DEC5);
-  static const Color secondaryTint3 = Color(0xFF79E5D2);
-  static const Color secondaryTint4 = Color(0xFF8CE9D8);
-  static const Color secondaryTint5 = Color(0xFFD9F8F2);
-  static const Color secondaryShade1 = Color(0xFF051C18);
-  static const Color secondaryShade2 = Color(0xFF092F28);
-  static const Color secondaryShade3 = Color(0xFF0D4138);
-  static const Color secondaryShade4 = Color(0xFF105448);
-  static const Color secondaryShade5 = Color(0xFF146758);
 
   ///tmc grey colors
-  static const Color greyColor1 = Color(0xFF4A1C24);
+  static const Color grey100 = Color(0xFFEEEEEE);
+  static const Color grey300 = Color(0xFFBABABA);
   static const Color greyColor2 = Color(0xFF806066);
   static const Color greyColor3 = Color(0xFFA58E92);
-  static const Color greyColor4 = Color(0xFFB7A4A7);
-  static const Color greyColor5 = Color(0xFFB7A4A7);
-  static const Color greyColor6 = Color(0xFFC9BBBD);
   static const Color greyColor7 = Color(0xFFDBD2D3);
 
   ///generic colors
@@ -74,33 +58,31 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const Color yellowColor = Color(0xFFC9A717);
   static const Color buttonColor1 = Color(0xFFFBECEF);
   static const Color yellowStar = Color(0xFFF3CD2A);
+  static const Color nonPhotoBlue = Color(0xFF98d9eb);
+  static const Color mediumChampagne = Color(0xFFEDE6AD);
 
   static ThemeData lightThemeData = ThemeData(
     primarySwatch: Colors.brown,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    fontFamily: 'NotoSansKR-Regular',
     scaffoldBackgroundColor: scaffoldLight,
     brightness: Brightness.light,
     primaryColor: primaryColor,
-    cardColor: primaryTint5,
     appBarTheme: const AppBarTheme(
       titleTextStyle: bodyTextLight,
       elevation: 0,
       backgroundColor: scaffoldLight,
       iconTheme: IconThemeData(color: greyColor2),
     ),
-    textTheme: lightTextTheme,
+    textTheme: GoogleFonts.dmMonoTextTheme(lightTextTheme),
   );
 
   static ThemeData darkThemeData = ThemeData(
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    fontFamily: 'NotoSansKR-Regular',
     primarySwatch: Colors.brown,
     scaffoldBackgroundColor: scaffoldDark,
     brightness: Brightness.dark,
     primaryColor: scaffoldLight,
-    textTheme: darkTextTheme,
-    cardColor: primaryShade2,
+    textTheme: GoogleFonts.dmMonoTextTheme(darkTextTheme),
     appBarTheme: const AppBarTheme(
       centerTitle: false,
       elevation: 0,
@@ -131,11 +113,11 @@ class CustomTheme extends StateNotifier<ThemeData> {
   );
 
   static const TextStyle bodyText2 = TextStyle(
-    color: greyColor1,
+    color: grey100,
     fontSize: 12,
   );
   static const TextStyle bodyTextLight = TextStyle(
-    color: greyColor2,
+    color: grey100,
     fontSize: 16,
   );
 
@@ -145,13 +127,13 @@ class CustomTheme extends StateNotifier<ThemeData> {
   );
 
   static const TextStyle headline4Light = TextStyle(
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
     fontSize: 16,
-    color: greyColor1,
+    color: scaffoldLight,
   );
 
   static const TextStyle headline4Dark = TextStyle(
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w500,
     fontSize: 16,
     color: scaffoldLight,
   );
@@ -159,7 +141,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const TextStyle headline6Light = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 12,
-    color: greyColor1,
+    color: grey100,
   );
 
   static const TextStyle headline6Dark = TextStyle(
@@ -170,28 +152,28 @@ class CustomTheme extends StateNotifier<ThemeData> {
 
   static const TextStyle captionLight = TextStyle(
     fontSize: 10,
-    color: greyColor2,
+    color: grey100,
   );
 
   static const TextStyle captionDark = TextStyle(
     fontSize: 10,
-    color: buttonColor1,
+    color: grey100,
   );
   static const TextStyle subtitle = TextStyle(
     // subtitle -> subtitleLight
-    fontSize: 12,
-    color: greyColor4,
+    fontSize: 10,
+    color: mediumChampagne,
   );
 
   static const TextStyle subtitleRegLight = TextStyle(
     // subtitle1 -> subtitleRegular
-    fontSize: 20,
-    color: primaryColor,
+    fontSize: 12,
+    color: primaryColor300,
   );
 
   static const TextStyle subtitleRegDark = TextStyle(
     // subtitle1 -> subtitleRegular
-    fontSize: 20,
-    color: scaffoldLight,
+    fontSize: 12,
+    color: primaryColor300,
   );
 }
