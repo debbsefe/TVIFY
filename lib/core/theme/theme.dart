@@ -168,7 +168,7 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const TextStyle subtitleRegLight = TextStyle(
     // subtitle1 -> subtitleRegular
     fontSize: 12,
-    color: primaryColor300,
+    color: Colors.black,
   );
 
   static const TextStyle subtitleRegDark = TextStyle(

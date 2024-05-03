@@ -35,7 +35,7 @@ class SharedPreferencesRepository {
   }
 
   Future<void> setFirstTimeUser() async {
-    await sharedPreferences.setBool(_firstTimeUser, true);
+    await sharedPreferences.setBool(_firstTimeUser, false);
   }
 
   bool getFirstTimeUser() {
