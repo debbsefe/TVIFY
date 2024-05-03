@@ -1,34 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 
-enum ThemeType { light, dark }
-
-final themeProvider = StateNotifierProvider<CustomTheme, ThemeData>((ref) {
-  return CustomTheme(
-    sharedPreferencesRepository: ref.watch(sharedPreferencesRepositoryProvider),
-  );
-});
-
-class CustomTheme extends StateNotifier<ThemeData> {
-  CustomTheme({required this.sharedPreferencesRepository})
-      : super(
-          ///check current theme at app start
-          /// and pass to the super-constructor
-          sharedPreferencesRepository.getThemePreference() == ThemeType.dark
-              ? CustomTheme.darkThemeData
-              : CustomTheme.lightThemeData,
-        );
-  final SharedPreferencesRepository sharedPreferencesRepository;
-
-  void changeTheme(ThemeData themeData, ThemeType type) {
-    if (state != themeData) {
-      state = themeData;
-      sharedPreferencesRepository.setThemePreference(type);
-    }
-  }
-
+class CustomTheme {
   static const Color scaffoldLight = Color(0xFFFFF9FA);
   static const Color scaffoldDark = Colors.black;
 
@@ -62,11 +35,11 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const Color mediumChampagne = Color(0xFFEDE6AD);
 
   static ThemeData lightThemeData = ThemeData(
-    primarySwatch: Colors.brown,
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    scaffoldBackgroundColor: scaffoldLight,
-    brightness: Brightness.light,
-    primaryColor: primaryColor,
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      primary: primaryColor,
+    ),
     appBarTheme: const AppBarTheme(
       titleTextStyle: bodyTextLight,
       elevation: 0,
@@ -77,19 +50,13 @@ class CustomTheme extends StateNotifier<ThemeData> {
   );
 
   static ThemeData darkThemeData = ThemeData(
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    primarySwatch: Colors.brown,
-    scaffoldBackgroundColor: scaffoldDark,
-    brightness: Brightness.dark,
-    primaryColor: scaffoldLight,
-    textTheme: GoogleFonts.dmMonoTextTheme(darkTextTheme),
-    appBarTheme: const AppBarTheme(
-      centerTitle: false,
-      elevation: 0,
-      backgroundColor: scaffoldDark,
-      titleTextStyle: bodyTextDark,
-      iconTheme: IconThemeData(color: scaffoldLight),
+    useMaterial3: true,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: Brightness.dark,
+      primary: primaryColor,
     ),
+    textTheme: GoogleFonts.dmMonoTextTheme(darkTextTheme),
   );
 
   static TextTheme darkTextTheme = const TextTheme(
@@ -113,51 +80,42 @@ class CustomTheme extends StateNotifier<ThemeData> {
   );
 
   static const TextStyle bodyText2 = TextStyle(
-    color: grey100,
     fontSize: 12,
   );
   static const TextStyle bodyTextLight = TextStyle(
-    color: grey100,
     fontSize: 16,
   );
 
   static const TextStyle bodyTextDark = TextStyle(
-    color: scaffoldLight,
     fontSize: 16,
   );
 
   static const TextStyle headline4Light = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 16,
-    color: scaffoldLight,
   );
 
   static const TextStyle headline4Dark = TextStyle(
     fontWeight: FontWeight.w500,
     fontSize: 16,
-    color: scaffoldLight,
   );
 
   static const TextStyle headline6Light = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 12,
-    color: grey100,
   );
 
   static const TextStyle headline6Dark = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 12,
-    color: greyColor7,
   );
 
   static const TextStyle captionLight = TextStyle(
     fontSize: 10,
-    color: grey100,
   );
 
   static const TextStyle captionDark = TextStyle(
     fontSize: 10,
-    color: grey100,
   );
   static const TextStyle subtitle = TextStyle(
     // subtitle -> subtitleLight
@@ -168,12 +126,10 @@ class CustomTheme extends StateNotifier<ThemeData> {
   static const TextStyle subtitleRegLight = TextStyle(
     // subtitle1 -> subtitleRegular
     fontSize: 12,
-    color: Colors.black,
   );
 
   static const TextStyle subtitleRegDark = TextStyle(
     // subtitle1 -> subtitleRegular
     fontSize: 12,
-    color: primaryColor300,
   );
 }

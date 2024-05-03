@@ -39,7 +39,6 @@ class MovieColony extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = ref.watch(themeProvider);
     final appRouter = ref.watch(appRouterProvider(ref));
     // ignore: deprecated_member_use
     final user = ref.watch(userChangesProvider.stream);
@@ -47,7 +46,8 @@ class MovieColony extends ConsumerWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'MovieColony',
-      theme: theme,
+      theme: CustomTheme.lightThemeData,
+      darkTheme: CustomTheme.darkThemeData,
       routerConfig: appRouter.config(
         reevaluateListenable: ReevaluateListenable.stream(user),
       ),

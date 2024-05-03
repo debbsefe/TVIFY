@@ -16,23 +16,10 @@ class SharedPreferencesRepository {
 
   final SharedPreferences sharedPreferences;
 
-  final String _theme = Strings.theme;
   final String _firstTimeUser = Strings.firstTimeUser;
   final String _lastCacheDate = Strings.lastCacheDate;
   final String _categoryCache = Strings.cachedCategory;
   final String _configurationCache = Strings.cachedConfiguration;
-
-  Future<void> setThemePreference(ThemeType value) async {
-    await sharedPreferences.setString(_theme, value.name);
-  }
-
-  ThemeType getThemePreference() {
-    final theme = sharedPreferences.getString(_theme);
-    return ThemeType.values.firstWhere(
-      (e) => e.name == theme,
-      orElse: () => ThemeType.light,
-    );
-  }
 
   Future<void> setFirstTimeUser() async {
     await sharedPreferences.setBool(_firstTimeUser, false);
