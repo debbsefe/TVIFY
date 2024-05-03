@@ -32,20 +32,30 @@ class TopCast extends ConsumerWidget {
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: castList.map((cast) {
               return Container(
                 margin: const EdgeInsets.only(left: 8),
+                width: 100,
                 child: Column(
                   children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: CustomTheme.primaryColor300,
-                      backgroundImage: NetworkImage(
-                        url + cast.profilePath!,
+                    if (cast.profilePath != null)
+                      CircleAvatar(
+                        radius: 40,
+                        backgroundColor: CustomTheme.primaryColor300,
+                        backgroundImage: NetworkImage(
+                          url + cast.profilePath!,
+                        ),
+                      )
+                    else
+                      const CircleAvatar(
+                        radius: 40,
+                        backgroundColor: CustomTheme.primaryColor300,
                       ),
-                    ),
                     Text(
                       cast.name ?? '',
+                      textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                   ],
@@ -58,5 +68,3 @@ class TopCast extends ConsumerWidget {
     );
   }
 }
-
-///TODO:NICE PLACEHOLDER AS LOADING SCREEN
