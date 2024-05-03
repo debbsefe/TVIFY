@@ -32,7 +32,7 @@ class HomeScreenTab extends StatelessWidget {
             ),
             bottomNavigationBar(
               iconPath: CustomIcons.explore,
-              semanticLabel: 'This is the Search Page ',
+              semanticLabel: 'This is the Explore Page ',
               label: 'Explore',
             ),
             bottomNavigationBar(
@@ -69,15 +69,5 @@ class HomeScreenTab extends StatelessWidget {
       ),
       label: label,
     );
-  }
-}
-
-@RoutePage()
-class ExplorePage extends StatelessWidget {
-  const ExplorePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
   }
 }

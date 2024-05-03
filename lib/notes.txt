@@ -1,7 +1,7 @@
 Home screen
 
 show of the week: image of the show
-categories
+Genres
 trending: Show name, date, IMDb rating, image, number of seasons
 top picks for you: Show name, date, IMDb rating, image, number of seasons
 watchList: 
