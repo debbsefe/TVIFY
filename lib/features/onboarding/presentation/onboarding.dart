@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,33 +20,6 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
   final PageController _pageController = PageController();
 
-  late Timer timer;
-
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(const Duration(seconds: 5), (Timer t) {
-      if (_currentPage < 2) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.easeInOut,
-      );
-    });
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-    _pageController.dispose();
-    super.dispose();
-  }
-
   void _onPageChanged(int index) {
     setState(() {
       _currentPage = index;
@@ -57,8 +28,8 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
+    return Scaffold(
+      body: Stack(
         children: <Widget>[
           PageView.builder(
             onPageChanged: _onPageChanged,
@@ -67,7 +38,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             itemBuilder: (ctx, i) => SlideItem(index: i),
           ),
           Positioned(
-            bottom: 160,
+            bottom: 190,
             left: 30,
             right: 15,
             child: Row(
@@ -82,10 +53,10 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
             ),
           ),
           Positioned(
-            bottom: 60,
+            bottom: 80,
             left: 30,
             right: 35,
-            child: CustomButton(
+            child: CustomButton.icon(
               name: 'Get Started',
               onPressed: () {
                 ref
@@ -93,6 +64,7 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
                     .setFirstTimeUser();
                 context.router.replace(SignUpRoute(onResult: (value) {}));
               },
+              icon: Icons.arrow_forward,
             ),
           ),
         ],

@@ -9,14 +9,27 @@ class CustomButton extends StatelessWidget {
     this.color,
     this.textColor,
     this.height = 55,
+    this.icon,
     super.key,
   });
+
+  const factory CustomButton.icon({
+    required String name,
+    required VoidCallback onPressed,
+    required IconData icon,
+    Key? key,
+    double fontSize,
+    double height,
+    Color? color,
+    Color? textColor,
+  }) = _CustomButtonWithIcon;
   final String name;
   final VoidCallback onPressed;
   final double fontSize;
   final double height;
   final Color? color;
   final Color? textColor;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +44,38 @@ class CustomButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          name,
-          style: TextStyle(
-            color: textColor ?? CustomTheme.buttonColor1,
-            fontSize: fontSize,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              name,
+              style: TextStyle(
+                color: textColor ?? CustomTheme.buttonColor1,
+                fontSize: fontSize,
+              ),
+            ),
+            const SizedBox(width: 10),
+            if (icon != null)
+              Icon(
+                icon,
+                color: textColor ?? CustomTheme.buttonColor1,
+              ),
+          ],
         ),
       ),
     );
   }
+}
+
+class _CustomButtonWithIcon extends CustomButton {
+  const _CustomButtonWithIcon({
+    required super.name,
+    required super.onPressed,
+    required IconData super.icon,
+    super.fontSize,
+    super.height,
+    super.color,
+    super.textColor,
+    super.key,
+  });
 }
