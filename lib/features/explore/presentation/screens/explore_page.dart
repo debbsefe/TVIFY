@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_colony/features/explore/presentation/widgets/genres_widget.dart';
+import 'package:movie_colony/features/explore/presentation/widgets/genre_widget.dart';
 
 @RoutePage()
 class ExplorePage extends StatelessWidget {
@@ -19,7 +19,7 @@ class ExplorePage extends StatelessWidget {
                 hintText: 'Search by title, actor, genre',
                 onChanged: print,
               ),
-              GenresWidget(),
+              GenreWidget(),
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/data/firebase_methods.dart';
 
@@ -13,7 +14,7 @@ class GoogleSignInRepository {
   });
   final FirebaseMethods firebaseMethods;
 
-  Future<void> googleSignInAuth() async {
-    await firebaseMethods.signInWithGoogle();
+  Future<UserCredential?> googleSignInAuth() async {
+    return firebaseMethods.signInWithGoogle();
   }
 }

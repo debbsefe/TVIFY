@@ -5,6 +5,7 @@ mixin CustomSnackbar {
     final snackBar = SnackBar(
       backgroundColor: Colors.red,
       content: Text(message, style: const TextStyle(color: Colors.white)),
+      duration: const Duration(seconds: 2),
     );
 
     snackbarWidget(context, snackBar);
@@ -14,6 +15,7 @@ mixin CustomSnackbar {
     final snackBar = SnackBar(
       backgroundColor: Colors.green,
       content: Text(message, style: const TextStyle(color: Colors.white)),
+      duration: const Duration(seconds: 2),
     );
 
     snackbarWidget(context, snackBar);
@@ -22,6 +24,7 @@ mixin CustomSnackbar {
   void showSnackBar(BuildContext context, String message) {
     final snackBar = SnackBar(
       content: Text(message, style: const TextStyle(color: Colors.white)),
+      duration: const Duration(seconds: 2),
     );
 
     snackbarWidget(context, snackBar);

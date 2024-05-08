@@ -1,14 +1,14 @@
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 
-final genresLocalDataSourceProvider = Provider<GenresLocalDataSource>((ref) {
-  return GenresLocalDataSource(
+final genreLocalDataSourceProvider = Provider<GenreLocalDataSource>((ref) {
+  return GenreLocalDataSource(
     ref.watch(sharedPreferencesRepositoryProvider),
   );
 });
 
-class GenresLocalDataSource {
-  GenresLocalDataSource(this.sharedPreferencesRepository);
+class GenreLocalDataSource {
+  GenreLocalDataSource(this.sharedPreferencesRepository);
 
   final SharedPreferencesRepository sharedPreferencesRepository;
 
@@ -20,9 +20,9 @@ class GenresLocalDataSource {
     return null;
   }
 
-  Future<void> cacheLastCategory(GenreModel? genresModel) async {
-    if (genresModel != null) {
-      await sharedPreferencesRepository.setCategoryCache(genresModel);
+  Future<void> cacheLastCategory(GenreModel? genreModel) async {
+    if (genreModel != null) {
+      await sharedPreferencesRepository.setCategoryCache(genreModel);
     }
   }
 }

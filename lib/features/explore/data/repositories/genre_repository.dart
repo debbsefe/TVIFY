@@ -1,14 +1,14 @@
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/explore/data/datasources/Genres_local_data_source.dart';
-import 'package:movie_colony/features/explore/data/datasources/genres_remote_data_source.dart';
+import 'package:movie_colony/features/explore/data/datasources/genre_local_data_source.dart';
+import 'package:movie_colony/features/explore/data/datasources/genre_remote_data_source.dart';
 
-final genresRepositoryProvider = Provider<GenreRepository>((ref) {
+final genreRepositoryProvider = Provider<GenreRepository>((ref) {
   return GenreRepository(
-    localDataSource: ref.watch(genresLocalDataSourceProvider),
+    localDataSource: ref.watch(genreLocalDataSourceProvider),
     sharedPreferencesRepository: ref.watch(sharedPreferencesRepositoryProvider),
-    remoteDataSource: ref.watch(genresRemoteDataSourceProvider),
+    remoteDataSource: ref.watch(genreRemoteDataSourceProvider),
   );
 });
 
@@ -18,8 +18,8 @@ class GenreRepository {
     required this.remoteDataSource,
     required this.localDataSource,
   });
-  final GenresRemoteDataSource remoteDataSource;
-  final GenresLocalDataSource localDataSource;
+  final GenreRemoteDataSource remoteDataSource;
+  final GenreLocalDataSource localDataSource;
   final SharedPreferencesRepository sharedPreferencesRepository;
 
   Future<GenreModel?> getGenres() async {

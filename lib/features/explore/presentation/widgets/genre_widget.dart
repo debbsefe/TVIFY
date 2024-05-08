@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/explore/notifiers/genres_notifier.dart';
+import 'package:movie_colony/features/explore/notifiers/genre_notifier.dart';
 
-class GenresWidget extends ConsumerWidget {
-  const GenresWidget({super.key});
+class GenreWidget extends ConsumerWidget {
+  const GenreWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final genres = ref.watch(genresNotiferProvider);
+    final genres = ref.watch(genreNotiferProvider);
     return genres.when(
       idle: Container.new,
       loading: Container.new,
