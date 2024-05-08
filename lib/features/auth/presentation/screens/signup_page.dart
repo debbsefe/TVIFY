@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/widgets/snackbars.dart';
 import 'package:movie_colony/features/auth/presentation/notifiers/anonymous_sign_in_notifier.dart';
 import 'package:movie_colony/features/auth/presentation/notifiers/google_sign_in_notifier.dart';
@@ -30,6 +30,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
           },
           error: (value) {
             showErrorSnackBar(context, value.error.toString());
+            widget.onResult(false);
           },
         );
       })
@@ -40,6 +41,7 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
           },
           error: (value) {
             showErrorSnackBar(context, value.error.toString());
+            widget.onResult(false);
           },
         );
       });
@@ -93,20 +95,14 @@ class _SignUpPageState extends ConsumerState<SignUpPage> with CustomSnackbar {
   }
 }
 
-class GoogleSignInButton extends ConsumerStatefulWidget {
-  const GoogleSignInButton({
-    super.key,
-  });
+class GoogleSignInButton extends ConsumerWidget {
+  const GoogleSignInButton({super.key});
 
   @override
-  ConsumerState<GoogleSignInButton> createState() => _GoogleSignInButtonState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isSigningIn =
+        ref.watch(googleSignInNotifierProvider) == const LoadingState.loading();
 
-class _GoogleSignInButtonState extends ConsumerState<GoogleSignInButton> {
-  bool isSigningIn = false;
-
-  @override
-  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: isSigningIn
@@ -123,10 +119,6 @@ class _GoogleSignInButtonState extends ConsumerState<GoogleSignInButton> {
                 ),
               ),
               onPressed: () async {
-                setState(() {
-                  isSigningIn = true;
-                });
-
                 await ref
                     .read(googleSignInNotifierProvider.notifier)
                     .signInWithGoogle();

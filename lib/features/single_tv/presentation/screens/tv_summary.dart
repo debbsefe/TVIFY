@@ -27,7 +27,7 @@ class TvSummary extends ConsumerWidget {
       success: (success) {
         final detail = success! as TvDetailModel;
         final String overview = detail.overview ?? '';
-        final categories = detail.genres ?? [];
+        final genres = detail.genres ?? [];
         return Container(
           margin: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -58,7 +58,7 @@ class TvSummary extends ConsumerWidget {
                 spacing: 10,
                 runSpacing: 15,
                 alignment: WrapAlignment.spaceBetween,
-                children: categories.map((e) {
+                children: genres.map((e) {
                   return GestureDetector(
                     child: Container(
                       padding: const EdgeInsets.symmetric(

@@ -31,13 +31,13 @@ class FirebaseMethods {
   final GoogleAuthProvider _googleAuthProvider;
   final GoogleSignIn _googleSignIn;
 
-  Future<void> signInAnonymous() async {
-    await _auth.signInAnonymously();
+  Future<UserCredential?> signInAnonymous() async {
+    return _auth.signInAnonymously();
   }
 
-  Future<void> signInWithGoogle() async {
+  Future<UserCredential?> signInWithGoogle() async {
     if (kIsWeb) {
-      await _auth.signInWithPopup(_googleAuthProvider);
+      return _auth.signInWithPopup(_googleAuthProvider);
     } else {
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
@@ -50,9 +50,9 @@ class FirebaseMethods {
           accessToken: googleSignInAuthentication.accessToken,
           idToken: googleSignInAuthentication.idToken,
         );
-
-        await _auth.signInWithCredential(credential);
+        return _auth.signInWithCredential(credential);
       }
+      return null;
     }
   }
 

@@ -45,10 +45,10 @@ class SharedPreferencesRepository {
     await sharedPreferences.setString(_lastCacheDate + key, sevenDaysLater);
   }
 
-  Future<void> setCategoryCache(CategoriesModel value) async {
+  Future<void> setCategoryCache(GenreModel value) async {
     await sharedPreferences.setString(
       _categoryCache,
-      categoriesModelToJson(value),
+      genreModelToJson(value),
     );
     await setLastCacheDate(_categoryCache);
   }

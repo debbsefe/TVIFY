@@ -49,15 +49,12 @@ class TvCard extends ConsumerWidget {
                           ),
                         );
                       },
-                      child: Hero(
-                        tag: 'imageHero-${url + posterImage}',
-                        child: SizedBox(
-                          width: 180,
-                          height: 200,
-                          child: CachedImage(
-                            url + posterImage,
-                            fit: BoxFit.fitWidth,
-                          ),
+                      child: SizedBox(
+                        width: 180,
+                        height: 200,
+                        child: CachedImage(
+                          url + posterImage,
+                          fit: BoxFit.fitWidth,
                         ),
                       ),
                     ),
@@ -98,5 +95,3 @@ class TvCard extends ConsumerWidget {
     );
   }
 }
-
-///TODO:NICE PLACEHOLDER AS LOADING SCREEN

@@ -47,6 +47,17 @@ class CustomTheme {
       iconTheme: IconThemeData(color: greyColor2),
     ),
     textTheme: GoogleFonts.dmMonoTextTheme(lightTextTheme),
+    searchBarTheme: SearchBarThemeData(
+      backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
+      shape: MaterialStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+          side: const BorderSide(color: grey100),
+        ),
+      ),
+      elevation: const MaterialStatePropertyAll(0),
+      textStyle: const MaterialStatePropertyAll(captionLight),
+    ),
   );
 
   static ThemeData darkThemeData = ThemeData(
@@ -57,6 +68,17 @@ class CustomTheme {
       primary: primaryColor,
     ),
     textTheme: GoogleFonts.dmMonoTextTheme(darkTextTheme),
+    searchBarTheme: SearchBarThemeData(
+      backgroundColor: const MaterialStatePropertyAll(Colors.transparent),
+      shape: MaterialStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+          side: const BorderSide(color: grey100),
+        ),
+      ),
+      elevation: const MaterialStatePropertyAll(0),
+      textStyle: const MaterialStatePropertyAll(captionLight),
+    ),
   );
 
   static TextTheme darkTextTheme = const TextTheme(

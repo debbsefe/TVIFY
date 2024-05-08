@@ -22,14 +22,14 @@ class TrendingRemoteDataSource {
     return tvListModelFromJson(response.body);
   }
 
-  Future<TvListModel?> getRemoteTrendingDaily() async {
-    final Uri uri = Uri.parse('trending/tv/day'.baseurl);
+  Future<TvListModel?> getRemoteTrendingDaily({int page = 1}) async {
+    final Uri uri = Uri.parse('trending/tv/day?page=$page'.baseurl);
     final response = await client.get(uri);
     return tvListModelFromJson(response.body);
   }
 
-  Future<TvListModel?> getAiringToday() async {
-    final Uri uri = Uri.parse('tv/airing_today'.baseurl);
+  Future<TvListModel?> getAiringToday({int page = 1}) async {
+    final Uri uri = Uri.parse('tv/airing_today?page=$page'.baseurl);
     final response = await client.get(uri);
     return tvListModelFromJson(response.body);
   }

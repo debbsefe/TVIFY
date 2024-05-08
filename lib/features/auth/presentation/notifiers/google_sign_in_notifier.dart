@@ -18,7 +18,11 @@ class GoogleSignInNotifier extends StateNotifier<LoadingState> {
   Future<void> signInWithGoogle() async {
     try {
       state = const LoadingState.loading();
-      await googleSignInRepository.googleSignInAuth();
+      final result = await googleSignInRepository.googleSignInAuth();
+      if (result == null) {
+        state = const LoadingState.error('Google Sign In Failed');
+        return;
+      }
       state = const LoadingState.success();
     } catch (e) {
       state = LoadingState.error(e);

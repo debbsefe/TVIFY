@@ -143,5 +143,3 @@ class TvShowOfTheWeek extends ConsumerWidget {
     );
   }
 }
-
-///TODO:NICE PLACEHOLDER AS LOADING SCREEN
