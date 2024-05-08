@@ -28,4 +28,10 @@ class ExploreRemoteDataSource {
 
     return tvListModelFromJson(response.body);
   }
+
+  Future<TvListModel?> searchTV(String query, int page) async {
+    final Uri uri = Uri.parse('search/tv?query=$query&page=$page'.baseurl);
+    final response = await client.get(uri);
+    return tvListModelFromJson(response.body);
+  }
 }

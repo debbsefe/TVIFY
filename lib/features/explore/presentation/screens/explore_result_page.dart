@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
@@ -36,7 +37,8 @@ class _ExploreResultPageState extends ConsumerState<ExploreResultPage> {
         widget.genreId,
         pageKey.clamp(1, 500),
       );
-      final isLastPage = newItems?.totalPages == newItems?.page;
+      final isLastPage = newItems?.totalPages == newItems?.page ||
+          (newItems?.results ?? []).isEmpty;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems!.results!);
       } else {
@@ -69,25 +71,34 @@ class _ExploreResultPageState extends ConsumerState<ExploreResultPage> {
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<Result>(
             itemBuilder: (context, tv, index) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: Image.network(
-                      '$url${tv.posterPath}',
-                      fit: BoxFit.cover,
-                      width: 160,
+              return InkWell(
+                onTap: () {
+                  context.router.push(
+                    SingleTvDetailRoute(
+                      id: tv.id.toString(),
                     ),
-                  ),
-                  const Height(8),
-                  Text(
-                    tv.name ?? '',
-                    style: Theme.of(context).textTheme.bodySmall,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                  );
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.network(
+                        '$url${tv.posterPath}',
+                        fit: BoxFit.cover,
+                        width: 160,
+                      ),
+                    ),
+                    const Height(8),
+                    Text(
+                      tv.name ?? '',
+                      style: Theme.of(context).textTheme.bodySmall,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               );
             },
           ),
