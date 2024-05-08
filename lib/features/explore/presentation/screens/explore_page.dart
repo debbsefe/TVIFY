@@ -7,6 +7,11 @@ import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 import 'package:movie_colony/features/explore/data/datasources/explore_remote_data_source.dart';
 import 'package:movie_colony/features/explore/presentation/widgets/genre_widget.dart';
+import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
+import 'package:movie_colony/features/homescreen/presentation/widgets/title_and_summary.dart';
+import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
+import 'package:movie_colony/features/trending/presentation/notifiers/airing_today_notifier.dart';
+import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_notifier.dart';
 
 @RoutePage()
 class ExplorePage extends ConsumerStatefulWidget {
@@ -20,6 +25,8 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
   final PagingController<int, Result> _pagingController =
       PagingController(firstPageKey: 1);
   String? query;
+
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -53,6 +60,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
   @override
   void dispose() {
     _pagingController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -64,71 +72,125 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            children: [
-              SearchBar(
-                leading: const Icon(Icons.search_outlined),
-                hintText: 'Search by title, actor, genre',
-                onSubmitted: (value) {
-                  _fetchPage(value, 1);
-                  query = value;
-                  setState(() {});
-                },
-                trailing: [
-                  CloseButton(
-                    onPressed: () {
-                      _pagingController.itemList = [];
-                      query = null;
-                      setState(() {});
-                    },
-                  ),
-                ],
-              ),
-              const Height(24),
-              if (query != null)
-                Expanded(
-                  child: PagedGridView<int, Result>(
-                    pagingController: _pagingController,
-                    builderDelegate: PagedChildBuilderDelegate<Result>(
-                      itemBuilder: (context, tv, index) {
-                        return InkWell(
-                          onTap: () => context.router.push(
-                            SingleTvDetailRoute(
-                              id: tv.id.toString(),
-                            ),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
-                                child: Image.network(
-                                  '$url${tv.posterPath}',
-                                  fit: BoxFit.cover,
-                                  width: 160,
-                                ),
-                              ),
-                              const Height(8),
-                              Text(
-                                tv.name ?? '',
-                                style: Theme.of(context).textTheme.bodySmall,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          ),
-                        );
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: SearchBar(
+                  leading: const Icon(Icons.search_outlined),
+                  hintText: 'Search by title, actor, genre',
+                  onSubmitted: (value) {
+                    _fetchPage(value, 1);
+                    query = value;
+                    setState(() {});
+                  },
+                  controller: _searchController,
+                  trailing: [
+                    CloseButton(
+                      onPressed: () {
+                        _pagingController.itemList = [];
+                        _searchController.clear();
+                        query = null;
+                        setState(() {});
                       },
                     ),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.6,
-                    ),
+                  ],
+                ),
+              ),
+              const SliverToBoxAdapter(child: Height(24)),
+              if (query != null)
+                PagedSliverGrid<int, Result>(
+                  pagingController: _pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<Result>(
+                    itemBuilder: (context, tv, index) {
+                      return InkWell(
+                        onTap: () => context.router.push(
+                          SingleTvDetailRoute(
+                            id: tv.id.toString(),
+                          ),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: Image.network(
+                                '$url${tv.posterPath}',
+                                fit: BoxFit.cover,
+                                width: 160,
+                              ),
+                            ),
+                            const Height(8),
+                            Text(
+                              tv.name ?? '',
+                              style: Theme.of(context).textTheme.bodySmall,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.6,
                   ),
                 )
-              else
-                const GenreWidget(),
+              else ...[
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      const GenreWidget(),
+                      const SizedBox(height: 48),
+                      HomeSection(
+                        title: "Explore what's trending",
+                        subtitle: 'Popular tv shows around the world',
+                        onSeeAllTap: () {
+                          context.pushRoute(
+                            ExploreResultRoute(
+                              title: 'Trending',
+                              fetchItems: (page) {
+                                final datasource =
+                                    ref.watch(trendingRemoteDataSourceProvider);
+
+                                return datasource.getRemoteTrendingDaily(
+                                  page: page.clamp(1, 500),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                      TvCard(
+                        state: ref.watch(dailyTrendingNotifierProvider),
+                      ),
+                      const SizedBox(height: 20),
+                      HomeSection(
+                        title: 'Airing today',
+                        subtitle: 'Find out what is airing today',
+                        onSeeAllTap: () {
+                          context.pushRoute(
+                            ExploreResultRoute(
+                              title: 'Airing Today',
+                              fetchItems: (page) {
+                                final datasource =
+                                    ref.watch(trendingRemoteDataSourceProvider);
+
+                                return datasource.getAiringToday(
+                                  page: page.clamp(1, 500),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                      TvCard(
+                        state: ref.watch(airingTodayNotifierProvider),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ],
           ),
         ),

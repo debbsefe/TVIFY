@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/explore/notifiers/explore_notifier.dart';
+import 'package:movie_colony/features/explore/data/datasources/explore_remote_data_source.dart';
 import 'package:movie_colony/features/explore/notifiers/genre_notifier.dart';
 
 class GenreWidget extends ConsumerWidget {
@@ -34,14 +34,18 @@ class GenreWidget extends ConsumerWidget {
             children: genres.map((category) {
               return InkWell(
                 onTap: () {
-                  ref
-                      .read(exploreNotiferProvider.notifier)
-                      .discoverTVByGenre(genreId: category.id!);
-
                   context.pushRoute(
                     ExploreResultRoute(
                       title: category.name ?? '',
-                      genreId: category.id!,
+                      fetchItems: (page) {
+                        final datasource =
+                            ref.watch(exploreRemoteDataSourceProvider);
+
+                        return datasource.discoverTVByGenre(
+                          category.id!,
+                          page.clamp(1, 500),
+                        );
+                      },
                     ),
                   );
                 },

@@ -5,17 +5,16 @@ import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
-import 'package:movie_colony/features/explore/data/datasources/explore_remote_data_source.dart';
 
 @RoutePage()
 class ExploreResultPage extends ConsumerStatefulWidget {
   const ExploreResultPage({
     required this.title,
-    required this.genreId,
+    required this.fetchItems,
     super.key,
   });
   final String title;
-  final int genreId;
+  final Future<TvListModel?> Function(int page) fetchItems;
 
   @override
   ConsumerState<ExploreResultPage> createState() => _ExploreResultPageState();
@@ -32,11 +31,7 @@ class _ExploreResultPageState extends ConsumerState<ExploreResultPage> {
 
   Future<void> _fetchPage(int pageKey) async {
     try {
-      final datasource = ref.watch(exploreRemoteDataSourceProvider);
-      final newItems = await datasource.discoverTVByGenre(
-        widget.genreId,
-        pageKey.clamp(1, 500),
-      );
+      final newItems = await widget.fetchItems(pageKey);
       final isLastPage = newItems?.totalPages == newItems?.page ||
           (newItems?.results ?? []).isEmpty;
       if (isLastPage) {
