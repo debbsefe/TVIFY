@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
 import 'package:movie_colony/features/auth/presentation/screens/signup_page.dart';
 import 'package:movie_colony/features/explore/presentation/screens/explore_page.dart';
+import 'package:movie_colony/features/explore/presentation/screens/explore_result_page.dart';
 import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
 import 'package:movie_colony/features/homescreen/presentation/screens/homescreen_tab.dart';
 import 'package:movie_colony/features/homescreen/presentation/screens/settings_page.dart';
@@ -52,6 +53,7 @@ class AppRouter extends _$AppRouter {
           ],
         ),
         AutoRoute(page: SingleTvDetailRoute.page, guards: guards),
+        AutoRoute(page: ExploreResultRoute.page, guards: guards),
       ];
 }
 

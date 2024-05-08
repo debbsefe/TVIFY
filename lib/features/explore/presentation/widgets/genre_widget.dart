@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/core.dart';
+import 'package:movie_colony/features/explore/notifiers/explore_notifier.dart';
 import 'package:movie_colony/features/explore/notifiers/genre_notifier.dart';
 
 class GenreWidget extends ConsumerWidget {
@@ -29,23 +32,37 @@ class GenreWidget extends ConsumerWidget {
             runSpacing: 12,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: genres.map((category) {
-              return Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(40)),
-                  border: Border.all(
-                    color: Theme.of(context).dividerColor,
+              return InkWell(
+                onTap: () {
+                  ref
+                      .read(exploreNotiferProvider.notifier)
+                      .discoverTVByGenre(genreId: category.id!);
+
+                  context.pushRoute(
+                    ExploreResultRoute(
+                      title: category.name ?? '',
+                      genreId: category.id!,
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
                   ),
-                ),
-                width: 100,
-                child: Center(
-                  child: Text(
-                    category.name ?? '',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodySmall,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(40)),
+                    border: Border.all(
+                      color: Theme.of(context).dividerColor,
+                    ),
+                  ),
+                  width: 100,
+                  child: Center(
+                    child: Text(
+                      category.name ?? '',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                 ),
               );
