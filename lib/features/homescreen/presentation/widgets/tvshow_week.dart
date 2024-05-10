@@ -1,11 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/features/components/buttons.dart';
 import 'package:movie_colony/features/components/cache_image.dart';
-import 'package:movie_colony/features/components/dialogs.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 import 'package:movie_colony/features/notification/presentation/notifiers/notification_list_notifier.dart';
+import 'package:movie_colony/features/notification/presentation/screens/notification_list_screen.dart';
 import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
 final _aboutProvider = StateProvider<bool>((ref) {
@@ -21,28 +20,6 @@ class TvShowOfTheWeek extends ConsumerWidget {
     final url =
         ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
-    ref.listen(notificationListNotifierProvider, (previous, next) {
-      next.mapOrNull(
-        error: (error) {
-          messageDialog(
-            context: context,
-            onPressed: () {
-              context.router.root.maybePop();
-            },
-            content: error.error.toString(),
-          );
-        },
-        success: (success) {
-          messageDialog(
-            context: context,
-            onPressed: () {
-              context.router.root.maybePop();
-            },
-            content: 'Notification added',
-          );
-        },
-      );
-    });
     return trending.when(
       idle: Container.new,
       loading: Container.new,
@@ -58,6 +35,11 @@ class TvShowOfTheWeek extends ConsumerWidget {
         final trends = success! as TvListModel;
         final trend = trends.results?.first;
         final String posterImage = trend?.posterPath ?? '';
+
+        final isInNotificationList = ref
+                .watch(isInNotificationListProvider(trend!.id.toString()))
+                .value ??
+            false;
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -94,7 +76,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${trend?.name}',
+                    '${trend.name}',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   InkWell(
@@ -103,7 +85,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
                       ref.watch(_aboutProvider.notifier).state = !showAbout;
                     },
                     child: Text(
-                      'About ${trend?.name}',
+                      'About ${trend.name}',
                       style: Theme.of(context).textTheme.titleSmall,
                     ),
                   ),
@@ -114,7 +96,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
-                  trend?.overview ?? '',
+                  trend.overview ?? '',
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
@@ -122,19 +104,33 @@ class TvShowOfTheWeek extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
               child: CustomButton(
                 onPressed: () {
-                  ref
-                      .read(notificationListNotifierProvider.notifier)
-                      .addNotification(
-                        NotificationListModel(
-                          id: trend?.id,
-                          name: trend?.name,
-                          rating: trend?.voteAverage,
-                          date: trend?.firstAirDate,
-                          posterImage: trend?.posterPath,
-                        ),
-                      );
+                  isInNotificationList
+                      ? ref
+                          .read(notificationListNotifierProvider.notifier)
+                          .removeNotification(
+                            NotificationListModel(
+                              id: trend.id,
+                              name: trend.name,
+                              rating: trend.voteAverage,
+                              date: trend.firstAirDate,
+                              posterImage: trend.posterPath,
+                            ),
+                          )
+                      : ref
+                          .read(notificationListNotifierProvider.notifier)
+                          .addNotification(
+                            NotificationListModel(
+                              id: trend.id,
+                              name: trend.name,
+                              rating: trend.voteAverage,
+                              date: trend.firstAirDate,
+                              posterImage: trend.posterPath,
+                            ),
+                          );
                 },
-                name: 'Notify Me',
+                name: isInNotificationList
+                    ? 'Remove from Notification List'
+                    : 'Notify Me',
               ),
             ),
           ],

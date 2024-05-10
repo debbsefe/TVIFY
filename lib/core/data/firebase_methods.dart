@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_colony/core/model/notification_list_model.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/providers.dart';
 
 final firebaseMethodsProvider = Provider<FirebaseMethods>((ref) {
@@ -30,6 +31,7 @@ class FirebaseMethods {
   final FirebaseAuth _auth;
   final GoogleAuthProvider _googleAuthProvider;
   final GoogleSignIn _googleSignIn;
+  final notificationCollection = Strings.notificationList;
 
   Future<UserCredential?> signInAnonymous() async {
     return _auth.signInAnonymously();
@@ -58,11 +60,10 @@ class FirebaseMethods {
 
   DocumentReference<NotificationListModel> writeNotificationList({
     required String docName,
-    required String collection,
   }) {
     final userId = _auth.currentUser?.uid;
     final reference = _store
-        .collection(collection)
+        .collection(notificationCollection)
         .doc(userId)
         .collection('tv')
         .doc(docName)
@@ -74,12 +75,10 @@ class FirebaseMethods {
     return reference;
   }
 
-  Stream<QuerySnapshot<NotificationListModel>> readNotificationList({
-    required String collection,
-  }) {
+  Stream<QuerySnapshot<NotificationListModel>> readNotificationList() {
     final userId = _auth.currentUser?.uid;
     final reference = _store
-        .collection(collection)
+        .collection(notificationCollection)
         .doc(userId)
         .collection('tv')
         .withConverter<NotificationListModel>(
@@ -89,5 +88,18 @@ class FirebaseMethods {
         );
 
     return reference.snapshots();
+  }
+
+  Stream<bool> isInNotificationList(
+    String docId,
+  ) {
+    final userId = _auth.currentUser?.uid;
+    final reference = _store
+        .collection(notificationCollection)
+        .doc(userId)
+        .collection('tv')
+        .doc(docId);
+
+    return reference.snapshots().map((snapshot) => snapshot.exists);
   }
 }

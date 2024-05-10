@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_colony/app_router.dart';
+import 'package:movie_colony/core/data/firebase_methods.dart';
 import 'package:movie_colony/core/model/notification_list_model.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
 import 'package:movie_colony/features/components/tv_large_card.dart';
@@ -20,6 +22,12 @@ final notificationListProvider =
   (ref) => ref
       .watch(notificationListRemoteDataSourceProvider)
       .fetchNotificationList(),
+);
+
+final isInNotificationListProvider =
+    StreamProvider.autoDispose.family<bool, String>(
+  (ref, String docId) =>
+      ref.watch(firebaseMethodsProvider).isInNotificationList(docId),
 );
 
 @RoutePage()
@@ -42,14 +50,18 @@ class NotificationListScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(24),
           child: CustomScrollView(
             slivers: [
-              const SliverToBoxAdapter(child: Text('Notification List')),
+              const SliverToBoxAdapter(
+                child: Center(child: Text('Notification List')),
+              ),
               const SliverToBoxAdapter(child: Height(8)),
               const SliverToBoxAdapter(
-                child: Text(
-                  'TV Shows you added to your notification list',
+                child: Center(
+                  child: Text(
+                    'TV Shows you added to your notification list',
+                  ),
                 ),
               ),
-              const SliverToBoxAdapter(child: Height(48)),
+              const SliverToBoxAdapter(child: Height(32)),
               SliverToBoxAdapter(
                 child: Row(
                   children: [
@@ -91,10 +103,19 @@ class NotificationListScreen extends ConsumerWidget {
                     itemCount: snapshot.data?.docs.length ?? 0,
                     itemBuilder: (context, index) {
                       final model = snapshot.data?.docs[index].data();
-                      return TvLargeCard(
-                        url: url,
-                        posterPath: model?.posterImage,
-                        tvName: model?.name,
+                      return InkWell(
+                        onTap: () {
+                          context.router.push(
+                            SingleTvDetailRoute(
+                              id: model!.id.toString(),
+                            ),
+                          );
+                        },
+                        child: TvLargeCard(
+                          url: url,
+                          posterPath: model?.posterImage,
+                          tvName: model?.name,
+                        ),
                       );
                     },
                     gridDelegate:

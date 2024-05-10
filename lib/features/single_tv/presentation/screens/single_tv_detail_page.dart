@@ -1,9 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/features/components/dialogs.dart';
 import 'package:movie_colony/features/homescreen/presentation/widgets/title_and_summary.dart';
-import 'package:movie_colony/features/notification/presentation/notifiers/notification_list_notifier.dart';
 import 'package:movie_colony/features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
 import 'package:movie_colony/features/single_tv/presentation/screens/header_image.dart';
 import 'package:movie_colony/features/single_tv/presentation/screens/top_cast.dart';
@@ -16,29 +14,6 @@ class SingleTvDetailPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(notificationListNotifierProvider, (previous, next) {
-      next.mapOrNull(
-        error: (error) {
-          messageDialog(
-            context: context,
-            onPressed: () {
-              context.router.root.maybePop();
-            },
-            content: error.error.toString(),
-          );
-        },
-        success: (success) {
-          messageDialog(
-            context: context,
-            onPressed: () {
-              context.router.root.maybePop();
-            },
-            content: 'Notification added',
-          );
-        },
-      );
-    });
-
     return Scaffold(
       appBar: AppBar(
         title: Text(

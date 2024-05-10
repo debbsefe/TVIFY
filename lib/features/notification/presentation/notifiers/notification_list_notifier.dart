@@ -24,4 +24,15 @@ class NotificationListNotifier extends StateNotifier<LoadingState> {
       logger.fine(e.toString());
     }
   }
+
+  Future<void> removeNotification(NotificationListModel model) async {
+    try {
+      state = const LoadingState.loading();
+      await datasource.removeNotification(model);
+      state = const LoadingState.success();
+    } catch (e) {
+      state = LoadingState.error(e);
+      logger.fine(e.toString());
+    }
+  }
 }
