@@ -14,7 +14,7 @@ class HomeScreenTab extends StatelessWidget {
       routes: const [
         HomeRoute(),
         ExploreRoute(),
-        WatchListRoute(),
+        NotificationListRoute(),
         SettingsRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
-import 'package:movie_colony/core/widgets/buttons.dart';
-import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
+import 'package:movie_colony/features/components/buttons.dart';
+import 'package:movie_colony/features/notification/presentation/notifiers/notification_list_notifier.dart';
 import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class TvSummary extends ConsumerWidget {
@@ -86,7 +86,7 @@ class TvSummary extends ConsumerWidget {
                 child: CustomButton(
                   onPressed: () {
                     ref
-                        .read(addNotificationListNotifierProvider.notifier)
+                        .read(notificationListNotifierProvider.notifier)
                         .addNotification(
                           NotificationListModel(
                             id: detail.id,

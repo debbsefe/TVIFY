@@ -56,7 +56,7 @@ class FirebaseMethods {
     }
   }
 
-  DocumentReference<NotificationListModel> readWriteNotificationList({
+  DocumentReference<NotificationListModel> writeNotificationList({
     required String docName,
     required String collection,
   }) {
@@ -72,5 +72,22 @@ class FirebaseMethods {
           toFirestore: (tv, _) => tv.toJson(),
         );
     return reference;
+  }
+
+  Stream<QuerySnapshot<NotificationListModel>> readNotificationList({
+    required String collection,
+  }) {
+    final userId = _auth.currentUser?.uid;
+    final reference = _store
+        .collection(collection)
+        .doc(userId)
+        .collection('tv')
+        .withConverter<NotificationListModel>(
+          fromFirestore: (snapshot, _) =>
+              NotificationListModel.fromJson(snapshot.data()!),
+          toFirestore: (tv, _) => tv.toJson(),
+        );
+
+    return reference.snapshots();
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/widgets/buttons.dart';
+import 'package:movie_colony/features/components/buttons.dart';
 import 'package:movie_colony/features/onboarding/presentation/widgets/slide_dots.dart';
 import 'package:movie_colony/features/onboarding/presentation/widgets/slide_item.dart';
 

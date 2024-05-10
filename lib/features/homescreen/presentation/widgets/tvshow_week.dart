@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/widgets/buttons.dart';
-import 'package:movie_colony/core/widgets/cache_image.dart';
-import 'package:movie_colony/core/widgets/dialogs.dart';
+import 'package:movie_colony/features/components/buttons.dart';
+import 'package:movie_colony/features/components/cache_image.dart';
+import 'package:movie_colony/features/components/dialogs.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
-import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
+import 'package:movie_colony/features/notification/presentation/notifiers/notification_list_notifier.dart';
 import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
 final _aboutProvider = StateProvider<bool>((ref) {
@@ -21,7 +21,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
     final url =
         ref.watch(configurationNotifierProvider.notifier).fetchPosterSizeUrl();
 
-    ref.listen(addNotificationListNotifierProvider, (previous, next) {
+    ref.listen(notificationListNotifierProvider, (previous, next) {
       next.mapOrNull(
         error: (error) {
           messageDialog(
@@ -123,7 +123,7 @@ class TvShowOfTheWeek extends ConsumerWidget {
               child: CustomButton(
                 onPressed: () {
                   ref
-                      .read(addNotificationListNotifierProvider.notifier)
+                      .read(notificationListNotifierProvider.notifier)
                       .addNotification(
                         NotificationListModel(
                           id: trend?.id,

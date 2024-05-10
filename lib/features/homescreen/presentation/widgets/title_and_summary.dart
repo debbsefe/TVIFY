@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
-import 'package:movie_colony/core/widgets/cache_image.dart';
+import 'package:movie_colony/features/components/cache_image.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 
 class TvCard extends ConsumerWidget {

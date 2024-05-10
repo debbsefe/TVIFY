@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/utils/date_parser.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
-import 'package:movie_colony/core/widgets/cache_image.dart';
+import 'package:movie_colony/features/components/cache_image.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
