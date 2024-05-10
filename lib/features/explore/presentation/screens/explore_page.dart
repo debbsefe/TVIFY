@@ -79,6 +79,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
                   leading: const Icon(Icons.search_outlined),
                   hintText: 'Search by title, actor, genre',
                   onSubmitted: (value) {
+                    _pagingController.itemList = [];
                     _fetchPage(value, 1);
                     query = value;
                     setState(() {});
