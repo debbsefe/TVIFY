@@ -68,7 +68,6 @@ class TvSummary extends ConsumerWidget {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: CustomTheme.primaryTint5,
                         border: Border.all(
                           color: CustomTheme.primaryTint2,
                         ),
@@ -77,7 +76,6 @@ class TvSummary extends ConsumerWidget {
                       ),
                       child: Text(
                         e.name ?? '',
-                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
                   );

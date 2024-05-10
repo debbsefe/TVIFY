@@ -14,33 +14,63 @@ class SettingsPage extends ConsumerStatefulWidget {
 
 class _SettingsPageState extends ConsumerState<SettingsPage> {
   bool notifications = false;
-  bool notifications2 = false;
+
+  // ignore: avoid_positional_boolean_parameters
+  void onPushNotificationChanged(bool value) {
+    setState(() {
+      notifications = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            CupertinoSwitch(
-              value: notifications,
-              onChanged: (value) {},
-            ),
-            CupertinoSwitch(
-              value: notifications2,
-              onChanged: (value) {},
-            ),
-            const SizedBox(height: 20),
-            TextButton(
-              onPressed: () {
-                ref.watch(firebaseAuthProvider).signOut();
-              },
-              child: const Text(
-                'Sign Out',
-                style: TextStyle(color: Colors.black),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Settings'),
+        ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              ListTile(
+                title: const Text('About'),
+                trailing: const Icon(Icons.keyboard_arrow_right_outlined),
+                onTap: () async {
+                  return showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const AboutDialog(
+                        applicationVersion: '1.0.0',
+                        applicationLegalese: '© 2024 TvFiy',
+                      );
+                    },
+                  );
+                },
               ),
-            ),
-          ],
+              const ListTile(
+                title: Text('Share'),
+                trailing: Icon(Icons.keyboard_arrow_right_outlined),
+              ),
+              const ListTile(
+                title: Text('Create Account'),
+                trailing: Icon(Icons.keyboard_arrow_right_outlined),
+              ),
+              ListTile(
+                title: const Text('Push Notifications'),
+                trailing: CupertinoSwitch(
+                  value: notifications,
+                  onChanged: onPushNotificationChanged,
+                ),
+              ),
+              ListTile(
+                title: const Text('Sign Out'),
+                onTap: () {
+                  ref.watch(firebaseAuthProvider).signOut();
+                },
+                trailing: const Icon(Icons.keyboard_arrow_right_outlined),
+              ),
+            ],
+          ),
         ),
       ),
     );
