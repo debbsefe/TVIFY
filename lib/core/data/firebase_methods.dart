@@ -75,9 +75,11 @@ class FirebaseMethods {
     return reference;
   }
 
-  Stream<QuerySnapshot<NotificationListModel>> readNotificationList() {
+  Future<QuerySnapshot<NotificationListModel>> getPaginatedNotificationList(
+    DocumentSnapshot? lastDocument,
+  ) {
     final userId = _auth.currentUser?.uid;
-    final reference = _store
+    Query<NotificationListModel> query = _store
         .collection(notificationCollection)
         .doc(userId)
         .collection('tv')
@@ -85,9 +87,15 @@ class FirebaseMethods {
           fromFirestore: (snapshot, _) =>
               NotificationListModel.fromJson(snapshot.data()!),
           toFirestore: (tv, _) => tv.toJson(),
-        );
+        )
+        .orderBy('created_at', descending: true)
+        .limit(20);
 
-    return reference.snapshots();
+    if (lastDocument != null) {
+      query = query.startAfterDocument(lastDocument);
+    }
+
+    return query.get();
   }
 
   Stream<bool> isInNotificationList(
@@ -101,5 +109,13 @@ class FirebaseMethods {
         .doc(docId);
 
     return reference.snapshots().map((snapshot) => snapshot.exists);
+  }
+
+  Stream<int> getNotificationListLength() {
+    final userId = _auth.currentUser?.uid;
+    final reference =
+        _store.collection(notificationCollection).doc(userId).collection('tv');
+
+    return reference.snapshots().map((snapshot) => snapshot.size);
   }
 }

@@ -30,7 +30,9 @@ class NotificationListRemoteDataSource {
         .delete();
   }
 
-  Stream<QuerySnapshot<NotificationListModel>> fetchNotificationList() {
-    return methods.readNotificationList();
+  Future<QuerySnapshot<NotificationListModel>> getPaginatedNotificationList(
+    DocumentSnapshot? lastDocument,
+  ) {
+    return methods.getPaginatedNotificationList(lastDocument);
   }
 }

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/data/firebase_methods.dart';
 import 'package:movie_colony/core/model/notification_list_model.dart';
@@ -11,17 +12,7 @@ import 'package:movie_colony/features/configuration/presentation/notifiers/confi
 import 'package:movie_colony/features/notification/data/datasources/notification_list_remote_data_source.dart';
 
 final notificationListLengthProvider = StreamProvider.autoDispose<int>(
-  (ref) => ref
-      .watch(notificationListRemoteDataSourceProvider)
-      .fetchNotificationList()
-      .asyncMap((event) => event.size),
-);
-
-final notificationListProvider =
-    StreamProvider.autoDispose<QuerySnapshot<NotificationListModel>>(
-  (ref) => ref
-      .watch(notificationListRemoteDataSourceProvider)
-      .fetchNotificationList(),
+  (ref) => ref.watch(firebaseMethodsProvider).getNotificationListLength(),
 );
 
 final isInNotificationListProvider =
@@ -31,15 +22,59 @@ final isInNotificationListProvider =
 );
 
 @RoutePage()
-class NotificationListScreen extends ConsumerWidget {
+class NotificationListScreen extends ConsumerStatefulWidget {
   const NotificationListScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final stream = ref
-        .watch(notificationListRemoteDataSourceProvider)
-        .fetchNotificationList();
+  ConsumerState<NotificationListScreen> createState() =>
+      _NotificationListScreenState();
+}
 
+class _NotificationListScreenState
+    extends ConsumerState<NotificationListScreen> {
+  final PagingController<int, QueryDocumentSnapshot<NotificationListModel>>
+      _pagingController = PagingController(firstPageKey: 1);
+  @override
+  void initState() {
+    _pagingController.addPageRequestListener(_fetchPage);
+
+    super.initState();
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      final lastDocument = _pagingController.itemList?.last;
+      final newItems = await ref
+          .watch(notificationListRemoteDataSourceProvider)
+          .getPaginatedNotificationList(lastDocument);
+      final isLastPage = newItems.size < 20;
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems.docs);
+      } else {
+        final nextPageKey = pageKey + 1;
+        _pagingController.appendPage(
+          newItems.docs,
+          nextPageKey,
+        );
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(notificationListLengthProvider, (previous, next) {
+      if (previous != next) {
+        _pagingController.refresh();
+      }
+    });
     final length = ref.watch(notificationListLengthProvider).value;
 
     final url =
@@ -89,42 +124,33 @@ class NotificationListScreen extends ConsumerWidget {
                 ),
               ),
               const SliverToBoxAdapter(child: Height(24)),
-              StreamBuilder<QuerySnapshot<NotificationListModel>>(
-                stream: stream,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const SliverToBoxAdapter(
-                      child: Center(
-                        child: CircularProgressIndicator(),
+              PagedSliverGrid<int,
+                  QueryDocumentSnapshot<NotificationListModel>>(
+                pagingController: _pagingController,
+                builderDelegate: PagedChildBuilderDelegate<
+                    QueryDocumentSnapshot<NotificationListModel>>(
+                  itemBuilder: (context, snapshot, index) {
+                    final model = snapshot.data();
+                    return InkWell(
+                      onTap: () {
+                        context.router.push(
+                          SingleTvDetailRoute(
+                            id: model.id.toString(),
+                          ),
+                        );
+                      },
+                      child: TvLargeCard(
+                        url: url,
+                        posterPath: model.posterImage,
+                        tvName: model.name,
                       ),
                     );
-                  }
-                  return SliverGrid.builder(
-                    itemCount: snapshot.data?.docs.length ?? 0,
-                    itemBuilder: (context, index) {
-                      final model = snapshot.data?.docs[index].data();
-                      return InkWell(
-                        onTap: () {
-                          context.router.push(
-                            SingleTvDetailRoute(
-                              id: model!.id.toString(),
-                            ),
-                          );
-                        },
-                        child: TvLargeCard(
-                          url: url,
-                          posterPath: model?.posterImage,
-                          tvName: model?.name,
-                        ),
-                      );
-                    },
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.6,
-                    ),
-                  );
-                },
+                  },
+                ),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.6,
+                ),
               ),
             ],
           ),
