@@ -77,7 +77,7 @@ class _ExplorePageState extends ConsumerState<ExplorePage> {
               SliverToBoxAdapter(
                 child: SearchBar(
                   leading: const Icon(Icons.search_outlined),
-                  hintText: 'Search by title, actor, genre',
+                  hintText: 'Search by tv title',
                   onSubmitted: (value) {
                     _pagingController.itemList = [];
                     _fetchPage(value, 1);
