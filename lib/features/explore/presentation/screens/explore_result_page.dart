@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:movie_colony/app_router.dart';
 import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/utils/size_ext.dart';
+import 'package:movie_colony/features/components/tv_large_card.dart';
 import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
 
 @RoutePage()
@@ -74,25 +74,10 @@ class _ExploreResultPageState extends ConsumerState<ExploreResultPage> {
                     ),
                   );
                 },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: Image.network(
-                        '$url${tv.posterPath}',
-                        fit: BoxFit.cover,
-                        width: 160,
-                      ),
-                    ),
-                    const Height(8),
-                    Text(
-                      tv.name ?? '',
-                      style: Theme.of(context).textTheme.bodySmall,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                child: TvLargeCard(
+                  url: url,
+                  tvName: tv.name,
+                  posterPath: tv.posterPath,
                 ),
               );
             },

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_colony/core/model/notification_list_model.dart';
+import 'package:movie_colony/core/utils/strings.dart';
 import 'package:movie_colony/providers.dart';
 
 final firebaseMethodsProvider = Provider<FirebaseMethods>((ref) {
@@ -30,6 +31,7 @@ class FirebaseMethods {
   final FirebaseAuth _auth;
   final GoogleAuthProvider _googleAuthProvider;
   final GoogleSignIn _googleSignIn;
+  final notificationCollection = Strings.notificationList;
 
   Future<UserCredential?> signInAnonymous() async {
     return _auth.signInAnonymously();
@@ -56,13 +58,12 @@ class FirebaseMethods {
     }
   }
 
-  DocumentReference<NotificationListModel> readWriteNotificationList({
+  DocumentReference<NotificationListModel> writeNotificationList({
     required String docName,
-    required String collection,
   }) {
     final userId = _auth.currentUser?.uid;
     final reference = _store
-        .collection(collection)
+        .collection(notificationCollection)
         .doc(userId)
         .collection('tv')
         .doc(docName)
@@ -72,5 +73,49 @@ class FirebaseMethods {
           toFirestore: (tv, _) => tv.toJson(),
         );
     return reference;
+  }
+
+  Future<QuerySnapshot<NotificationListModel>> getPaginatedNotificationList(
+    DocumentSnapshot? lastDocument,
+  ) {
+    final userId = _auth.currentUser?.uid;
+    Query<NotificationListModel> query = _store
+        .collection(notificationCollection)
+        .doc(userId)
+        .collection('tv')
+        .withConverter<NotificationListModel>(
+          fromFirestore: (snapshot, _) =>
+              NotificationListModel.fromJson(snapshot.data()!),
+          toFirestore: (tv, _) => tv.toJson(),
+        )
+        .orderBy('created_at', descending: true)
+        .limit(20);
+
+    if (lastDocument != null) {
+      query = query.startAfterDocument(lastDocument);
+    }
+
+    return query.get();
+  }
+
+  Stream<bool> isInNotificationList(
+    String docId,
+  ) {
+    final userId = _auth.currentUser?.uid;
+    final reference = _store
+        .collection(notificationCollection)
+        .doc(userId)
+        .collection('tv')
+        .doc(docId);
+
+    return reference.snapshots().map((snapshot) => snapshot.exists);
+  }
+
+  Stream<int> getNotificationListLength() {
+    final userId = _auth.currentUser?.uid;
+    final reference =
+        _store.collection(notificationCollection).doc(userId).collection('tv');
+
+    return reference.snapshots().map((snapshot) => snapshot.size);
   }
 }

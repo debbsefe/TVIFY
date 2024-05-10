@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_colony/core/core.dart';
 import 'package:movie_colony/core/utils/size_ext.dart';
-import 'package:movie_colony/core/widgets/buttons.dart';
-import 'package:movie_colony/features/notification/presentation/notifiers/add_notif_list_notifier.dart';
+import 'package:movie_colony/features/components/buttons.dart';
+import 'package:movie_colony/features/notification/presentation/notifiers/notification_list_notifier.dart';
+import 'package:movie_colony/features/notification/presentation/screens/notification_list_screen.dart';
 import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class TvSummary extends ConsumerWidget {
@@ -12,7 +13,8 @@ class TvSummary extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tvDetail = ref.watch(tvDetailNotifierProvider(tvId));
-
+    final isInNotificationList =
+        ref.watch(isInNotificationListProvider(tvId)).value ?? false;
     return tvDetail.when(
       idle: Container.new,
       loading: Container.new,
@@ -85,19 +87,33 @@ class TvSummary extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
                 child: CustomButton(
                   onPressed: () {
-                    ref
-                        .read(addNotificationListNotifierProvider.notifier)
-                        .addNotification(
-                          NotificationListModel(
-                            id: detail.id,
-                            name: detail.name,
-                            rating: detail.voteAverage,
-                            date: detail.firstAirDate,
-                            posterImage: detail.posterPath,
-                          ),
-                        );
+                    isInNotificationList
+                        ? ref
+                            .read(notificationListNotifierProvider.notifier)
+                            .removeNotification(
+                              NotificationListModel(
+                                id: detail.id,
+                                name: detail.name,
+                                rating: detail.voteAverage,
+                                date: detail.firstAirDate,
+                                posterImage: detail.posterPath,
+                              ),
+                            )
+                        : ref
+                            .read(notificationListNotifierProvider.notifier)
+                            .addNotification(
+                              NotificationListModel(
+                                id: detail.id,
+                                name: detail.name,
+                                rating: detail.voteAverage,
+                                date: detail.firstAirDate,
+                                posterImage: detail.posterPath,
+                              ),
+                            );
                   },
-                  name: 'Notify Me',
+                  name: isInNotificationList
+                      ? 'Remove from Notification List'
+                      : 'Notify Me',
                 ),
               ),
             ],
