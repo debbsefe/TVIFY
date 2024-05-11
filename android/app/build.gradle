@@ -61,7 +61,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    namespace 'com.example.movie_colony'
+    namespace 'com.example.tvfiy'
     lint {
         disable 'InvalidPackage'
     }

@@ -1,5 +1,5 @@
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
 
 final configurationLocalDataSourceProvider =
     Provider<ConfigurationLocalDataSource>((ref) {

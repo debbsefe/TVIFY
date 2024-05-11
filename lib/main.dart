@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:movie_colony/app_router.dart';
-import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/theme/theme.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:tvfiy/app_router.dart';
+import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvfiy/core/theme/theme.dart';
+import 'package:tvfiy/providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {

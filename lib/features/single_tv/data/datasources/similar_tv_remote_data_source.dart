@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/utils/extensions.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/core/utils/extensions.dart';
 
 final similarTvRemoteDataSourceProvider =
     Provider<SimilarTvRemoteDataSource>((ref) {

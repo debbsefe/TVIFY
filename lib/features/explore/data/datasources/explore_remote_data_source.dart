@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/utils/extensions.dart';
-import 'package:movie_colony/features/explore/data/datasources/genre_local_data_source.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/core/utils/extensions.dart';
+import 'package:tvfiy/features/explore/data/datasources/genre_local_data_source.dart';
 
 final exploreRemoteDataSourceProvider =
     Provider<ExploreRemoteDataSource>((ref) {

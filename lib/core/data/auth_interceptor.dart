@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_interceptor/http_interceptor.dart';
-import 'package:movie_colony/core/config.dart';
-import 'package:movie_colony/core/utils/strings.dart';
+import 'package:tvfiy/core/config.dart';
+import 'package:tvfiy/core/utils/strings.dart';
 
 Provider<Client> httpClientProvider = Provider<Client>((ref) {
   final config = ref.watch(configProvider);

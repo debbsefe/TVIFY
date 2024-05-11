@@ -1,17 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:movie_colony/app_router.dart';
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/utils/size_ext.dart';
-import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
-import 'package:movie_colony/features/explore/data/datasources/explore_remote_data_source.dart';
-import 'package:movie_colony/features/explore/presentation/widgets/genre_widget.dart';
-import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
-import 'package:movie_colony/features/homescreen/presentation/widgets/title_and_summary.dart';
-import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
-import 'package:movie_colony/features/trending/presentation/notifiers/airing_today_notifier.dart';
-import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_notifier.dart';
+import 'package:tvfiy/app_router.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/core/utils/size_ext.dart';
+import 'package:tvfiy/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:tvfiy/features/explore/data/datasources/explore_remote_data_source.dart';
+import 'package:tvfiy/features/explore/presentation/widgets/genre_widget.dart';
+import 'package:tvfiy/features/homescreen/presentation/screens/homescreen.dart';
+import 'package:tvfiy/features/homescreen/presentation/widgets/title_and_summary.dart';
+import 'package:tvfiy/features/trending/data/datasources/trending_remote_data_source.dart';
+import 'package:tvfiy/features/trending/presentation/notifiers/airing_today_notifier.dart';
+import 'package:tvfiy/features/trending/presentation/notifiers/daily_trending_notifier.dart';
 
 @RoutePage()
 class ExplorePage extends ConsumerStatefulWidget {

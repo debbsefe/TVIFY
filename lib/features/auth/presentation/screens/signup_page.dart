@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/auth/presentation/notifiers/anonymous_sign_in_notifier.dart';
-import 'package:movie_colony/features/auth/presentation/notifiers/google_sign_in_notifier.dart';
-import 'package:movie_colony/features/components/snackbars.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/features/auth/presentation/notifiers/anonymous_sign_in_notifier.dart';
+import 'package:tvfiy/features/auth/presentation/notifiers/google_sign_in_notifier.dart';
+import 'package:tvfiy/features/components/snackbars.dart';
 
 @RoutePage()
 class SignUpPage extends ConsumerStatefulWidget {

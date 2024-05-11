@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/core/data/firebase_methods.dart';
+import 'package:tvfiy/core/data/firebase_methods.dart';
 
 final anonymousSignInRepositoryrovider =
     Provider<AnonymousSignInRepository>((ref) {

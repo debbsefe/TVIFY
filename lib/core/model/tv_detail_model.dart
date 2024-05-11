@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:movie_colony/core/core.dart';
+import 'package:tvfiy/core/core.dart';
 
 part 'tv_detail_model.freezed.dart';
 part 'tv_detail_model.g.dart';

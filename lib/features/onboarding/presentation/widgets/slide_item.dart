@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/utils/size_ext.dart';
-import 'package:movie_colony/features/onboarding/domain/entities/slides.dart';
+import 'package:tvfiy/core/utils/size_ext.dart';
+import 'package:tvfiy/features/onboarding/domain/entities/slides.dart';
 
 class SlideItem extends StatelessWidget {
   const SlideItem({

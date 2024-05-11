@@ -1,5 +1,5 @@
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/explore/data/repositories/genre_repository.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/features/explore/data/repositories/genre_repository.dart';
 
 final genreNotiferProvider =
     StateNotifierProvider<GenreNotifier, LoadingState>((ref) {

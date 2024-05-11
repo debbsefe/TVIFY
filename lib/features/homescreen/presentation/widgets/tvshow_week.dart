@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/components/buttons.dart';
-import 'package:movie_colony/features/components/cache_image.dart';
-import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
-import 'package:movie_colony/features/notification/presentation/notifiers/notification_list_notifier.dart';
-import 'package:movie_colony/features/notification/presentation/screens/notification_list_screen.dart';
-import 'package:movie_colony/features/trending/presentation/notifiers/weekly_trending_notifier.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/features/components/buttons.dart';
+import 'package:tvfiy/features/components/cache_image.dart';
+import 'package:tvfiy/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:tvfiy/features/notification/presentation/notifiers/notification_list_notifier.dart';
+import 'package:tvfiy/features/notification/presentation/screens/notification_list_screen.dart';
+import 'package:tvfiy/features/trending/presentation/notifiers/weekly_trending_notifier.dart';
 
 final _aboutProvider = StateProvider<bool>((ref) {
   return false;

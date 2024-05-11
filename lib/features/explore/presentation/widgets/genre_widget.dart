@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_colony/app_router.dart';
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/explore/data/datasources/explore_remote_data_source.dart';
-import 'package:movie_colony/features/explore/notifiers/genre_notifier.dart';
+import 'package:tvfiy/app_router.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/features/explore/data/datasources/explore_remote_data_source.dart';
+import 'package:tvfiy/features/explore/notifiers/genre_notifier.dart';
 
 class GenreWidget extends ConsumerWidget {
   const GenreWidget({super.key});

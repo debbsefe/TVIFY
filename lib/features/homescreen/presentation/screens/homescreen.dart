@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/features/homescreen/presentation/widgets/title_and_summary.dart';
-import 'package:movie_colony/features/homescreen/presentation/widgets/tvshow_week.dart';
-import 'package:movie_colony/features/trending/presentation/notifiers/airing_today_notifier.dart';
-import 'package:movie_colony/features/trending/presentation/notifiers/daily_trending_notifier.dart';
+import 'package:tvfiy/features/homescreen/presentation/widgets/title_and_summary.dart';
+import 'package:tvfiy/features/homescreen/presentation/widgets/tvshow_week.dart';
+import 'package:tvfiy/features/trending/presentation/notifiers/airing_today_notifier.dart';
+import 'package:tvfiy/features/trending/presentation/notifiers/daily_trending_notifier.dart';
 
 @RoutePage()
 class HomeScreen extends ConsumerStatefulWidget {

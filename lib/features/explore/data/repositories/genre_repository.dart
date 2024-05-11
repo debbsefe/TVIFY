@@ -1,8 +1,8 @@
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/explore/data/datasources/genre_local_data_source.dart';
-import 'package:movie_colony/features/explore/data/datasources/genre_remote_data_source.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvfiy/core/utils/strings.dart';
+import 'package:tvfiy/features/explore/data/datasources/genre_local_data_source.dart';
+import 'package:tvfiy/features/explore/data/datasources/genre_remote_data_source.dart';
 
 final genreRepositoryProvider = Provider<GenreRepository>((ref) {
   return GenreRepository(

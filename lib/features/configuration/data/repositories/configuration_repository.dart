@@ -1,8 +1,8 @@
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/utils/strings.dart';
-import 'package:movie_colony/features/configuration/data/datasources/configuration_local_data_source.dart';
-import 'package:movie_colony/features/configuration/data/datasources/configuration_remote_data_source.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvfiy/core/utils/strings.dart';
+import 'package:tvfiy/features/configuration/data/datasources/configuration_local_data_source.dart';
+import 'package:tvfiy/features/configuration/data/datasources/configuration_remote_data_source.dart';
 
 final configurationRepositoryProvider =
     Provider<ConfigurationRepository>((ref) {

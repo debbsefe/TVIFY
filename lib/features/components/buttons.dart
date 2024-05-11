@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/theme/theme.dart';
+import 'package:tvfiy/core/theme/theme.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({

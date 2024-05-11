@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/utils/size_ext.dart';
+import 'package:tvfiy/core/utils/size_ext.dart';
 
 class TvLargeCard extends StatelessWidget {
   const TvLargeCard({

@@ -1,5 +1,5 @@
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/single_tv/data/datasources/tv_detail_remote_data_source.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/features/single_tv/data/datasources/tv_detail_remote_data_source.dart';
 
 final tvDetailRepositoryProvider = Provider<TvDetailRepository>((ref) {
   return TvDetailRepository(

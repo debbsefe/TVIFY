@@ -1,5 +1,5 @@
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/configuration/data/repositories/configuration_repository.dart';
+import 'package:tvfiy/core/core.dart';
+import 'package:tvfiy/features/configuration/data/repositories/configuration_repository.dart';
 
 final configurationNotifierProvider =
     StateNotifierProvider<ConfigurationNotifier, LoadingState>((ref) {
