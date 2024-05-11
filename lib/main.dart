@@ -27,13 +27,13 @@ void main() async {
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: const MovieColony(),
+      child: const TVify(),
     ),
   );
 }
 
-class MovieColony extends ConsumerWidget {
-  const MovieColony({
+class TVify extends ConsumerWidget {
+  const TVify({
     super.key,
   });
 
@@ -45,7 +45,7 @@ class MovieColony extends ConsumerWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'MovieColony',
+      title: 'TVify',
       theme: CustomTheme.lightThemeData,
       darkTheme: CustomTheme.darkThemeData,
       routerConfig: appRouter.config(
