@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:tvfiy/app_router.dart';
-import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
-import 'package:tvfiy/core/theme/theme.dart';
-import 'package:tvfiy/providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tvify/app_router.dart';
+import 'package:tvify/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvify/core/theme/theme.dart';
+import 'package:tvify/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -1,5 +1,5 @@
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/features/explore/data/datasources/explore_remote_data_source.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/features/explore/data/datasources/explore_remote_data_source.dart';
 
 final exploreNotiferProvider =
     StateNotifierProvider<ExploreNotifier, LoadingState>((ref) {

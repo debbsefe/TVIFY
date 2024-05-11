@@ -1,5 +1,5 @@
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/features/single_tv/data/repositories/tv_detail_repository.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/features/single_tv/data/repositories/tv_detail_repository.dart';
 
 final tvDetailNotifierProvider = StateNotifierProvider.family
     .autoDispose<TvDetailNotifier, LoadingState, String>((ref, String id) {

@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tvfiy/features/homescreen/presentation/widgets/title_and_summary.dart';
-import 'package:tvfiy/features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
-import 'package:tvfiy/features/single_tv/presentation/screens/header_image.dart';
-import 'package:tvfiy/features/single_tv/presentation/screens/top_cast.dart';
-import 'package:tvfiy/features/single_tv/presentation/screens/tv_summary.dart';
+import 'package:tvify/features/homescreen/presentation/widgets/title_and_summary.dart';
+import 'package:tvify/features/single_tv/presentation/notifiers/similar_tv/similar_tv_notifier.dart';
+import 'package:tvify/features/single_tv/presentation/screens/header_image.dart';
+import 'package:tvify/features/single_tv/presentation/screens/top_cast.dart';
+import 'package:tvify/features/single_tv/presentation/screens/tv_summary.dart';
 
 @RoutePage()
 class SingleTvDetailPage extends ConsumerWidget {

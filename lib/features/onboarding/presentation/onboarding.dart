@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tvfiy/app_router.dart';
-import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
-import 'package:tvfiy/features/components/buttons.dart';
-import 'package:tvfiy/features/onboarding/presentation/widgets/slide_dots.dart';
-import 'package:tvfiy/features/onboarding/presentation/widgets/slide_item.dart';
+import 'package:tvify/app_router.dart';
+import 'package:tvify/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvify/features/components/buttons.dart';
+import 'package:tvify/features/onboarding/presentation/widgets/slide_dots.dart';
+import 'package:tvify/features/onboarding/presentation/widgets/slide_item.dart';
 
 @RoutePage()
 class OnboardingPage extends ConsumerStatefulWidget {

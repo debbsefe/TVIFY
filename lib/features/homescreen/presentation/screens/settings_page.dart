@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tvfiy/providers.dart';
+import 'package:tvify/providers.dart';
 
 @RoutePage()
 class SettingsPage extends ConsumerStatefulWidget {
@@ -41,7 +41,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                     builder: (context) {
                       return const AboutDialog(
                         applicationVersion: '1.0.0',
-                        applicationLegalese: '© 2024 TvFiy',
+                        applicationLegalese: '© 2024 tvify',
                       );
                     },
                   );

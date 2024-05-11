@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tvfiy/core/data/firebase_methods.dart';
+import 'package:tvify/core/data/firebase_methods.dart';
 
 final googleSignInRepositoryProvider = Provider<GoogleSignInRepository>((ref) {
   return GoogleSignInRepository(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/core/utils/date_parser.dart';
-import 'package:tvfiy/core/utils/size_ext.dart';
-import 'package:tvfiy/features/components/cache_image.dart';
-import 'package:tvfiy/features/configuration/presentation/notifiers/configuration_notifier.dart';
-import 'package:tvfiy/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/utils/date_parser.dart';
+import 'package:tvify/core/utils/size_ext.dart';
+import 'package:tvify/features/components/cache_image.dart';
+import 'package:tvify/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:tvify/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class HeaderImage extends ConsumerWidget {
   const HeaderImage({required this.tvId, super.key});

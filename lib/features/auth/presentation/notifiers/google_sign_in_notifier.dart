@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:tvfiy/core/model/loading_state.dart';
-import 'package:tvfiy/features/auth/repositories/google_sign_in_repository.dart';
+import 'package:tvify/core/model/loading_state.dart';
+import 'package:tvify/features/auth/repositories/google_sign_in_repository.dart';
 
 final googleSignInNotifierProvider =
     StateNotifierProvider<GoogleSignInNotifier, LoadingState>((ref) {

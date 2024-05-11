@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tvfiy/core/model/notification_list_model.dart';
-import 'package:tvfiy/core/utils/strings.dart';
-import 'package:tvfiy/providers.dart';
+import 'package:tvify/core/model/notification_list_model.dart';
+import 'package:tvify/core/utils/strings.dart';
+import 'package:tvify/providers.dart';
 
 final firebaseMethodsProvider = Provider<FirebaseMethods>((ref) {
   return FirebaseMethods(

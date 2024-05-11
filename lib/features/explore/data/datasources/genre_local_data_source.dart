@@ -1,5 +1,5 @@
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/repository.dart/shared_preferences_repository.dart';
 
 final genreLocalDataSourceProvider = Provider<GenreLocalDataSource>((ref) {
   return GenreLocalDataSource(

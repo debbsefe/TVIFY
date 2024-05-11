@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/core/utils/strings.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/utils/strings.dart';
 
 class CachedImage extends StatelessWidget {
   const CachedImage(

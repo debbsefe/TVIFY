@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:name="${applicationName}"
-        android:label="tvfiy"
+        android:label="tvify"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

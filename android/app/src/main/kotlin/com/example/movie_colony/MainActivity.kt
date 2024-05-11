@@ -1,4 +1,4 @@
-package com.example.tvfiy
+package com.example.tvify
 
 import io.flutter.embedding.android.FlutterActivity
 

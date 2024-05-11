@@ -1,8 +1,8 @@
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
-import 'package:tvfiy/core/utils/strings.dart';
-import 'package:tvfiy/features/configuration/data/datasources/configuration_local_data_source.dart';
-import 'package:tvfiy/features/configuration/data/datasources/configuration_remote_data_source.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvify/core/utils/strings.dart';
+import 'package:tvify/features/configuration/data/datasources/configuration_local_data_source.dart';
+import 'package:tvify/features/configuration/data/datasources/configuration_remote_data_source.dart';
 
 final configurationRepositoryProvider =
     Provider<ConfigurationRepository>((ref) {

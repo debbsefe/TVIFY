@@ -1,4 +1,4 @@
-name: tvfiy
+name: tvify
 
 on:
   pull_request:

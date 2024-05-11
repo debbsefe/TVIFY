@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/core/utils/size_ext.dart';
-import 'package:tvfiy/features/components/buttons.dart';
-import 'package:tvfiy/features/notification/presentation/notifiers/notification_list_notifier.dart';
-import 'package:tvfiy/features/notification/presentation/screens/notification_list_screen.dart';
-import 'package:tvfiy/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/utils/size_ext.dart';
+import 'package:tvify/features/components/buttons.dart';
+import 'package:tvify/features/notification/presentation/notifiers/notification_list_notifier.dart';
+import 'package:tvify/features/notification/presentation/screens/notification_list_screen.dart';
+import 'package:tvify/features/single_tv/presentation/notifiers/tv_detail/tv_detail_notifier.dart';
 
 class TvSummary extends ConsumerWidget {
   const TvSummary({required this.tvId, super.key});

@@ -1,5 +1,5 @@
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/features/notification/data/datasources/notification_list_remote_data_source.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/features/notification/data/datasources/notification_list_remote_data_source.dart';
 
 final notificationListNotifierProvider =
     StateNotifierProvider<NotificationListNotifier, LoadingState>((ref) {

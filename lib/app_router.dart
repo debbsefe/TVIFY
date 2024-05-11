@@ -1,18 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/core/repository.dart/shared_preferences_repository.dart';
-import 'package:tvfiy/features/auth/presentation/screens/signup_page.dart';
-import 'package:tvfiy/features/explore/presentation/screens/explore_page.dart';
-import 'package:tvfiy/features/explore/presentation/screens/explore_result_page.dart';
-import 'package:tvfiy/features/homescreen/presentation/screens/homescreen.dart';
-import 'package:tvfiy/features/homescreen/presentation/screens/homescreen_tab.dart';
-import 'package:tvfiy/features/homescreen/presentation/screens/settings_page.dart';
-import 'package:tvfiy/features/notification/presentation/screens/notification_list_screen.dart';
-import 'package:tvfiy/features/onboarding/presentation/onboarding.dart';
-import 'package:tvfiy/features/single_tv/presentation/screens/single_tv_detail_page.dart';
-import 'package:tvfiy/providers.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvify/features/auth/presentation/screens/signup_page.dart';
+import 'package:tvify/features/explore/presentation/screens/explore_page.dart';
+import 'package:tvify/features/explore/presentation/screens/explore_result_page.dart';
+import 'package:tvify/features/homescreen/presentation/screens/homescreen.dart';
+import 'package:tvify/features/homescreen/presentation/screens/homescreen_tab.dart';
+import 'package:tvify/features/homescreen/presentation/screens/settings_page.dart';
+import 'package:tvify/features/notification/presentation/screens/notification_list_screen.dart';
+import 'package:tvify/features/onboarding/presentation/onboarding.dart';
+import 'package:tvify/features/single_tv/presentation/screens/single_tv_detail_page.dart';
+import 'package:tvify/providers.dart';
 
 part 'app_router.gr.dart';
 

@@ -61,7 +61,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    namespace 'com.example.tvfiy'
+    namespace 'com.example.tvify'
     lint {
         disable 'InvalidPackage'
     }

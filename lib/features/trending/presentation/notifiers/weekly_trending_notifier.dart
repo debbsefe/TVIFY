@@ -1,5 +1,5 @@
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/features/trending/data/datasources/trending_remote_data_source.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/features/trending/data/datasources/trending_remote_data_source.dart';
 
 final weeklyTrendingNotifierProvider =
     StateNotifierProvider<WeeklyTrendingNotifier, LoadingState>((ref) {

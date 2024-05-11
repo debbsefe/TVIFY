@@ -1,5 +1,5 @@
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/features/single_tv/data/repositories/similar_tv_repository.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/features/single_tv/data/repositories/similar_tv_repository.dart';
 
 final similarTvNotifierProvider = StateNotifierProvider.family
     .autoDispose<SimilarTvNotifier, LoadingState, String>((ref, String id) {

@@ -1,5 +1,5 @@
-import 'package:tvfiy/core/core.dart';
-import 'package:tvfiy/features/single_tv/data/datasources/tv_cast_remote_data_source.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/features/single_tv/data/datasources/tv_cast_remote_data_source.dart';
 
 final tvCastRepositoryProvider = Provider<TvCastRepository>((ref) {
   return TvCastRepository(
