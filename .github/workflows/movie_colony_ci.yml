@@ -1,4 +1,4 @@
-name: movie_colony
+name: tvify
 
 on:
   pull_request:

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/core.dart';
+import 'package:tvify/core/core.dart';
 
 class SlideDots extends StatelessWidget {
   const SlideDots({required this.isActive, super.key});

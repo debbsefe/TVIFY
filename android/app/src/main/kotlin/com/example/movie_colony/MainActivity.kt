@@ -1,4 +1,4 @@
-package com.example.movie_colony
+package com.example.tvify
 
 import io.flutter.embedding.android.FlutterActivity
 

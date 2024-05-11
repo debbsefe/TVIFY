@@ -3,13 +3,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:movie_colony/app_router.dart';
-import 'package:movie_colony/core/data/firebase_methods.dart';
-import 'package:movie_colony/core/model/notification_list_model.dart';
-import 'package:movie_colony/core/utils/size_ext.dart';
-import 'package:movie_colony/features/components/tv_large_card.dart';
-import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
-import 'package:movie_colony/features/notification/data/datasources/notification_list_remote_data_source.dart';
+import 'package:tvify/app_router.dart';
+import 'package:tvify/core/data/firebase_methods.dart';
+import 'package:tvify/core/model/notification_list_model.dart';
+import 'package:tvify/core/utils/size_ext.dart';
+import 'package:tvify/features/components/tv_large_card.dart';
+import 'package:tvify/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:tvify/features/notification/data/datasources/notification_list_remote_data_source.dart';
 
 final notificationListLengthProvider = StreamProvider.autoDispose<int>(
   (ref) => ref.watch(firebaseMethodsProvider).getNotificationListLength(),

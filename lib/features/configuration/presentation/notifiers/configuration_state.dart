@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie_colony/core/core.dart';
+import 'package:tvify/core/core.dart';
 
 abstract class ConfigurationState extends Equatable {}
 

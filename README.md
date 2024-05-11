@@ -1,6 +1,6 @@
 # Movie Colony
 
-![ci](https://github.com/debbsefe/Movie-Colony/actions/workflows/movie_colony_ci.yml/badge.svg) [![codecov](https://codecov.io/gh/debbsefe/Movie-Colony/branch/main/graph/badge.svg?token=41VSAPPB8M)](https://codecov.io/gh/debbsefe/Movie-Colony)
+![ci](https://github.com/debbsefe/Movie-Colony/actions/workflows/tvify_ci.yml/badge.svg) [![codecov](https://codecov.io/gh/debbsefe/Movie-Colony/branch/main/graph/badge.svg?token=41VSAPPB8M)](https://codecov.io/gh/debbsefe/Movie-Colony)
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 
 # Installing

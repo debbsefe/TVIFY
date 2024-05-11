@@ -1,4 +1,4 @@
-package com.mamuseferha.movie_colony
+package com.mamuseferha.tvify
 
 import io.flutter.embedding.android.FlutterActivity
 

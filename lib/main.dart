@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:movie_colony/app_router.dart';
-import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/core/theme/theme.dart';
-import 'package:movie_colony/providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tvify/app_router.dart';
+import 'package:tvify/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvify/core/theme/theme.dart';
+import 'package:tvify/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,13 +27,13 @@ void main() async {
   runApp(
     UncontrolledProviderScope(
       container: container,
-      child: const MovieColony(),
+      child: const TVify(),
     ),
   );
 }
 
-class MovieColony extends ConsumerWidget {
-  const MovieColony({
+class TVify extends ConsumerWidget {
+  const TVify({
     super.key,
   });
 
@@ -45,7 +45,7 @@ class MovieColony extends ConsumerWidget {
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'MovieColony',
+      title: 'TVify',
       theme: CustomTheme.lightThemeData,
       darkTheme: CustomTheme.darkThemeData,
       routerConfig: appRouter.config(

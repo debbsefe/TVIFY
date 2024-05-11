@@ -1,5 +1,5 @@
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/trending/data/datasources/trending_remote_data_source.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/features/trending/data/datasources/trending_remote_data_source.dart';
 
 final airingTodayNotifierProvider =
     StateNotifierProvider<AiringTodayNotifier, LoadingState>((ref) {

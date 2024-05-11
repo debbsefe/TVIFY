@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logging/logging.dart';
-import 'package:movie_colony/core/model/loading_state.dart';
-import 'package:movie_colony/features/auth/repositories/anonymous_repository.dart';
+import 'package:tvify/core/model/loading_state.dart';
+import 'package:tvify/features/auth/repositories/anonymous_repository.dart';
 
 final anonymousSignInNotifierProvider =
     StateNotifierProvider<AnonymousSignInNotifier, LoadingState>((ref) {

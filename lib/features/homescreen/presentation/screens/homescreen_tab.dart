@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:movie_colony/app_router.dart';
-import 'package:movie_colony/core/core.dart';
+import 'package:tvify/app_router.dart';
+import 'package:tvify/core/core.dart';
 
 @RoutePage()
 class HomeScreenTab extends StatelessWidget {

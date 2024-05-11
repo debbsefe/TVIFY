@@ -1,6 +1,6 @@
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/utils/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/utils/strings.dart';
 
 final sharedPreferencesProvider =
     Provider<SharedPreferences>((ref) => throw UnimplementedError());

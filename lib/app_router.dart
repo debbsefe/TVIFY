@@ -1,18 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/repository.dart/shared_preferences_repository.dart';
-import 'package:movie_colony/features/auth/presentation/screens/signup_page.dart';
-import 'package:movie_colony/features/explore/presentation/screens/explore_page.dart';
-import 'package:movie_colony/features/explore/presentation/screens/explore_result_page.dart';
-import 'package:movie_colony/features/homescreen/presentation/screens/homescreen.dart';
-import 'package:movie_colony/features/homescreen/presentation/screens/homescreen_tab.dart';
-import 'package:movie_colony/features/homescreen/presentation/screens/settings_page.dart';
-import 'package:movie_colony/features/notification/presentation/screens/notification_list_screen.dart';
-import 'package:movie_colony/features/onboarding/presentation/onboarding.dart';
-import 'package:movie_colony/features/single_tv/presentation/screens/single_tv_detail_page.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/repository.dart/shared_preferences_repository.dart';
+import 'package:tvify/features/auth/presentation/screens/signup_page.dart';
+import 'package:tvify/features/explore/presentation/screens/explore_page.dart';
+import 'package:tvify/features/explore/presentation/screens/explore_result_page.dart';
+import 'package:tvify/features/homescreen/presentation/screens/homescreen.dart';
+import 'package:tvify/features/homescreen/presentation/screens/homescreen_tab.dart';
+import 'package:tvify/features/homescreen/presentation/screens/settings_page.dart';
+import 'package:tvify/features/notification/presentation/screens/notification_list_screen.dart';
+import 'package:tvify/features/onboarding/presentation/onboarding.dart';
+import 'package:tvify/features/single_tv/presentation/screens/single_tv_detail_page.dart';
+import 'package:tvify/providers.dart';
 
 part 'app_router.gr.dart';
 

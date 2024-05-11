@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-import 'package:movie_colony/core/data/data.dart';
-import 'package:movie_colony/core/model/model.dart';
-import 'package:movie_colony/core/utils/extensions.dart';
+import 'package:tvify/core/data/data.dart';
+import 'package:tvify/core/model/model.dart';
+import 'package:tvify/core/utils/extensions.dart';
 
 final tvCastRemoteDataSourceProvider = Provider<TvCastRemoteDataSource>((ref) {
   return TvCastRemoteDataSource(

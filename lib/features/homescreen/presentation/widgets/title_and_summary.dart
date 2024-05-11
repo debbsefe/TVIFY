@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_colony/app_router.dart';
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/core/utils/date_parser.dart';
-import 'package:movie_colony/features/components/cache_image.dart';
-import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:tvify/app_router.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/core/utils/date_parser.dart';
+import 'package:tvify/features/components/cache_image.dart';
+import 'package:tvify/features/configuration/presentation/notifiers/configuration_notifier.dart';
 
 class TvCard extends ConsumerWidget {
   const TvCard({required this.state, super.key});

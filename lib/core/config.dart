@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_colony/providers.dart';
+import 'package:tvify/providers.dart';
 
 final configProvider = Provider<Config>((ref) {
   return Config(

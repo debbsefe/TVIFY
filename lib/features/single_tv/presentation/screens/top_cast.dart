@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_colony/core/core.dart';
-import 'package:movie_colony/features/configuration/presentation/notifiers/configuration_notifier.dart';
-import 'package:movie_colony/features/single_tv/presentation/notifiers/tv_cast/tv_cast_notifier.dart';
+import 'package:tvify/core/core.dart';
+import 'package:tvify/features/configuration/presentation/notifiers/configuration_notifier.dart';
+import 'package:tvify/features/single_tv/presentation/notifiers/tv_cast/tv_cast_notifier.dart';
 
 class TopCast extends ConsumerWidget {
   const TopCast({required this.tvId, super.key});
